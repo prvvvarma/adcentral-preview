@@ -8,40 +8,30 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet"/>
   <style>
-  /* ── Reset ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: auto; }   /* JS handles smooth-scroll for dots */
+  html { scroll-behavior: auto; }
   body {
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    background: #010108;
+    background: #06081e;
     color: #F0F2F8;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
   a { color: inherit; text-decoration: none; }
 
-  /* ── Canvas (fixed full-screen backdrop) ── */
+  /* Fixed full-screen canvas */
   #bg {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    pointer-events: none;
-    display: block;
+    position: fixed; inset: 0;
+    width: 100vw; height: 100vh;
+    z-index: 0; pointer-events: none; display: block;
   }
 
-  /* ── Navigation ── */
+  /* Nav */
   .site-nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 200;
-    height: 68px;
-    display: flex;
-    align-items: center;
-    padding: 0 40px;
-    background: rgba(1,1,8,0.80);
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 200; height: 68px;
+    display: flex; align-items: center; padding: 0 40px;
+    background: rgba(6,8,30,0.82);
     backdrop-filter: blur(22px) saturate(1.8);
     -webkit-backdrop-filter: blur(22px) saturate(1.8);
     border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -51,248 +41,158 @@
   .nav-link  { font-size: .875rem; font-weight: 600; color: rgba(255,255,255,.62); transition: color 130ms ease; }
   .nav-link:hover { color: rgba(255,255,255,.92); }
   .nav-cta {
-    padding: 8px 22px;
-    background: #F5365C;
-    color: #fff !important;
-    border-radius: 8px;
-    font-weight: 700;
+    padding: 8px 22px; background: #F5365C; color: #fff !important;
+    border-radius: 8px; font-weight: 700;
     transition: background 150ms ease, transform 120ms ease;
   }
   .nav-cta:hover { background: #d91f47; transform: translateY(-1px); }
 
-  /* ── Scroll-progress bar ── */
+  /* Progress bar */
   #pbar {
-    position: fixed;
-    top: 68px; left: 0;
-    height: 2px;
-    width: 0%;
+    position: fixed; top: 68px; left: 0; height: 2px; width: 0%;
     background: linear-gradient(90deg, #F5365C, #ff8fab);
-    box-shadow: 0 0 8px rgba(245,54,92,.55);
-    z-index: 300;
-    transition: width 60ms linear;
+    box-shadow: 0 0 10px rgba(245,54,92,.6);
+    z-index: 300; transition: width 60ms linear;
   }
 
-  /* ── Chapter overlay text (all fixed, JS toggles .active) ── */
-  .ch-overlay {
-    position: fixed;
-    bottom: 13vh;
-    left: 50%;
-    transform: translateX(-50%) translateY(26px);
-    max-width: 680px;
-    width: calc(100% - 80px);
-    text-align: center;
-    z-index: 100;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 540ms cubic-bezier(.22,1,.36,1),
-                transform 540ms cubic-bezier(.22,1,.36,1);
+  /* Chapter overlays */
+  .ch-ov {
+    position: fixed; bottom: 12vh; left: 50%;
+    transform: translateX(-50%) translateY(30px);
+    max-width: 700px; width: calc(100% - 80px);
+    text-align: center; z-index: 100;
+    pointer-events: none; opacity: 0;
+    transition: opacity 560ms cubic-bezier(.22,1,.36,1),
+                transform 560ms cubic-bezier(.22,1,.36,1);
   }
-  .ch-overlay.active {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-    pointer-events: auto;
-  }
+  .ch-ov.active { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+
   .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 14px;
-    border-radius: 999px;
-    background: rgba(245,54,92,.14);
-    border: 1px solid rgba(245,54,92,.30);
-    color: #F5365C;
-    font-size: .70rem;
-    font-weight: 700;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 14px; border-radius: 999px;
+    background: rgba(245,54,92,.14); border: 1px solid rgba(245,54,92,.30);
+    color: #F5365C; font-size: .70rem; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px;
   }
-  .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: #F5365C; }
-  .ch-overlay h1 {
-    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    font-size: clamp(2rem, 4.6vw, 3.8rem);
-    font-weight: 800;
-    line-height: 1.09;
-    letter-spacing: -.030em;
-    color: #fff;
-    margin-bottom: 18px;
-    text-shadow: 0 4px 60px rgba(0,0,0,.95), 0 2px 22px rgba(0,0,0,.85);
-  }
-  .ch-overlay p {
-    font-size: clamp(.88rem, 1.6vw, 1.08rem);
-    color: rgba(215,225,245,.80);
-    line-height: 1.80;
-    max-width: 540px;
-    margin: 0 auto;
-    text-shadow: 0 2px 22px rgba(0,0,0,.90);
-  }
-  .accent { color: #F5365C; }
+  .ew-dot { width: 6px; height: 6px; border-radius: 50%; background: #F5365C; }
 
-  /* ── Chapter nav dots ── */
+  .ch-ov h1 {
+    font-family: 'Plus Jakarta Sans','Inter',sans-serif;
+    font-size: clamp(1.9rem, 4.6vw, 3.8rem);
+    font-weight: 800; line-height: 1.09; letter-spacing: -.030em; color: #fff;
+    margin-bottom: 18px;
+    text-shadow: 0 4px 60px rgba(0,0,0,.95), 0 2px 24px rgba(0,0,0,.85);
+  }
+  .ch-ov p {
+    font-size: clamp(.88rem, 1.6vw, 1.08rem);
+    color: rgba(215,225,248,.82); line-height: 1.80; max-width: 540px;
+    margin: 0 auto; text-shadow: 0 2px 24px rgba(0,0,0,.90);
+  }
+  .acc { color: #F5365C; }
+
+  /* Nav dots */
   .ch-dots {
-    position: fixed;
-    right: 26px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 200;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    position: fixed; right: 26px; top: 50%; transform: translateY(-50%);
+    z-index: 200; display: flex; flex-direction: column; gap: 10px;
     transition: opacity 300ms ease;
   }
   .ch-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.18);
-    border: 1.5px solid rgba(255,255,255,.34);
-    cursor: pointer;
-    transition: all 200ms ease;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,.18); border: 1.5px solid rgba(255,255,255,.34);
+    cursor: pointer; transition: all 200ms ease;
   }
   .ch-dot:hover { background: rgba(255,255,255,.44); }
-  .ch-dot.on {
-    background: #F5365C;
-    border-color: #F5365C;
-    transform: scale(1.42);
-    box-shadow: 0 0 10px rgba(245,54,92,.65);
-  }
+  .ch-dot.on { background:#F5365C; border-color:#F5365C; transform:scale(1.42); box-shadow:0 0 10px rgba(245,54,92,.65); }
 
-  /* ── Scroll hint ── */
+  /* Scroll hint */
   .scroll-hint {
-    position: fixed;
-    bottom: 30px; left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-    text-align: center;
-    pointer-events: none;
-    opacity: 1;
-    transition: opacity 400ms ease;
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    z-index: 100; text-align: center; pointer-events: none;
+    opacity: 1; transition: opacity 400ms ease;
   }
   .scroll-hint.gone { opacity: 0; }
   .sh-mouse {
-    width: 24px; height: 38px;
-    border: 2px solid rgba(255,255,255,.26);
-    border-radius: 12px;
-    margin: 0 auto 8px;
-    display: flex;
-    justify-content: center;
-    padding-top: 6px;
+    width: 24px; height: 38px; border: 2px solid rgba(255,255,255,.26);
+    border-radius: 12px; margin: 0 auto 8px;
+    display: flex; justify-content: center; padding-top: 6px;
   }
   .sh-mouse::before {
-    content: '';
-    width: 4px; height: 8px;
-    background: rgba(255,255,255,.55);
-    border-radius: 2px;
-    animation: scroll-bob 1.9s ease-in-out infinite;
+    content: ''; width: 4px; height: 8px;
+    background: rgba(255,255,255,.55); border-radius: 2px;
+    animation: sh-bob 1.9s ease-in-out infinite;
   }
-  @keyframes scroll-bob {
+  @keyframes sh-bob {
     0%   { transform: translateY(0);    opacity: 1; }
     75%  { transform: translateY(13px); opacity: 0; }
     100% { transform: translateY(13px); opacity: 0; }
   }
-  .sh-label {
-    font-size: .68rem;
-    font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.36);
-  }
+  .sh-label { font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.36); }
 
-  /* ── Story scroll spacer ── */
-  #storyScroll { height: 570vh; position: relative; z-index: 5; }
+  /* Scroll spacer */
+  #storyScroll { height: 600vh; position: relative; z-index: 5; }
 
-  /* ── CTA section ── */
+  /* CTA section */
   .cta-wrap {
-    position: relative;
-    z-index: 20;
-    background: linear-gradient(180deg, #010108 0%, #05051a 100%);
+    position: relative; z-index: 20;
+    background: linear-gradient(180deg, #06081e 0%, #08082a 100%);
     border-top: 1px solid rgba(255,255,255,.06);
-    padding: 130px 24px 120px;
-    text-align: center;
+    padding: 130px 24px 110px; text-align: center;
   }
   .cta-wrap h2 {
     font-family: 'Plus Jakarta Sans','Inter',sans-serif;
-    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-    font-weight: 800;
-    letter-spacing: -.030em;
-    line-height: 1.09;
-    color: #F0F2F8;
-    margin-bottom: 20px;
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 800;
+    letter-spacing: -.030em; line-height: 1.09; color: #F0F2F8; margin-bottom: 20px;
   }
-  .cta-wrap p {
-    font-size: 1.08rem;
-    color: rgba(180,195,225,.68);
-    max-width: 500px;
-    margin: 0 auto 44px;
-    line-height: 1.78;
-  }
+  .cta-wrap p { font-size: 1.08rem; color: rgba(180,195,225,.68); max-width: 500px; margin: 0 auto 44px; line-height: 1.78; }
   .btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
   .btn-p {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 15px 34px;
-    background: #F5365C; color: #fff;
-    border-radius: 10px;
-    font-size: 1rem; font-weight: 700;
-    box-shadow: 0 4px 24px rgba(245,54,92,.38);
-    transition: all 160ms ease;
+    display: inline-flex; align-items: center; gap: 8px; padding: 15px 34px;
+    background: #F5365C; color: #fff; border-radius: 10px; font-size: 1rem; font-weight: 700;
+    box-shadow: 0 4px 24px rgba(245,54,92,.38); transition: all 160ms ease;
   }
   .btn-p:hover { background: #d91f47; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,54,92,.52); }
   .btn-s {
-    display: inline-flex; align-items: center;
-    padding: 15px 34px;
-    background: rgba(255,255,255,.07);
-    color: rgba(255,255,255,.85);
-    border-radius: 10px;
-    font-size: 1rem; font-weight: 600;
-    border: 1px solid rgba(255,255,255,.13);
-    backdrop-filter: blur(12px);
+    display: inline-flex; align-items: center; padding: 15px 34px;
+    background: rgba(255,255,255,.07); color: rgba(255,255,255,.85);
+    border-radius: 10px; font-size: 1rem; font-weight: 600;
+    border: 1px solid rgba(255,255,255,.13); backdrop-filter: blur(12px);
     transition: all 160ms ease;
   }
   .btn-s:hover { background: rgba(255,255,255,.12); transform: translateY(-2px); }
 
-  /* ── Footer ── */
+  /* Footer */
   .site-footer {
-    position: relative; z-index: 20;
-    background: #010108;
+    position: relative; z-index: 20; background: #06081e;
     border-top: 1px solid rgba(255,255,255,.06);
-    padding: 28px 40px;
-    display: flex; align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap; gap: 12px;
+    padding: 28px 40px; display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 12px;
   }
   .site-footer img { height: 38px; opacity: .68; }
   .site-footer small { font-size: .80rem; color: rgba(255,255,255,.30); }
 
-  /* ── Responsive ── */
   @media (max-width: 640px) {
     .ch-dots { display: none; }
-    .ch-overlay { width: calc(100% - 32px); }
-    .site-nav  { padding: 0 18px; }
+    .ch-ov { width: calc(100% - 32px); }
+    .site-nav { padding: 0 18px; }
     .nav-links .nav-link:not(.nav-cta) { display: none; }
   }
   </style>
 </head>
 <body>
 
-<!-- Three.js canvas -->
 <canvas id="bg"></canvas>
-
-<!-- Scroll progress bar -->
 <div id="pbar"></div>
 
-<!-- Navigation -->
 <header class="site-nav">
-  <a href="index.html" class="nav-logo">
-    <img src="assets/images/logo-transparent.png" alt="AdCentral">
-  </a>
+  <a href="index.html" class="nav-logo"><img src="assets/images/logo-transparent.png" alt="AdCentral"></a>
   <nav class="nav-links">
-    <a href="index.html"  class="nav-link">Home</a>
-    <a href="dark.html"   class="nav-link">Platform</a>
-    <a href="#cta"        class="nav-link nav-cta">Get Early Access</a>
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="dark.html"  class="nav-link">Platform</a>
+    <a href="#cta"       class="nav-link nav-cta">Get Early Access</a>
   </nav>
 </header>
 
-<!-- Chapter nav dots -->
-<nav class="ch-dots" id="chDots" aria-label="Story chapters">
+<nav class="ch-dots" id="chDots">
   <div class="ch-dot on"  data-i="0" title="The Problem"></div>
   <div class="ch-dot"     data-i="1" title="The Solution"></div>
   <div class="ch-dot"     data-i="2" title="For Brands"></div>
@@ -300,439 +200,455 @@
   <div class="ch-dot"     data-i="4" title="Own the City"></div>
 </nav>
 
-<!-- Scroll hint -->
 <div class="scroll-hint" id="scrollHint">
   <div class="sh-mouse"></div>
   <div class="sh-label">Scroll to explore</div>
 </div>
 
-<!-- ── Chapter Overlays (fixed, opacity-toggled by JS) ── -->
-
-<div class="ch-overlay active" id="ch0">
-  <span class="eyebrow"><span class="eyebrow-dot"></span>The Problem</span>
+<div class="ch-ov active" id="ch0">
+  <span class="eyebrow"><span class="ew-dot"></span>The Problem</span>
   <h1>$40B in screens.<br>No way to buy them.</h1>
-  <p>Thousands of digital billboards fill our cities — dark, fragmented, locked behind phone calls and PDFs. Brands can't find them. Venues can't fill them. The market is broken.</p>
+  <p>Thousands of digital billboards fill our cities — dark, fragmented, and locked behind phone calls and PDFs. Brands can't find them. Venues can't fill them.</p>
 </div>
-
-<div class="ch-overlay" id="ch1">
-  <span class="eyebrow"><span class="eyebrow-dot"></span>The Solution</span>
-  <h1>One marketplace.<br><span class="accent">Every screen.</span></h1>
-  <p>AdCentral connects brands directly to venue owners — digital, programmatic, instant. The infrastructure the out-of-home industry has been missing for 20 years.</p>
+<div class="ch-ov" id="ch1">
+  <span class="eyebrow"><span class="ew-dot"></span>The Solution</span>
+  <h1>One marketplace.<br><span class="acc">Every screen.</span></h1>
+  <p>AdCentral connects brands directly to venue owners — digital, programmatic, instant. The infrastructure the industry has been missing for 20 years.</p>
 </div>
-
-<div class="ch-overlay" id="ch2">
-  <span class="eyebrow"><span class="eyebrow-dot"></span>For Brands</span>
+<div class="ch-ov" id="ch2">
+  <span class="eyebrow"><span class="ew-dot"></span>For Brands</span>
   <h1>Book a city's worth<br>of screens in minutes.</h1>
-  <p>Browse venues by location, audience, and format. Set your schedule, upload your creative, launch. No negotiations, no back-and-forth, no delays.</p>
+  <p>Browse by location, audience, and format. Set your schedule, upload creative, and launch. No negotiations, no back-and-forth, no delays.</p>
 </div>
-
-<div class="ch-overlay" id="ch3">
-  <span class="eyebrow"><span class="eyebrow-dot"></span>Real Data</span>
+<div class="ch-ov" id="ch3">
+  <span class="eyebrow"><span class="ew-dot"></span>Real Data</span>
   <h1>See exactly who<br>saw your ad.</h1>
   <p>Live footfall data, dwell-time metrics, and full attribution — all in one dashboard. Out-of-home advertising, finally accountable.</p>
 </div>
-
-<div class="ch-overlay" id="ch4">
-  <span class="eyebrow"><span class="eyebrow-dot"></span>Own the City</span>
-  <h1>Every screen,<br>lit by <span class="accent">AdCentral.</span></h1>
+<div class="ch-ov" id="ch4">
+  <span class="eyebrow"><span class="ew-dot"></span>Own the City</span>
+  <h1>Every screen,<br>lit by <span class="acc">AdCentral.</span></h1>
   <p>500+ premium venues across airports, malls, transit hubs, and stadiums. The largest independent DOOH marketplace in the country.</p>
 </div>
 
-<!-- ── Scroll Spacer (gives height for the 3D story) ── -->
 <div id="storyScroll"></div>
 
-<!-- ── CTA Section ── -->
 <section class="cta-wrap" id="cta">
-  <span class="eyebrow" style="margin-bottom:22px;">
-    <span class="eyebrow-dot"></span>Join the Waitlist
-  </span>
+  <span class="eyebrow" style="margin-bottom:22px;"><span class="ew-dot"></span>Join the Waitlist</span>
   <h2>Ready to own<br>the city?</h2>
   <p>Be among the first brands and venues on the AdCentral marketplace. Early access is open now.</p>
   <div class="btn-row">
     <a href="#" class="btn-p">
       Get Early Access
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-           stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
     <a href="dark.html" class="btn-s">Explore the Platform</a>
   </div>
 </section>
 
-<!-- Footer -->
 <footer class="site-footer">
   <img src="assets/images/logo-transparent.png" alt="AdCentral">
   <small>© 2025 AdCentral Technologies. All rights reserved.</small>
 </footer>
 
-<!-- ═══════════════════════════════════════════════════════════════
-     THREE.JS
-═══════════════════════════════════════════════════════════════ -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.min.js"></script>
-<script>
-(function () {
-'use strict';
+<!-- ═══════════════════════════════════════════════════════════
+     THREE.JS  —  ES modules + bloom post-processing
+═══════════════════════════════════════════════════════════ -->
+<script type="importmap">
+{
+  "imports": {
+    "three":          "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/":  "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE                        from 'three';
+import { EffectComposer }                from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass }                    from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass }               from 'three/addons/postprocessing/UnrealBloomPass.js';
 
-/* ═══════════════════════════════════════════════════════════
-   RENDERER + SCENE
-═══════════════════════════════════════════════════════════ */
-var W = window.innerWidth, H = window.innerHeight;
+/* ═══ RENDERER ═══════════════════════════════════════════ */
+let W = window.innerWidth, H = window.innerHeight;
 
-var renderer = new THREE.WebGLRenderer({
+const renderer = new THREE.WebGLRenderer({
   canvas: document.getElementById('bg'),
-  antialias: window.devicePixelRatio < 2,
-  powerPreference: 'high-performance'
+  antialias: true, powerPreference: 'high-performance'
 });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setSize(W, H);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 0.92;
+renderer.toneMappingExposure = 1.0;
 
-var scene = new THREE.Scene();
-scene.background = new THREE.Color(0x010108);
-scene.fog = new THREE.FogExp2(0x010108, 0.0062);
+/* ═══ SCENE ═══════════════════════════════════════════════ */
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x060818);
+scene.fog = new THREE.FogExp2(0x060818, 0.0062);
 
-var camera = new THREE.PerspectiveCamera(58, W / H, 0.5, 1800);
-camera.position.set(0, 185, 0);
+/* ═══ CAMERA ═══════════════════════════════════════════════ */
+const camera = new THREE.PerspectiveCamera(56, W / H, 0.5, 2000);
+camera.position.set(0, 72, 230);   // Outside city, looking at skyline — NOT top-down
 
-window.addEventListener('resize', function () {
+/* ═══ BLOOM ════════════════════════════════════════════════ */
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 1.5, 0.45, 0.08);
+composer.addPass(bloom);
+
+/* ═══ RESIZE ════════════════════════════════════════════════ */
+window.addEventListener('resize', () => {
   W = window.innerWidth; H = window.innerHeight;
   renderer.setSize(W, H);
+  composer.setSize(W, H);
   camera.aspect = W / H;
   camera.updateProjectionMatrix();
 });
 
-/* ═══════════════════════════════════════════════════════════
-   LIGHTING
-═══════════════════════════════════════════════════════════ */
-scene.add(new THREE.AmbientLight(0x0a0a22, 1.4));
+/* ═══ LIGHTING ══════════════════════════════════════════════ */
+scene.add(new THREE.AmbientLight(0x0d1242, 1.1));
 
-var moonLight = new THREE.DirectionalLight(0x5060aa, 0.55);
-moonLight.position.set(100, 200, 80);
-scene.add(moonLight);
+const moon = new THREE.DirectionalLight(0x3a5aaa, 0.7);
+moon.position.set(-120, 200, 80);
+scene.add(moon);
 
-/* This intensifies from 0 → 0.18 as billboards activate */
-var cityGlow = new THREE.AmbientLight(0xF5365C, 0);
+const hemi = new THREE.HemisphereLight(0x0a0a30, 0x030315, 0.55);
+scene.add(hemi);
+
+const cityGlow = new THREE.AmbientLight(0xF5365C, 0);
 scene.add(cityGlow);
 
-/* ═══════════════════════════════════════════════════════════
-   SEEDED PRNG
-═══════════════════════════════════════════════════════════ */
-var _seed = 42;
-function rng() {
-  _seed = (_seed * 1664525 + 1013904223) >>> 0;
-  return _seed / 0xffffffff;
+/* ═══ SEEDED PRNG ═══════════════════════════════════════════ */
+let _s = 271828;
+const rng = () => { _s = (_s * 1664525 + 1013904223) >>> 0; return _s / 4294967295; };
+
+/* ═══ WINDOW TEXTURE ════════════════════════════════════════
+   Applied as emissive map to tall buildings so you see lit
+   windows from afar. Created once, tiled on UV.             */
+function makeWinTex() {
+  const c = document.createElement('canvas');
+  c.width = 64; c.height = 128;
+  const x = c.getContext('2d');
+  x.fillStyle = '#02031a'; x.fillRect(0, 0, 64, 128);
+  const cols = 4, rows = 14, cw = 14, ch = 7;
+  for (let r = 0; r < rows; r++) {
+    for (let col = 0; col < cols; col++) {
+      if (rng() > 0.28) {
+        const warm = rng() > 0.6;
+        const a = 0.35 + rng() * 0.55;
+        x.fillStyle = warm
+          ? `rgba(255,215,130,${a})`
+          : `rgba(90,130,255,${a})`;
+        x.fillRect(col * 16 + 2, r * 9 + 2, cw, ch);
+      }
+    }
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return t;
+}
+const winTex1 = makeWinTex();
+const winTex2 = makeWinTex();
+const winTex3 = makeWinTex();
+const winTexes = [winTex1, winTex2, winTex3];
+
+/* ═══ BILLBOARD CANVAS TEXTURES ════════════════════════════ */
+const adCopies = [
+  ['ADCENTRAL', 'OWN EVERY SCREEN'],
+  ['BOOK NOW',  'REACH YOUR AUDIENCE'],
+  ['500+ VENUES', 'ONE PLATFORM'],
+  ['LAUNCH TODAY', 'DIGITAL OUT-OF-HOME'],
+];
+function makeBBTex(line1, line2) {
+  const c = document.createElement('canvas');
+  c.width = 512; c.height = 256;
+  const x = c.getContext('2d');
+  x.fillStyle = '#110006'; x.fillRect(0, 0, 512, 256);
+  // subtle scan-line grid
+  x.strokeStyle = 'rgba(245,54,92,0.10)'; x.lineWidth = 1;
+  for (let i = 0; i < 512; i += 24) { x.beginPath(); x.moveTo(i,0); x.lineTo(i,256); x.stroke(); }
+  for (let j = 0; j < 256; j += 24) { x.beginPath(); x.moveTo(0,j); x.lineTo(512,j); x.stroke(); }
+  // glow
+  const g = x.createRadialGradient(256,128,0,256,128,200);
+  g.addColorStop(0,'rgba(245,54,92,0.45)');
+  g.addColorStop(1,'rgba(0,0,0,0)');
+  x.fillStyle = g; x.fillRect(0,0,512,256);
+  // headline
+  x.shadowColor = '#F5365C'; x.shadowBlur = 28;
+  x.fillStyle = '#ffffff';
+  x.font = 'bold 68px Arial'; x.textAlign = 'center'; x.textBaseline = 'alphabetic';
+  x.fillText(line1, 256, 130);
+  // sub
+  x.shadowBlur = 10;
+  x.fillStyle = 'rgba(255,170,185,0.90)';
+  x.font = '28px Arial';
+  x.fillText(line2, 256, 178);
+  return new THREE.CanvasTexture(c);
+}
+const bbTextures = adCopies.map(([a,b]) => makeBBTex(a,b));
+
+/* ═══ GLOW SPRITE TEXTURE ════════════════════════════════════ */
+const glowC = document.createElement('canvas');
+glowC.width = glowC.height = 128;
+const gc = glowC.getContext('2d');
+const gg = gc.createRadialGradient(64,64,0,64,64,64);
+gg.addColorStop(0,   'rgba(245,54,92,1)');
+gg.addColorStop(0.25,'rgba(245,54,92,0.6)');
+gg.addColorStop(0.65,'rgba(180,20,60,0.18)');
+gg.addColorStop(1,   'rgba(0,0,0,0)');
+gc.fillStyle = gg; gc.fillRect(0,0,128,128);
+const glowTex = new THREE.CanvasTexture(glowC);
+
+/* ═══ CITY GENERATION ═══════════════════════════════════════
+   14×14 grid. Buildings are tallest at centre (up to 150 u),
+   shortest at edges (min ~10 u). Looks like a proper skyline.*/
+const GRID=14, BLOCK=16, GAP=8, CELL=BLOCK+GAP;
+
+const matBuilding = new THREE.MeshStandardMaterial({ color:0x0c1038, roughness:0.88, metalness:0.15 });
+const matRoof     = new THREE.MeshStandardMaterial({ color:0x111545, roughness:0.96 });
+const matFrame    = new THREE.MeshStandardMaterial({ color:0x14142a, roughness:0.72, metalness:0.72 });
+
+// Ground — slightly reflective
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(2000, 2000),
+  new THREE.MeshStandardMaterial({ color:0x040416, roughness:0.88, metalness:0.08, envMapIntensity:0.2 })
+);
+ground.rotation.x = -Math.PI / 2;
+scene.add(ground);
+
+// Stars
+{ const n=2400, pos=new Float32Array(n*3);
+  for(let i=0;i<n;i++){
+    const th=rng()*Math.PI*2,ph=Math.acos(2*rng()-1),r=600+rng()*300;
+    pos[i*3]=r*Math.sin(ph)*Math.cos(th); pos[i*3+1]=Math.abs(r*Math.cos(ph))+60; pos[i*3+2]=r*Math.sin(ph)*Math.sin(th);
+  }
+  const sg=new THREE.BufferGeometry(); sg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  scene.add(new THREE.Points(sg,new THREE.PointsMaterial({color:0xffffff,size:0.65,sizeAttenuation:true,transparent:true,opacity:0.52})));
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CITY GENERATION
-═══════════════════════════════════════════════════════════ */
-var GRID = 16, BLOCK = 16, GAP = 6, CELL = BLOCK + GAP;
-var cityRoot = new THREE.Group();
-scene.add(cityRoot);
+const billboards = [];
+let   bbLights   = 0;
 
-/* Shared materials */
-var matBuilding = new THREE.MeshStandardMaterial({ color: 0x080818, roughness: 0.92, metalness: 0.12 });
-var matRoof     = new THREE.MeshStandardMaterial({ color: 0x0e0e22, roughness: 0.96, metalness: 0.05 });
-var matFrame    = new THREE.MeshStandardMaterial({ color: 0x18182e, roughness: 0.76, metalness: 0.60 });
+for (let gx = 0; gx < GRID; gx++) {
+  for (let gz = 0; gz < GRID; gz++) {
+    const cx = (gx - (GRID-1)/2) * CELL;
+    const cz = (gz - (GRID-1)/2) * CELL;
 
-/* Ground plane */
-scene.add(Object.assign(
-  new THREE.Mesh(
-    new THREE.PlaneGeometry(1800, 1800),
-    new THREE.MeshStandardMaterial({ color: 0x030312, roughness: 1.0 })
-  ),
-  { rotation: { x: -Math.PI / 2 } }
-));
+    // Normalised distance from city centre [0=centre, 1=corner]
+    const ndx = (gx/(GRID-1)-0.5)*2, ndz = (gz/(GRID-1)-0.5)*2;
+    const dist = Math.min(1, Math.sqrt(ndx*ndx+ndz*ndz)/1.42);
 
-/* Stars */
-(function () {
-  var n = 2200, pos = new Float32Array(n * 3);
-  for (var i = 0; i < n; i++) {
-    var th = rng() * Math.PI * 2, ph = Math.acos(2 * rng() - 1), r = 520 + rng() * 280;
-    pos[i*3]   = r * Math.sin(ph) * Math.cos(th);
-    pos[i*3+1] = Math.abs(r * Math.cos(ph)) + 40;
-    pos[i*3+2] = r * Math.sin(ph) * Math.sin(th);
-  }
-  var geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  scene.add(new THREE.Points(geo, new THREE.PointsMaterial({
-    color: 0xffffff, size: 0.65, sizeAttenuation: true,
-    transparent: true, opacity: 0.52
-  })));
-}());
+    // Height budget — quadratic falloff so centre is MUCH taller
+    const maxH = 12 + (1-dist)*(1-dist) * 148;
 
-/* Street grid (subtle emissive lines) */
-(function () {
-  var half = (GRID / 2) * CELL;
-  var mat = new THREE.LineBasicMaterial({ color: 0x16162e, transparent: true, opacity: 0.6 });
-  for (var i = -GRID/2; i <= GRID/2; i++) {
-    var p = i * CELL;
-    [
-      [[-half, 0.05, p], [half, 0.05, p]],
-      [[p, 0.05, -half], [p, 0.05,  half]]
-    ].forEach(function (pts) {
-      var g = new THREE.BufferGeometry().setFromPoints(
-        pts.map(function (c) { return new THREE.Vector3(c[0], c[1], c[2]); })
-      );
-      scene.add(new THREE.Line(g, mat));
-    });
-  }
-}());
+    const nB = 1 + Math.floor(rng() * 2);
+    let tallH=0, tallX=cx, tallZ=cz;
 
-/* Billboards list */
-var billboards = [];   /* { mat, light, targetInt } */
-var bbLightCount = 0;
+    for (let b=0; b<nB; b++) {
+      const bw = 5 + rng()*(BLOCK*0.55);
+      const bd = 5 + rng()*(BLOCK*0.55);
+      const bh = Math.max(8, (rng()*0.7+0.3)*maxH);
+      const ox = (rng()-0.5)*(BLOCK-bw)*0.5;
+      const oz = (rng()-0.5)*(BLOCK-bd)*0.5;
+      if (bh > tallH) { tallH=bh; tallX=cx+ox; tallZ=cz+oz; }
 
-/* Build blocks */
-for (var gx = 0; gx < GRID; gx++) {
-  for (var gz = 0; gz < GRID; gz++) {
-    var bx = (gx - GRID/2 + 0.5) * CELL;
-    var bz = (gz - GRID/2 + 0.5) * CELL;
-    var nB = 1 + Math.floor(rng() * 3);
-    var tallH = 0, tallX = bx, tallZ = bz;
+      const bm = new THREE.Mesh(new THREE.BoxGeometry(bw,bh,bd), matBuilding);
+      bm.position.set(cx+ox, bh*0.5, cz+oz);
+      scene.add(bm);
 
-    for (var b = 0; b < nB; b++) {
-      var bw = 4 + rng() * (BLOCK * 0.55);
-      var bd = 4 + rng() * (BLOCK * 0.55);
-      var bh = 6 + rng() * 54;
-      var ox = (rng() - 0.5) * (BLOCK - bw) * 0.6;
-      var oz = (rng() - 0.5) * (BLOCK - bd) * 0.6;
+      const rm = new THREE.Mesh(new THREE.BoxGeometry(bw+0.3,0.45,bd+0.3), matRoof);
+      rm.position.set(cx+ox, bh+0.22, cz+oz);
+      scene.add(rm);
 
-      if (bh > tallH) { tallH = bh; tallX = bx + ox; tallZ = bz + oz; }
-
-      /* Building body */
-      var buildMesh = new THREE.Mesh(new THREE.BoxGeometry(bw, bh, bd), matBuilding);
-      buildMesh.position.set(bx + ox, bh * 0.5, bz + oz);
-      cityRoot.add(buildMesh);
-
-      /* Roof cap */
-      var rm = new THREE.Mesh(new THREE.BoxGeometry(bw + 0.3, 0.4, bd + 0.3), matRoof);
-      rm.position.set(bx + ox, bh + 0.2, bz + oz);
-      cityRoot.add(rm);
-
-      /* Window glow face */
-      if (bh > 16) {
-        var wMat = new THREE.MeshStandardMaterial({
-          color: 0x000010,
-          emissive: new THREE.Color().setHSL(0.62, 0.35, 0.06 + rng() * 0.06),
-          emissiveIntensity: 1.0,
-          transparent: true, opacity: 0.50
+      // Window glow — emissive texture on side faces
+      if (bh > 18) {
+        const wt = winTexes[Math.floor(rng()*3)];
+        const wMat = new THREE.MeshStandardMaterial({
+          color: 0x010118,
+          emissiveMap: wt,
+          emissive: new THREE.Color(1,1,1),
+          emissiveIntensity: 0.22 + rng()*0.28,
+          transparent: true, opacity: 0.75, depthWrite: false
         });
-        var wm1 = new THREE.Mesh(new THREE.PlaneGeometry(bw * 0.66, bh * 0.70), wMat);
-        wm1.position.set(bx + ox, bh * 0.52, bz + oz + bd/2 + 0.06);
-        cityRoot.add(wm1);
-        var wm2 = wm1.clone();
-        wm2.position.set(bx + ox, bh * 0.52, bz + oz - bd/2 - 0.06);
-        wm2.rotation.y = Math.PI;
-        cityRoot.add(wm2);
+        // +Z face
+        const w1 = new THREE.Mesh(new THREE.PlaneGeometry(bw*0.75, bh*0.80), wMat);
+        w1.position.set(cx+ox, bh*0.52, cz+oz+bd*0.5+0.06);
+        scene.add(w1);
+        // -Z face
+        const w2 = w1.clone();
+        w2.position.set(cx+ox, bh*0.52, cz+oz-bd*0.5-0.06);
+        w2.rotation.y = Math.PI;
+        scene.add(w2);
+        // +X face
+        const w3 = new THREE.Mesh(new THREE.PlaneGeometry(bd*0.75, bh*0.80), wMat.clone());
+        w3.position.set(cx+ox+bw*0.5+0.06, bh*0.52, cz+oz);
+        w3.rotation.y = Math.PI/2;
+        scene.add(w3);
       }
     }
 
-    /* Billboard on ~42% of blocks with tall buildings */
-    if (rng() < 0.42 && tallH > 14) {
-      var bbW   = 8 + rng() * 6;
-      var bbH   = 3.5 + rng() * 2.8;
-      var faceN = Math.floor(rng() * 4);          /* which street it faces */
-      var bbY   = tallH + bbH * 0.5 + 1.6;
-      var push  = 0.5;                             /* offset off rooftop edge */
+    // Billboard — ~42% of blocks with tall buildings
+    if (rng() < 0.42 && tallH > 18) {
+      const bbW  = 15 + rng() * 9;   // BIG — 15-24 units wide
+      const bbH  = 6  + rng() * 4;   // 6-10 units tall
+      const face = Math.floor(rng() * 4);
+      const bbY  = tallH + bbH*0.55 + 2.2;
+      const push = 0.5;
 
-      var bbMat = new THREE.MeshStandardMaterial({
-        color: 0x180006,
-        emissive: new THREE.Color(0xF5365C),
+      // Random ad copy from our set
+      const adIdx = Math.floor(rng() * bbTextures.length);
+      const bbMat = new THREE.MeshStandardMaterial({
+        map: bbTextures[adIdx],
+        emissiveMap: bbTextures[adIdx],
+        emissive: new THREE.Color(1, 1, 1),
         emissiveIntensity: 0.0,
-        roughness: 0.25, metalness: 0.55, side: THREE.DoubleSide
+        roughness: 0.18, metalness: 0.55, side: THREE.DoubleSide
       });
 
-      var bbMesh = new THREE.Mesh(new THREE.PlaneGeometry(bbW, bbH), bbMat);
+      const bbMesh = new THREE.Mesh(new THREE.PlaneGeometry(bbW, bbH), bbMat);
       bbMesh.position.set(
-        tallX + (faceN === 1 ? push : faceN === 3 ? -push : 0),
+        tallX + (face===1?push:face===3?-push:0),
         bbY,
-        tallZ + (faceN === 0 ? push : faceN === 2 ? -push : 0)
+        tallZ + (face===0?push:face===2?-push:0)
       );
-      bbMesh.rotation.y = faceN * (Math.PI / 2);
-      cityRoot.add(bbMesh);
+      bbMesh.rotation.y = face * (Math.PI/2);
+      scene.add(bbMesh);
 
-      /* Metal frame */
-      var fmesh = new THREE.Mesh(new THREE.BoxGeometry(bbW + 0.7, bbH + 0.7, 0.22), matFrame);
-      fmesh.position.copy(bbMesh.position);
-      fmesh.rotation.copy(bbMesh.rotation);
-      cityRoot.add(fmesh);
+      // Metal frame + pole
+      const fm = new THREE.Mesh(new THREE.BoxGeometry(bbW+0.9,bbH+0.9,0.28), matFrame);
+      fm.position.copy(bbMesh.position); fm.rotation.copy(bbMesh.rotation);
+      scene.add(fm);
+      const pm = new THREE.Mesh(new THREE.CylinderGeometry(0.18,0.18,bbH*0.5+2,8), matFrame);
+      pm.position.set(tallX, tallH+(bbH*0.5+2)*0.5, tallZ);
+      scene.add(pm);
 
-      /* Support pole */
-      var pole = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.15, 0.15, bbH * 0.5 + 1.5, 6),
-        matFrame
-      );
-      pole.position.set(tallX, tallH + (bbH * 0.5 + 1.5) * 0.5 - 0.5, tallZ);
-      cityRoot.add(pole);
+      // Glow sprite — additive blend, scales with emissive
+      const glowMat = new THREE.SpriteMaterial({
+        map: glowTex, blending: THREE.AdditiveBlending,
+        transparent: true, depthWrite: false, opacity: 0
+      });
+      const glow = new THREE.Sprite(glowMat);
+      glow.position.set(tallX, bbY, tallZ);
+      glow.scale.set(bbW*4, bbH*4, 1);
+      scene.add(glow);
 
-      /* Point light per billboard (max 32 lights) */
-      var pLight = null;
-      if (bbLightCount < 32) {
-        pLight = new THREE.PointLight(0xF5365C, 0, 45, 2.0);
-        pLight.position.set(tallX, bbY - bbH * 0.15, tallZ);
-        scene.add(pLight);
-        bbLightCount++;
+      // Point light (max 32 to stay within GPU limits)
+      let pl = null;
+      if (bbLights < 32) {
+        pl = new THREE.PointLight(0xF5365C, 0, 55, 2.0);
+        pl.position.set(tallX, bbY-bbH*0.2, tallZ);
+        scene.add(pl);
+        bbLights++;
       }
 
-      billboards.push({
-        mat: bbMat,
-        light: pLight,
-        targetInt: 0.0,
-        activateAt: rng()   /* random 0→1, used with scroll formula */
-      });
+      billboards.push({ mat:bbMat, glow:glowMat, light:pl, targetInt:0, activateAt:rng() });
     }
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CAMERA KEYFRAMES
-   [progress, posX, posY, posZ, lookX, lookY, lookZ]
-   Camera arcs from high aerial → banking in → street level
-   → low sweep → dramatic pullback showing lit city
-═══════════════════════════════════════════════════════════ */
-var KF = [
-  [0.00,    0, 188,   0,    0,   0,   0],  /* straight overhead — dark city */
-  [0.22,   72,  88,  92,    0,  12,   0],  /* banking in from north-east     */
-  [0.42,   24,  22,  58,    4,  16,   0],  /* approaching street level       */
-  [0.62,  -14,  14,  24,    0,  14, -12],  /* street-level, billboard close  */
-  [0.82,  -58,  52, -28,    0,  18,   4],  /* wide sweeping panoramic        */
-  [1.00,    0,  88, 145,    0,   8,   0],  /* grand pullback — city all lit  */
+/* ═══ CAMERA KEYFRAMES ═══════════════════════════════════════
+   [progress, posX,posY,posZ,  lookX,lookY,lookZ]
+   NOTE: camera starts OUTSIDE the city (z=230) looking at the
+   skyline — never a top-down view.                           */
+const KF = [
+  [0.00,    0,  72, 230,    0, 24,   0],  // AERIAL from south, full skyline
+  [0.20,  110,  55, 160,    0, 20,   0],  // bank around the east side
+  [0.42,   38,  28, 110,    0, 20,   0],  // descending, mid-city
+  [0.62,   18,  22,  80,    0, 20,   0],  // street-level pull — city all around
+  [0.82,  -95,  52, -48,    0, 26,   5],  // sweeping panoramic wide shot
+  [1.00,    0,  68, 200,    0, 14,   0],  // final pullback — full lit city
 ];
 
-function ss(t) { return t * t * (3 - 2 * t); }   /* smooth-step easing */
-
+const ss = t => t*t*(3-2*t);   // smooth-step
 function camAt(p) {
-  var k0 = KF[0], k1 = KF[KF.length - 1];
-  for (var i = 0; i < KF.length - 1; i++) {
-    if (p >= KF[i][0] && p <= KF[i+1][0]) { k0 = KF[i]; k1 = KF[i+1]; break; }
-  }
-  var span = k1[0] - k0[0];
-  var t = span < 1e-6 ? 0 : ss((p - k0[0]) / span);
-  function lv(a, b, ai, bi) { return new THREE.Vector3(
-    k0[ai] + (k1[ai]-k0[ai])*t,
-    k0[ai+1] + (k1[ai+1]-k0[ai+1])*t,
-    k0[ai+2] + (k1[ai+2]-k0[ai+2])*t
-  ); }
+  let a=KF[0], b=KF[KF.length-1];
+  for(let i=0;i<KF.length-1;i++) if(p>=KF[i][0]&&p<=KF[i+1][0]){a=KF[i];b=KF[i+1];break;}
+  const t = b[0]===a[0] ? 0 : ss((p-a[0])/(b[0]-a[0]));
   return {
-    pos: new THREE.Vector3(
-      k0[1]+(k1[1]-k0[1])*t, k0[2]+(k1[2]-k0[2])*t, k0[3]+(k1[3]-k0[3])*t),
-    tgt: new THREE.Vector3(
-      k0[4]+(k1[4]-k0[4])*t, k0[5]+(k1[5]-k0[5])*t, k0[6]+(k1[6]-k0[6])*t)
+    pos: new THREE.Vector3(a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t, a[3]+(b[3]-a[3])*t),
+    tgt: new THREE.Vector3(a[4]+(b[4]-a[4])*t, a[5]+(b[5]-a[5])*t, a[6]+(b[6]-a[6])*t)
   };
 }
 
-/* ═══════════════════════════════════════════════════════════
-   SCROLL LOGIC
-═══════════════════════════════════════════════════════════ */
-var storyEl  = document.getElementById('storyScroll');
-var pbarEl   = document.getElementById('pbar');
-var hintEl   = document.getElementById('scrollHint');
-var dotsEl   = document.getElementById('chDots');
-var dots     = Array.from(document.querySelectorAll('.ch-dot'));
-var chs      = [0,1,2,3,4].map(function(i){ return document.getElementById('ch'+i); });
-
-/* Chapter visibility windows [entryAt, exitAt] in scrollP 0→1 */
-var WINDOWS  = [[0.00,0.17],[0.20,0.37],[0.40,0.57],[0.60,0.77],[0.80,1.00]];
-
-var scrollP  = 0;
+/* ═══ SCROLL LOGIC ══════════════════════════════════════════ */
+const storyEl = document.getElementById('storyScroll');
+const pbarEl  = document.getElementById('pbar');
+const hintEl  = document.getElementById('scrollHint');
+const dotsEl  = document.getElementById('chDots');
+const dots    = [...document.querySelectorAll('.ch-dot')];
+const chs     = [0,1,2,3,4].map(i=>document.getElementById('ch'+i));
+const WINS    = [[0,.17],[.20,.37],[.40,.57],[.60,.77],[.80,.94]];
+let scrollP   = 0;
 
 function onScroll() {
-  var storyH = storyEl.offsetHeight;
-  if (!storyH) return;
-  var raw = window.scrollY;
-  scrollP = Math.max(0, Math.min(1, raw / storyH));
+  const sh = storyEl.offsetHeight;
+  if (!sh) return;
+  const raw  = window.scrollY;
+  const past = raw > sh - H * 0.45;   // hide overlays before CTA enters viewport
+  scrollP    = Math.min(1, raw / sh);
 
-  /* Past the story? Hide all fixed chrome */
-  var past = raw > storyH + 60;
-  dotsEl.style.opacity  = past ? '0' : '1';
+  dotsEl.style.opacity = past ? '0' : '1';
   dotsEl.style.pointerEvents = past ? 'none' : '';
-  pbarEl.style.width    = past ? '0' : (scrollP * 100) + '%';
-  if (past) { chs.forEach(function(c){ c.classList.remove('active'); }); return; }
+  pbarEl.style.width = past ? '0' : (scrollP*100)+'%';
+  if (past) { chs.forEach(c=>c.classList.remove('active')); return; }
+  if (raw > 60) hintEl.classList.add('gone');
 
-  if (raw > 55) hintEl.classList.add('gone');
-
-  /* Chapters & dots */
-  var active = -1;
-  for (var ci = 0; ci < WINDOWS.length; ci++) {
-    var on = scrollP >= WINDOWS[ci][0] && scrollP <= WINDOWS[ci][1];
+  WINS.forEach((w,ci) => {
+    const on = scrollP>=w[0] && scrollP<=w[1];
     chs[ci].classList.toggle('active', on);
     dots[ci].classList.toggle('on', on);
-    if (on) active = ci;
-  }
-
-  /* Billboard targets — all dark until scrollP > 0.19, then stagger on */
-  var lit = 0;
-  for (var bi = 0; bi < billboards.length; bi++) {
-    var threshold = 0.20 + billboards[bi].activateAt * 0.58;
-    billboards[bi].targetInt = scrollP >= threshold ? 1.0 : 0.0;
-    if (billboards[bi].targetInt > 0.5) lit++;
-  }
-  /* City ambient glow tracks lit fraction */
-  cityGlow.intensity = (lit / Math.max(1, billboards.length)) * 0.16;
-}
-
-window.addEventListener('scroll', onScroll, { passive: true });
-
-/* Dot click → jump to chapter */
-dots.forEach(function (dot, i) {
-  dot.addEventListener('click', function () {
-    var storyH = storyEl.offsetHeight;
-    window.scrollTo({ top: (WINDOWS[i][0] + 0.02) * storyH, behavior: 'smooth' });
   });
-});
 
-/* ═══════════════════════════════════════════════════════════
-   CURSOR TILT
-═══════════════════════════════════════════════════════════ */
-var mx = 0, my = 0, tx = 0, ty = 0;
-window.addEventListener('mousemove', function (e) {
-  mx = (e.clientX / W) - 0.5;
-  my = (e.clientY / H) - 0.5;
-}, { passive: true });
+  let lit = 0;
+  billboards.forEach(bb => {
+    bb.targetInt = scrollP >= (0.20 + bb.activateAt*0.58) ? 1 : 0;
+    if (bb.targetInt > 0.5) lit++;
+  });
+  cityGlow.intensity = (lit / Math.max(1, billboards.length)) * 0.20;
+}
+window.addEventListener('scroll', onScroll, { passive:true });
 
-/* ═══════════════════════════════════════════════════════════
-   RENDER LOOP
-═══════════════════════════════════════════════════════════ */
-var camPos = new THREE.Vector3(0, 188, 0);
-var camTgt = new THREE.Vector3(0, 0, 0);
+dots.forEach((d,i) => d.addEventListener('click', () => {
+  window.scrollTo({ top:(WINS[i][0]+0.02)*storyEl.offsetHeight, behavior:'smooth' });
+}));
+
+/* ═══ CURSOR TILT ═══════════════════════════════════════════ */
+let mx=0, my=0, tx=0, ty=0;
+window.addEventListener('mousemove', e => {
+  mx = (e.clientX/W)-0.5; my = (e.clientY/H)-0.5;
+}, { passive:true });
+
+/* ═══ RENDER LOOP ═══════════════════════════════════════════ */
+const camPos = new THREE.Vector3(0, 72, 230);
+const camTgt = new THREE.Vector3(0, 24, 0);
 
 function animate() {
   requestAnimationFrame(animate);
+  const t = Date.now() / 1000;
 
-  var now = Date.now() / 1000;
+  // cursor tilt
+  tx += (mx*12 - tx) * 0.042;
+  ty += (my* 6 - ty) * 0.042;
 
-  /* cursor tilt (lerp) */
-  tx += (mx * 10 - tx) * 0.042;
-  ty += (my *  5 - ty) * 0.042;
-
-  /* camera from scroll */
-  var kf = camAt(scrollP);
-  camPos.lerp(kf.pos, 0.055);
-  camTgt.lerp(kf.tgt, 0.055);
-  camera.position.set(camPos.x + tx, camPos.y - ty, camPos.z);
+  // camera lerp — 0.10 = responsive but smooth
+  const kf = camAt(scrollP);
+  camPos.lerp(kf.pos, 0.10);
+  camTgt.lerp(kf.tgt, 0.10);
+  camera.position.set(camPos.x+tx, camPos.y-ty, camPos.z);
   camera.lookAt(camTgt);
 
-  /* billboard emissive lerp + pulse */
-  for (var bi = 0; bi < billboards.length; bi++) {
-    var bb = billboards[bi];
-    bb.mat.emissiveIntensity += (bb.targetInt - bb.mat.emissiveIntensity) * 0.028;
-    if (bb.light && bb.mat.emissiveIntensity > 0.05) {
-      var pulse = 0.88 + Math.sin(now * 1.5 + bi * 0.85) * 0.12;
-      bb.light.intensity = bb.mat.emissiveIntensity * pulse * 2.6;
-    } else if (bb.light) {
-      bb.light.intensity = 0;
-    }
-  }
+  // billboard emissive + pulse
+  billboards.forEach((bb, i) => {
+    bb.mat.emissiveIntensity += (bb.targetInt - bb.mat.emissiveIntensity) * 0.04;
+    const ei = bb.mat.emissiveIntensity;
+    if (bb.glow) bb.glow.opacity = ei * (0.70 + Math.sin(t*1.3+i*0.7)*0.18);
+    if (bb.light) bb.light.intensity = ei * (2.0 + Math.sin(t*1.5+i*0.85)*0.4) * 2.4;
+  });
 
-  renderer.render(scene, camera);
+  composer.render();
 }
 
-/* Init */
 onScroll();
 animate();
-
-}());
 </script>
 </body>
 </html>
