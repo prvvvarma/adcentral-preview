@@ -29,6 +29,7 @@ body{background:#050510;color:#fff;font-family:'Inter',system-ui,-apple-system,s
   padding:22px 72px;
   background:linear-gradient(to bottom,rgba(5,5,16,.88) 0%,transparent 100%);
 }
+.nav-logo img{height:72px;display:block;object-fit:contain;filter:drop-shadow(0 0 14px rgba(255,51,85,.35))}
 .nav-links{display:flex;align-items:center;gap:32px}
 .nav-link{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;font-weight:500;letter-spacing:.02em;transition:color .2s}
 .nav-link:hover{color:#fff}
@@ -44,31 +45,47 @@ body{background:#050510;color:#fff;font-family:'Inter',system-ui,-apple-system,s
 .chapter{
   position:fixed;left:72px;top:50%;
   transform:translateY(-50%) translateX(-20px);
-  width:min(440px,38vw);z-index:50;
-  pointer-events:none;
-  opacity:0;
-  transition:opacity .55s ease,transform .55s ease;
+  width:min(380px,36vw);z-index:50;
+  pointer-events:none;opacity:0;
+  transition:opacity .5s ease,transform .5s ease;
 }
 .chapter.active{
   opacity:1;pointer-events:auto;
   transform:translateY(-50%) translateX(0);
 }
 .chapter-inner{
-  background:rgba(8,8,22,.68);
-  backdrop-filter:blur(22px) saturate(1.5);
-  -webkit-backdrop-filter:blur(22px) saturate(1.5);
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:20px;padding:36px 40px;
-  box-shadow:0 8px 48px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.07);
+  background:rgba(6,6,18,.72);
+  backdrop-filter:blur(18px) saturate(1.4);
+  -webkit-backdrop-filter:blur(18px) saturate(1.4);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;padding:24px 28px;
+  box-shadow:0 6px 36px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);
 }
-/* eyebrow label — no chapter numbers, thematic only */
-.ch-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#FF3355;margin-bottom:14px}
-.chapter h2{font-size:clamp(20px,2.6vw,32px);font-weight:800;line-height:1.18;letter-spacing:-.03em;margin-bottom:14px;color:#fff}
+/* card header row: eyebrow + counter */
+.ch-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.ch-eyebrow{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#FF3355}
+.ch-counter{font-size:11px;font-weight:500;letter-spacing:.04em;color:rgba(255,255,255,.22);white-space:nowrap}
+.chapter h2{font-size:clamp(18px,2.2vw,28px);font-weight:800;line-height:1.2;letter-spacing:-.03em;color:#fff;margin-bottom:0}
 .chapter h2 em{font-style:normal;color:#FF3355}
-.chapter p{font-size:14.5px;line-height:1.68;color:rgba(255,255,255,.62);font-weight:400}
-.ch-dots{display:flex;gap:7px;align-items:center;margin-top:22px}
-.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .3s,transform .3s}
-.dot.on{background:#FF3355;transform:scale(1.35)}
+.ch-divider{height:1px;background:rgba(255,255,255,.08);margin:14px 0}
+.chapter p{font-size:13.5px;line-height:1.65;color:rgba(255,255,255,.58);font-weight:400}
+
+/* ─── CHAPTER STEPPER (right edge) ──────────────────────────────── */
+#ch-stepper{
+  position:fixed;right:26px;top:50%;transform:translateY(-50%);
+  z-index:60;display:flex;flex-direction:column;align-items:center;
+  pointer-events:none;opacity:1;transition:opacity .4s;
+}
+#ch-stepper.hidden{opacity:0}
+.stp-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.18);flex-shrink:0;
+  transition:background .35s,transform .35s,box-shadow .35s;
+}
+.stp-dot.done{background:rgba(255,51,85,.4)}
+.stp-dot.active{background:#FF3355;transform:scale(1.6);box-shadow:0 0 10px rgba(255,51,85,.6)}
+.stp-seg{width:1.5px;height:30px;background:rgba(255,255,255,.1);transition:background .35s}
+.stp-seg.done{background:rgba(255,51,85,.3)}
 
 /* ─── REPORT CARDS (Chapter 3 / Proof) ──────────────────────────── */
 #report-cards{
@@ -167,35 +184,50 @@ body{background:#050510;color:#fff;font-family:'Inter',system-ui,-apple-system,s
 /* ─── TABLET ─────────────────────────────────────────────────────── */
 @media(max-width:1280px){
   .nav{padding:20px 56px}
-  .chapter{left:56px;width:min(400px,40vw)}
+  .chapter{left:56px;width:min(360px,40vw)}
   #report-cards{right:56px}
+  #ch-stepper{right:20px}
 }
 @media(max-width:1024px){
   .nav{padding:18px 44px}
-  .chapter{left:44px;width:min(380px,44vw)}
-  #report-cards{right:44px;width:min(228px,25vw)}
+  .chapter{left:44px;width:min(340px,44vw)}
+  #report-cards{right:44px;width:min(220px,26vw)}
 }
 /* ─── MOBILE ─────────────────────────────────────────────────────── */
 @media(max-width:768px){
   .nav{padding:14px 24px}
-  .nav-logo img{height:38px}
+  /* Chapter card — compact strip pinned to bottom */
   .chapter{
-    left:24px;right:24px;width:auto;max-width:none;
-    top:auto;bottom:130px;transform:translateX(-16px);
+    left:16px;right:56px;  /* right gap for stepper */
+    width:auto;max-width:none;
+    top:auto;bottom:100px;
+    transform:translateY(10px);
   }
-  .chapter.active{transform:translateX(0)}
-  .chapter-inner{padding:22px 22px}
-  .chapter h2{font-size:20px}
-  #report-cards{right:24px;top:auto;bottom:130px;transform:none;width:44%}
-  .rcard{padding:10px 13px}
-  .rv{font-size:17px}
+  .chapter.active{transform:translateY(0)}
+  .chapter-inner{padding:16px 18px}
+  .chapter h2{font-size:17px}
+  .chapter p{font-size:12.5px;line-height:1.6}
+  .ch-divider{margin:10px 0}
+  /* Stepper — slim, closer to edge */
+  #ch-stepper{right:14px}
+  .stp-dot{width:5px;height:5px}
+  .stp-seg{height:22px}
+  /* Report cards hidden on narrow mobile */
+  #report-cards{right:16px;top:auto;bottom:100px;transform:none;width:42%}
+  .rcard{padding:10px 12px}
+  .rv{font-size:16px}
+  /* CTA */
   .aud-list{max-width:none}
-  .aud-item{gap:16px;padding:20px 0}
+  .aud-item{gap:14px;padding:18px 0}
   .cta-headline{font-size:clamp(26px,7.5vw,44px)}
 }
 @media(max-width:480px){
-  .chapter{left:16px;right:16px;bottom:108px}
+  .chapter{left:12px;right:42px;bottom:80px}
   #report-cards{display:none}
+  .chapter-inner{padding:14px 16px}
+  .chapter h2{font-size:16px}
+  .chapter p{font-size:12px;line-height:1.58}
+  .ch-divider{margin:8px 0}
 }
 @media(prefers-reduced-motion:reduce){
   .chapter{transition:opacity .3s}
@@ -213,6 +245,9 @@ body{background:#050510;color:#fff;font-family:'Inter',system-ui,-apple-system,s
 
 <!-- ─── NAV ───────────────────────────────────────────────────────── -->
 <header class="nav">
+  <a href="dark.html" class="nav-logo">
+    <img src="assets/images/logo-transparent.png?v=2" alt="AdCentral">
+  </a>
   <nav class="nav-links">
     <a href="dark.html" class="nav-link">Home</a>
   </nav>
@@ -227,64 +262,82 @@ body{background:#050510;color:#fff;font-family:'Inter',system-ui,-apple-system,s
   <!-- Chapter 0 — Opening -->
   <div class="chapter active" id="ch0">
     <div class="chapter-inner">
-      <div class="ch-eyebrow">The Opportunity</div>
-      <h2>A city runs<br>on <em>screens</em></h2>
-      <p>Every transit hub, shopping centre, and street corner is alive with digital displays. Millions of impressions happen every day — but most of that attention goes unmanaged and unmeasured.</p>
-      <div class="ch-dots">
-        <div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <div class="ch-top">
+        <div class="ch-eyebrow">The Opportunity</div>
+        <div class="ch-counter">01 · 05</div>
       </div>
+      <h2>A city runs<br>on <em>screens</em></h2>
+      <div class="ch-divider"></div>
+      <p>Every transit hub, shopping centre, and street corner is alive with digital displays. Millions of impressions happen every day — but most of that attention goes unmanaged and unmeasured.</p>
     </div>
   </div>
 
   <!-- Chapter 1 — Signal -->
   <div class="chapter" id="ch1">
     <div class="chapter-inner">
-      <div class="ch-eyebrow">Screen Discovery</div>
-      <h2>The <em>signal</em><br>finds its screens</h2>
-      <p>AdCentral discovers every available display in your target area — digital billboards, venue panels, transit screens — and maps the full opportunity landscape in seconds.</p>
-      <div class="ch-dots">
-        <div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <div class="ch-top">
+        <div class="ch-eyebrow">Screen Discovery</div>
+        <div class="ch-counter">02 · 05</div>
       </div>
+      <h2>The <em>signal</em><br>finds its screens</h2>
+      <div class="ch-divider"></div>
+      <p>AdCentral discovers every available display in your target area — digital billboards, venue panels, transit screens — and maps the full opportunity landscape in seconds.</p>
     </div>
   </div>
 
   <!-- Chapter 2 — Launch -->
   <div class="chapter" id="ch2">
     <div class="chapter-inner">
-      <div class="ch-eyebrow">Campaign Activation</div>
-      <h2>Your campaign<br><em>launches</em> everywhere</h2>
-      <p>One brief. Hundreds of screens. AdCentral coordinates your creative across every connected display — synchronised, scheduled, and always on brand — from a single dashboard.</p>
-      <div class="ch-dots">
-        <div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div>
+      <div class="ch-top">
+        <div class="ch-eyebrow">Campaign Activation</div>
+        <div class="ch-counter">03 · 05</div>
       </div>
+      <h2>Your campaign<br><em>launches</em> everywhere</h2>
+      <div class="ch-divider"></div>
+      <p>One brief. Hundreds of screens. AdCentral coordinates your creative across every connected display — synchronised, scheduled, and always on brand — from a single dashboard.</p>
     </div>
   </div>
 
   <!-- Chapter 3 — Proof -->
   <div class="chapter" id="ch3">
     <div class="chapter-inner">
-      <div class="ch-eyebrow">Live Performance</div>
-      <h2>Real results.<br><em>Real time.</em></h2>
-      <p>Watch your campaign perform as it happens. Every play, every screen, every venue — tracked and reported the moment it occurs. No black boxes. No delays.</p>
-      <div class="ch-dots">
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div>
+      <div class="ch-top">
+        <div class="ch-eyebrow">Live Performance</div>
+        <div class="ch-counter">04 · 05</div>
       </div>
+      <h2>Real results.<br><em>Real time.</em></h2>
+      <div class="ch-divider"></div>
+      <p>Watch your campaign perform as it happens. Every play, every screen, every venue — tracked and reported the moment it occurs. No black boxes. No delays.</p>
     </div>
   </div>
 
   <!-- Chapter 4 — Network -->
   <div class="chapter" id="ch4">
     <div class="chapter-inner">
-      <div class="ch-eyebrow">Network Scale</div>
-      <h2>A network that<br><em>scales</em> with you</h2>
-      <p>From a single venue to an entire city — AdCentral's infrastructure grows with your ambition. Add screens, expand to new markets, and manage it all from one place.</p>
-      <div class="ch-dots">
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div>
+      <div class="ch-top">
+        <div class="ch-eyebrow">Network Scale</div>
+        <div class="ch-counter">05 · 05</div>
       </div>
+      <h2>A network that<br><em>scales</em> with you</h2>
+      <div class="ch-divider"></div>
+      <p>From a single venue to an entire city — AdCentral's infrastructure grows with your ambition. Add screens, expand to new markets, and manage it all from one place.</p>
     </div>
   </div>
 
 </div><!-- /story -->
+
+<!-- Chapter progress stepper (right edge) -->
+<div id="ch-stepper">
+  <div class="stp-dot" id="stp0"></div>
+  <div class="stp-seg" id="seg01"></div>
+  <div class="stp-dot" id="stp1"></div>
+  <div class="stp-seg" id="seg12"></div>
+  <div class="stp-dot" id="stp2"></div>
+  <div class="stp-seg" id="seg23"></div>
+  <div class="stp-dot" id="stp3"></div>
+  <div class="stp-seg" id="seg34"></div>
+  <div class="stp-dot" id="stp4"></div>
+</div>
 
 <!-- ═══ CTA SECTION ══════════════════════════════════════════════════ -->
 <section id="cta-section">
@@ -815,6 +868,9 @@ window.addEventListener('scroll', onScroll, { passive: true });
 const progFill    = document.getElementById('prog-fill');
 const scrollHint  = document.getElementById('scroll-hint');
 const reportCards = document.getElementById('report-cards');
+const stepperEl   = document.getElementById('ch-stepper');
+const stepDots    = [0,1,2,3,4].map(i => document.getElementById('stp'+i));
+const stepSegs    = ['01','12','23','34'].map(i => document.getElementById('seg'+i));
 
 /* ──────────────────────────────────────────────────────────────────
    ANIMATION
@@ -852,6 +908,16 @@ function tick() {
 
   /* Report cards – visible during Chapter 3 */
   reportCards.classList.toggle('visible', !ctaIn && scrollP >= 0.62 && scrollP < 0.80);
+
+  /* Chapter stepper */
+  stepperEl.classList.toggle('hidden', ctaIn || scrollP >= 0.95);
+  const acIdx = CHAPS.findIndex(c => scrollP >= c.start && scrollP < c.end);
+  stepDots.forEach((d, i) => {
+    d.className = 'stp-dot' + (i === acIdx ? ' active' : i < acIdx ? ' done' : '');
+  });
+  stepSegs.forEach((s, i) => {
+    s.className = 'stp-seg' + (i < acIdx ? ' done' : '');
+  });
 
   /* Screen activation */
   screens.forEach(s => {
