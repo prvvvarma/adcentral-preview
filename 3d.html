@@ -1,651 +1,921 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>AdCentral — Own Every Screen in Every City</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet"/>
-  <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: auto; }
-  body {
-    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    background: #06081e;
-    color: #F0F2F8;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  a { color: inherit; text-decoration: none; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdCentral — Experience the Future of OOH</title>
+<link rel="icon" href="assets/images/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET ──────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto}
+body{background:#050510;color:#fff;font-family:'Inter',system-ui,-apple-system,sans-serif;overflow-x:hidden}
 
-  /* Fixed full-screen canvas */
-  #bg {
-    position: fixed; inset: 0;
-    width: 100vw; height: 100vh;
-    z-index: 0; pointer-events: none; display: block;
-  }
+/* ─── CANVAS ─────────────────────────────────────────────────────── */
+#c{position:fixed;top:0;left:0;width:100vw;height:100vh;display:block;z-index:0}
 
-  /* Nav */
-  .site-nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 200; height: 68px;
-    display: flex; align-items: center; padding: 0 40px;
-    background: rgba(6,8,30,0.82);
-    backdrop-filter: blur(22px) saturate(1.8);
-    -webkit-backdrop-filter: blur(22px) saturate(1.8);
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-  }
-  .nav-logo img { height: 52px; width: auto; display: block; }
-  .nav-links { margin-left: auto; display: flex; align-items: center; gap: 28px; }
-  .nav-link  { font-size: .875rem; font-weight: 600; color: rgba(255,255,255,.62); transition: color 130ms ease; }
-  .nav-link:hover { color: rgba(255,255,255,.92); }
-  .nav-cta {
-    padding: 8px 22px; background: #F5365C; color: #fff !important;
-    border-radius: 8px; font-weight: 700;
-    transition: background 150ms ease, transform 120ms ease;
-  }
-  .nav-cta:hover { background: #d91f47; transform: translateY(-1px); }
+/* ─── WEBGL FALLBACK ─────────────────────────────────────────────── */
+#fallback{
+  display:none;position:fixed;inset:0;z-index:0;
+  background:radial-gradient(ellipse at 40% 40%,#0d0d2b 0%,#060618 50%,#0a050f 100%);
+}
 
-  /* Progress bar */
-  #pbar {
-    position: fixed; top: 68px; left: 0; height: 2px; width: 0%;
-    background: linear-gradient(90deg, #F5365C, #ff8fab);
-    box-shadow: 0 0 10px rgba(245,54,92,.6);
-    z-index: 300; transition: width 60ms linear;
-  }
+/* ─── NAV ────────────────────────────────────────────────────────── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 72px;
+  background:linear-gradient(to bottom,rgba(5,5,16,.88) 0%,transparent 100%);
+}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-link{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;font-weight:500;letter-spacing:.02em;transition:color .2s}
+.nav-link:hover{color:#fff}
 
-  /* Chapter overlays */
-  .ch-ov {
-    position: fixed; bottom: 12vh; left: 50%;
-    transform: translateX(-50%) translateY(30px);
-    max-width: 700px; width: calc(100% - 80px);
-    text-align: center; z-index: 100;
-    pointer-events: none; opacity: 0;
-    transition: opacity 560ms cubic-bezier(.22,1,.36,1),
-                transform 560ms cubic-bezier(.22,1,.36,1);
-  }
-  .ch-ov.active { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+/* ─── SCROLL PROGRESS BAR ────────────────────────────────────────── */
+.story-progress{position:fixed;left:0;top:0;width:2px;height:100vh;background:rgba(255,255,255,.04);z-index:80}
+.story-progress-fill{width:100%;background:linear-gradient(to bottom,#FF3355,rgba(255,51,85,.25));height:0%;transition:height .08s linear;box-shadow:1px 0 10px rgba(255,51,85,.6)}
 
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 5px 14px; border-radius: 999px;
-    background: rgba(245,54,92,.14); border: 1px solid rgba(245,54,92,.30);
-    color: #F5365C; font-size: .70rem; font-weight: 700;
-    letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px;
-  }
-  .ew-dot { width: 6px; height: 6px; border-radius: 50%; background: #F5365C; }
+/* ─── STORY SCROLL CONTAINER ─────────────────────────────────────── */
+#story{position:relative;z-index:10;height:700vh}
 
-  .ch-ov h1 {
-    font-family: 'Plus Jakarta Sans','Inter',sans-serif;
-    font-size: clamp(1.9rem, 4.6vw, 3.8rem);
-    font-weight: 800; line-height: 1.09; letter-spacing: -.030em; color: #fff;
-    margin-bottom: 18px;
-    text-shadow: 0 4px 60px rgba(0,0,0,.95), 0 2px 24px rgba(0,0,0,.85);
-  }
-  .ch-ov p {
-    font-size: clamp(.88rem, 1.6vw, 1.08rem);
-    color: rgba(215,225,248,.82); line-height: 1.80; max-width: 540px;
-    margin: 0 auto; text-shadow: 0 2px 24px rgba(0,0,0,.90);
-  }
-  .acc { color: #F5365C; }
+/* ─── CHAPTER OVERLAYS ───────────────────────────────────────────── */
+.chapter{
+  position:fixed;left:72px;top:50%;
+  transform:translateY(-50%) translateX(-20px);
+  width:min(440px,38vw);z-index:50;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .55s ease,transform .55s ease;
+}
+.chapter.active{
+  opacity:1;pointer-events:auto;
+  transform:translateY(-50%) translateX(0);
+}
+.chapter-inner{
+  background:rgba(8,8,22,.68);
+  backdrop-filter:blur(22px) saturate(1.5);
+  -webkit-backdrop-filter:blur(22px) saturate(1.5);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:20px;padding:36px 40px;
+  box-shadow:0 8px 48px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.07);
+}
+/* eyebrow label — no chapter numbers, thematic only */
+.ch-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#FF3355;margin-bottom:14px}
+.chapter h2{font-size:clamp(20px,2.6vw,32px);font-weight:800;line-height:1.18;letter-spacing:-.03em;margin-bottom:14px;color:#fff}
+.chapter h2 em{font-style:normal;color:#FF3355}
+.chapter p{font-size:14.5px;line-height:1.68;color:rgba(255,255,255,.62);font-weight:400}
+.ch-dots{display:flex;gap:7px;align-items:center;margin-top:22px}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .3s,transform .3s}
+.dot.on{background:#FF3355;transform:scale(1.35)}
 
-  /* Nav dots */
-  .ch-dots {
-    position: fixed; right: 26px; top: 50%; transform: translateY(-50%);
-    z-index: 200; display: flex; flex-direction: column; gap: 10px;
-    transition: opacity 300ms ease;
-  }
-  .ch-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: rgba(255,255,255,.18); border: 1.5px solid rgba(255,255,255,.34);
-    cursor: pointer; transition: all 200ms ease;
-  }
-  .ch-dot:hover { background: rgba(255,255,255,.44); }
-  .ch-dot.on { background:#F5365C; border-color:#F5365C; transform:scale(1.42); box-shadow:0 0 10px rgba(245,54,92,.65); }
+/* ─── REPORT CARDS (Chapter 3 / Proof) ──────────────────────────── */
+#report-cards{
+  position:fixed;right:72px;top:50%;transform:translateY(-50%);
+  z-index:50;display:flex;flex-direction:column;gap:9px;
+  pointer-events:none;opacity:0;transition:opacity .55s ease;
+  width:min(248px,22vw);
+}
+#report-cards.visible{opacity:1}
+.rcard{
+  background:rgba(8,8,22,.72);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.08);border-radius:14px;
+  padding:15px 18px;box-shadow:0 4px 24px rgba(0,0,0,.45);
+  transform:translateX(22px);opacity:0;
+  transition:transform .5s ease,opacity .5s ease;
+}
+#report-cards.visible .rcard{transform:translateX(0);opacity:1}
+#report-cards.visible .rcard:nth-child(1){transition-delay:.00s}
+#report-cards.visible .rcard:nth-child(2){transition-delay:.08s}
+#report-cards.visible .rcard:nth-child(3){transition-delay:.16s}
+#report-cards.visible .rcard:nth-child(4){transition-delay:.24s}
+#report-cards.visible .rcard:nth-child(5){transition-delay:.32s}
+.rl{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:5px}
+.rv{font-size:22px;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1}
+.rv.ac{color:#FF3355}
+.rsub{font-size:11px;color:rgba(255,255,255,.38);margin-top:4px}
+.r-live{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#2ED573}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#2ED573;animation:lp 1.5s ease infinite}
+@keyframes lp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.75)}}
 
-  /* Scroll hint */
-  .scroll-hint {
-    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-    z-index: 100; text-align: center; pointer-events: none;
-    opacity: 1; transition: opacity 400ms ease;
-  }
-  .scroll-hint.gone { opacity: 0; }
-  .sh-mouse {
-    width: 24px; height: 38px; border: 2px solid rgba(255,255,255,.26);
-    border-radius: 12px; margin: 0 auto 8px;
-    display: flex; justify-content: center; padding-top: 6px;
-  }
-  .sh-mouse::before {
-    content: ''; width: 4px; height: 8px;
-    background: rgba(255,255,255,.55); border-radius: 2px;
-    animation: sh-bob 1.9s ease-in-out infinite;
-  }
-  @keyframes sh-bob {
-    0%   { transform: translateY(0);    opacity: 1; }
-    75%  { transform: translateY(13px); opacity: 0; }
-    100% { transform: translateY(13px); opacity: 0; }
-  }
-  .sh-label { font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.36); }
+/* ─── SCROLL HINT ────────────────────────────────────────────────── */
+#scroll-hint{
+  position:fixed;bottom:34px;left:50%;transform:translateX(-50%);
+  z-index:60;display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:1;transition:opacity .5s;pointer-events:none;
+}
+#scroll-hint.hidden{opacity:0}
+.sh-text{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.sh-mouse{width:26px;height:40px;border:1.5px solid rgba(255,255,255,.18);border-radius:13px;display:flex;justify-content:center;padding-top:7px}
+.sh-mouse::after{content:'';width:3px;height:9px;background:rgba(255,255,255,.45);border-radius:2px;animation:bob 1.9s ease infinite}
+@keyframes bob{0%{transform:translateY(0);opacity:.8}55%{transform:translateY(10px);opacity:.2}100%{transform:translateY(0);opacity:.8}}
 
-  /* Scroll spacer */
-  #storyScroll { height: 600vh; position: relative; z-index: 5; }
+/* ─── CTA SECTION ────────────────────────────────────────────────── */
+#cta-section{
+  position:relative;z-index:20;
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:100px 24px 80px;
+  background:linear-gradient(to bottom,transparent 0%,rgba(5,5,16,.96) 28%,#050510 100%);
+}
+.cta-eyebrow{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#FF3355;margin-bottom:20px;text-align:center}
+.cta-headline{font-size:clamp(34px,5vw,68px);font-weight:900;line-height:1.08;letter-spacing:-.04em;text-align:center;max-width:820px;margin-bottom:18px}
+.cta-headline span{color:#FF3355}
+.cta-sub{font-size:17px;line-height:1.65;color:rgba(255,255,255,.58);text-align:center;max-width:540px;margin-bottom:56px}
+/* ─── AUDIENCE LIST (replaces persona cards) ─────────────────────── */
+.aud-list{
+  width:100%;max-width:640px;
+  border-top:1px solid rgba(255,255,255,.08);
+  margin-bottom:52px;
+}
+.aud-item{
+  display:flex;align-items:flex-start;gap:22px;
+  padding:26px 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.aud-icon{
+  width:40px;height:40px;flex-shrink:0;
+  border-radius:12px;background:rgba(255,51,85,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;margin-top:2px;
+}
+.aud-body{flex:1}
+.aud-title{font-size:16px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px}
+.aud-desc{font-size:14px;line-height:1.62;color:rgba(255,255,255,.52)}
+.cta-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.btn-p{
+  display:inline-flex;align-items:center;gap:9px;
+  background:#FF3355;color:#fff;text-decoration:none;
+  font-size:15px;font-weight:700;letter-spacing:-.01em;
+  padding:15px 30px;border-radius:50px;
+  box-shadow:0 0 32px rgba(255,51,85,.42),0 4px 16px rgba(0,0,0,.3);
+  transition:transform .2s,box-shadow .2s,background .2s;
+}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 0 52px rgba(255,51,85,.65),0 6px 20px rgba(0,0,0,.4);background:#ff1a3f}
+.btn-s{
+  display:inline-flex;align-items:center;gap:8px;
+  color:rgba(255,255,255,.6);text-decoration:none;
+  font-size:15px;font-weight:500;
+  padding:15px 26px;border-radius:50px;
+  border:1px solid rgba(255,255,255,.12);
+  transition:color .2s,border-color .2s,transform .2s;
+}
+.btn-s:hover{color:#fff;border-color:rgba(255,255,255,.28);transform:translateY(-2px)}
 
-  /* CTA section */
-  .cta-wrap {
-    position: relative; z-index: 20;
-    background: linear-gradient(180deg, #06081e 0%, #08082a 100%);
-    border-top: 1px solid rgba(255,255,255,.06);
-    padding: 130px 24px 110px; text-align: center;
+/* ─── TABLET ─────────────────────────────────────────────────────── */
+@media(max-width:1280px){
+  .nav{padding:20px 56px}
+  .chapter{left:56px;width:min(400px,40vw)}
+  #report-cards{right:56px}
+}
+@media(max-width:1024px){
+  .nav{padding:18px 44px}
+  .chapter{left:44px;width:min(380px,44vw)}
+  #report-cards{right:44px;width:min(228px,25vw)}
+}
+/* ─── MOBILE ─────────────────────────────────────────────────────── */
+@media(max-width:768px){
+  .nav{padding:14px 24px}
+  .nav-logo img{height:38px}
+  .chapter{
+    left:24px;right:24px;width:auto;max-width:none;
+    top:auto;bottom:130px;transform:translateX(-16px);
   }
-  .cta-wrap h2 {
-    font-family: 'Plus Jakarta Sans','Inter',sans-serif;
-    font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 800;
-    letter-spacing: -.030em; line-height: 1.09; color: #F0F2F8; margin-bottom: 20px;
-  }
-  .cta-wrap p { font-size: 1.08rem; color: rgba(180,195,225,.68); max-width: 500px; margin: 0 auto 44px; line-height: 1.78; }
-  .btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-  .btn-p {
-    display: inline-flex; align-items: center; gap: 8px; padding: 15px 34px;
-    background: #F5365C; color: #fff; border-radius: 10px; font-size: 1rem; font-weight: 700;
-    box-shadow: 0 4px 24px rgba(245,54,92,.38); transition: all 160ms ease;
-  }
-  .btn-p:hover { background: #d91f47; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,54,92,.52); }
-  .btn-s {
-    display: inline-flex; align-items: center; padding: 15px 34px;
-    background: rgba(255,255,255,.07); color: rgba(255,255,255,.85);
-    border-radius: 10px; font-size: 1rem; font-weight: 600;
-    border: 1px solid rgba(255,255,255,.13); backdrop-filter: blur(12px);
-    transition: all 160ms ease;
-  }
-  .btn-s:hover { background: rgba(255,255,255,.12); transform: translateY(-2px); }
-
-  /* Footer */
-  .site-footer {
-    position: relative; z-index: 20; background: #06081e;
-    border-top: 1px solid rgba(255,255,255,.06);
-    padding: 28px 40px; display: flex; align-items: center;
-    justify-content: space-between; flex-wrap: wrap; gap: 12px;
-  }
-  .site-footer img { height: 38px; opacity: .68; }
-  .site-footer small { font-size: .80rem; color: rgba(255,255,255,.30); }
-
-  @media (max-width: 640px) {
-    .ch-dots { display: none; }
-    .ch-ov { width: calc(100% - 32px); }
-    .site-nav { padding: 0 18px; }
-    .nav-links .nav-link:not(.nav-cta) { display: none; }
-  }
-  </style>
+  .chapter.active{transform:translateX(0)}
+  .chapter-inner{padding:22px 22px}
+  .chapter h2{font-size:20px}
+  #report-cards{right:24px;top:auto;bottom:130px;transform:none;width:44%}
+  .rcard{padding:10px 13px}
+  .rv{font-size:17px}
+  .aud-list{max-width:none}
+  .aud-item{gap:16px;padding:20px 0}
+  .cta-headline{font-size:clamp(26px,7.5vw,44px)}
+}
+@media(max-width:480px){
+  .chapter{left:16px;right:16px;bottom:108px}
+  #report-cards{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .chapter{transition:opacity .3s}
+  .sh-mouse::after,.live-dot{animation:none}
+}
+</style>
 </head>
 <body>
 
-<canvas id="bg"></canvas>
-<div id="pbar"></div>
+<!-- WebGL fallback background -->
+<div id="fallback"></div>
 
-<header class="site-nav">
-  <a href="dark.html" class="nav-logo"><img src="assets/images/logo-transparent.png" alt="AdCentral"></a>
+<!-- Three.js canvas -->
+<canvas id="c"></canvas>
+
+<!-- ─── NAV ───────────────────────────────────────────────────────── -->
+<header class="nav">
   <nav class="nav-links">
     <a href="dark.html" class="nav-link">Home</a>
   </nav>
 </header>
 
-<nav class="ch-dots" id="chDots">
-  <div class="ch-dot on"  data-i="0" title="The Problem"></div>
-  <div class="ch-dot"     data-i="1" title="The Solution"></div>
-  <div class="ch-dot"     data-i="2" title="For Brands"></div>
-  <div class="ch-dot"     data-i="3" title="Real Data"></div>
-  <div class="ch-dot"     data-i="4" title="Own the City"></div>
-</nav>
+<!-- Scroll progress bar -->
+<div class="story-progress"><div class="story-progress-fill" id="prog-fill"></div></div>
 
-<div class="scroll-hint" id="scrollHint">
-  <div class="sh-mouse"></div>
-  <div class="sh-label">Scroll to explore</div>
-</div>
+<!-- ═══ SCROLL STORY ════════════════════════════════════════════════ -->
+<div id="story">
 
-<div class="ch-ov active" id="ch0">
-  <span class="eyebrow"><span class="ew-dot"></span>The Problem</span>
-  <h1>$40B in screens.<br>No way to buy them.</h1>
-  <p>Thousands of digital billboards fill our cities — dark, fragmented, and locked behind phone calls and PDFs. Brands can't find them. Venues can't fill them.</p>
-</div>
-<div class="ch-ov" id="ch1">
-  <span class="eyebrow"><span class="ew-dot"></span>The Solution</span>
-  <h1>One marketplace.<br><span class="acc">Every screen.</span></h1>
-  <p>AdCentral connects brands directly to venue owners — digital, programmatic, instant. The infrastructure the industry has been missing for 20 years.</p>
-</div>
-<div class="ch-ov" id="ch2">
-  <span class="eyebrow"><span class="ew-dot"></span>For Brands</span>
-  <h1>Book a city's worth<br>of screens in minutes.</h1>
-  <p>Browse by location, audience, and format. Set your schedule, upload creative, and launch. No negotiations, no back-and-forth, no delays.</p>
-</div>
-<div class="ch-ov" id="ch3">
-  <span class="eyebrow"><span class="ew-dot"></span>Real Data</span>
-  <h1>See exactly who<br>saw your ad.</h1>
-  <p>Live footfall data, dwell-time metrics, and full attribution — all in one dashboard. Out-of-home advertising, finally accountable.</p>
-</div>
-<div class="ch-ov" id="ch4">
-  <span class="eyebrow"><span class="ew-dot"></span>Own the City</span>
-  <h1>Every screen,<br>lit by <span class="acc">AdCentral.</span></h1>
-  <p>500+ premium venues across airports, malls, transit hubs, and stadiums. The largest independent DOOH marketplace in the country.</p>
-</div>
+  <!-- Chapter 0 — Opening -->
+  <div class="chapter active" id="ch0">
+    <div class="chapter-inner">
+      <div class="ch-eyebrow">The Opportunity</div>
+      <h2>A city runs<br>on <em>screens</em></h2>
+      <p>Every transit hub, shopping centre, and street corner is alive with digital displays. Millions of impressions happen every day — but most of that attention goes unmanaged and unmeasured.</p>
+      <div class="ch-dots">
+        <div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      </div>
+    </div>
+  </div>
 
-<div id="storyScroll"></div>
+  <!-- Chapter 1 — Signal -->
+  <div class="chapter" id="ch1">
+    <div class="chapter-inner">
+      <div class="ch-eyebrow">Screen Discovery</div>
+      <h2>The <em>signal</em><br>finds its screens</h2>
+      <p>AdCentral discovers every available display in your target area — digital billboards, venue panels, transit screens — and maps the full opportunity landscape in seconds.</p>
+      <div class="ch-dots">
+        <div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      </div>
+    </div>
+  </div>
 
-<section class="cta-wrap" id="cta">
-  <span class="eyebrow" style="margin-bottom:22px;"><span class="ew-dot"></span>Join the Waitlist</span>
-  <h2>Ready to own<br>the city?</h2>
-  <p>Be among the first brands and venues on the AdCentral marketplace. Early access is open now.</p>
-  <div class="btn-row">
+  <!-- Chapter 2 — Launch -->
+  <div class="chapter" id="ch2">
+    <div class="chapter-inner">
+      <div class="ch-eyebrow">Campaign Activation</div>
+      <h2>Your campaign<br><em>launches</em> everywhere</h2>
+      <p>One brief. Hundreds of screens. AdCentral coordinates your creative across every connected display — synchronised, scheduled, and always on brand — from a single dashboard.</p>
+      <div class="ch-dots">
+        <div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 3 — Proof -->
+  <div class="chapter" id="ch3">
+    <div class="chapter-inner">
+      <div class="ch-eyebrow">Live Performance</div>
+      <h2>Real results.<br><em>Real time.</em></h2>
+      <p>Watch your campaign perform as it happens. Every play, every screen, every venue — tracked and reported the moment it occurs. No black boxes. No delays.</p>
+      <div class="ch-dots">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter 4 — Network -->
+  <div class="chapter" id="ch4">
+    <div class="chapter-inner">
+      <div class="ch-eyebrow">Network Scale</div>
+      <h2>A network that<br><em>scales</em> with you</h2>
+      <p>From a single venue to an entire city — AdCentral's infrastructure grows with your ambition. Add screens, expand to new markets, and manage it all from one place.</p>
+      <div class="ch-dots">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /story -->
+
+<!-- ═══ CTA SECTION ══════════════════════════════════════════════════ -->
+<section id="cta-section">
+  <h2 class="cta-headline">The smarter way to run<br><span>out-of-home</span></h2>
+  <p class="cta-sub">Whether you're placing campaigns, managing screens, or growing a venue network — AdCentral brings it all together in one platform.</p>
+
+  <div class="aud-list">
+    <div class="aud-item">
+      <div class="aud-icon">📢</div>
+      <div class="aud-body">
+        <div class="aud-title">Advertisers</div>
+        <div class="aud-desc">Launch campaigns across hundreds of screens with a single brief. Real-time reporting, zero friction.</div>
+      </div>
+    </div>
+    <div class="aud-item">
+      <div class="aud-icon">🖥️</div>
+      <div class="aud-body">
+        <div class="aud-title">Screen Owners</div>
+        <div class="aud-desc">Monetise your display network. Fill inventory automatically and get paid reliably, every time.</div>
+      </div>
+    </div>
+    <div class="aud-item">
+      <div class="aud-icon">🤝</div>
+      <div class="aud-body">
+        <div class="aud-title">Partners</div>
+        <div class="aud-desc">Integrate your venue, media, or tech stack into the AdCentral ecosystem and unlock new revenue.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-btns">
     <a href="dark.html" class="btn-p">
-      Explore the Platform
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Explore AdCentral
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </a>
   </div>
 </section>
 
-<footer class="site-footer">
-  <img src="assets/images/logo-transparent.png" alt="AdCentral">
-  <small>© 2025 AdCentral Technologies. All rights reserved.</small>
-</footer>
+<!-- Scroll hint -->
+<div id="scroll-hint">
+  <div class="sh-text">Scroll to explore</div>
+  <div class="sh-mouse"></div>
+</div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     THREE.JS  —  ES modules + bloom post-processing
-═══════════════════════════════════════════════════════════ -->
+<!-- Report cards — visible during Chapter 3 (Proof) -->
+<div id="report-cards">
+  <div class="rcard">
+    <div class="rl">Plays Delivered</div>
+    <div class="rv ac">2.4M</div>
+    <div class="rsub">This campaign</div>
+  </div>
+  <div class="rcard">
+    <div class="rl">Screens Reached</div>
+    <div class="rv">847</div>
+    <div class="rsub">Across 3 cities</div>
+  </div>
+  <div class="rcard">
+    <div class="rl">Venues Reached</div>
+    <div class="rv">312</div>
+    <div class="rsub">Shopping, transit, outdoor</div>
+  </div>
+  <div class="rcard">
+    <div class="rl">Delivery Rate</div>
+    <div class="rv" style="font-size:18px;margin-top:2px">97.8%</div>
+    <div class="rsub">On track</div>
+  </div>
+  <div class="rcard">
+    <div class="rl">Campaign Status</div>
+    <div class="r-live"><div class="live-dot"></div>Live Now</div>
+  </div>
+</div>
+
+<!-- ═══ THREE.JS ══════════════════════════════════════════════════════ -->
 <script type="importmap">
 {
   "imports": {
-    "three":          "https://unpkg.com/three@0.160.0/build/three.module.js",
-    "three/addons/":  "https://unpkg.com/three@0.160.0/examples/jsm/"
+    "three":         "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
   }
 }
 </script>
+
 <script type="module">
-import * as THREE                        from 'three';
-import { EffectComposer }                from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass }                    from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass }               from 'three/addons/postprocessing/UnrealBloomPass.js';
+import * as THREE from 'three';
+import { EffectComposer }  from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass }      from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
-/* ═══ RENDERER ═══════════════════════════════════════════ */
-let W = window.innerWidth, H = window.innerHeight;
+/* ──────────────────────────────────────────────────────────────────
+   DETECTION & CONSTANTS
+──────────────────────────────────────────────────────────────────── */
+const IS_MOB  = window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent);
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const N_BLDG  = IS_MOB ? 55  : 128;
+const N_SCR   = IS_MOB ? 20  : 46;
+const N_CONN  = IS_MOB ? 14  : 28;
 
-const renderer = new THREE.WebGLRenderer({
-  canvas: document.getElementById('bg'),
-  antialias: true, powerPreference: 'high-performance'
-});
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-renderer.setSize(W, H);
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.0;
+/* Seeded PRNG */
+let _s = 0x7C3F2A1E;
+const rnd    = () => { _s = (_s * 1664525 + 1013904223) >>> 0; return _s / 0xFFFFFFFF; };
+const rr     = (a, b) => a + rnd() * (b - a);
+const ri     = (a, b) => Math.floor(rr(a, b + 1));
 
-/* ═══ SCENE ═══════════════════════════════════════════════ */
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x060818);
-scene.fog = new THREE.FogExp2(0x060818, 0.0062);
+/* ──────────────────────────────────────────────────────────────────
+   RENDERER
+──────────────────────────────────────────────────────────────────── */
+const canvas = document.getElementById('c');
+let renderer, composer;
 
-/* ═══ CAMERA ═══════════════════════════════════════════════ */
-const camera = new THREE.PerspectiveCamera(56, W / H, 0.5, 2000);
-camera.position.set(0, 72, 230);   // Outside city, looking at skyline — NOT top-down
+try {
+  renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: !IS_MOB,
+    powerPreference: 'high-performance',
+  });
+} catch (e) {
+  document.getElementById('fallback').style.display = 'block';
+  canvas.style.display = 'none';
+}
 
-/* ═══ BLOOM ════════════════════════════════════════════════ */
-const composer = new EffectComposer(renderer);
-composer.addPass(new RenderPass(scene, camera));
-const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 1.5, 0.45, 0.08);
-composer.addPass(bloom);
+if (renderer) {
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, IS_MOB ? 1.5 : 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.outputColorSpace  = THREE.SRGBColorSpace;
+  renderer.toneMapping       = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.06;
+}
 
-/* ═══ RESIZE ════════════════════════════════════════════════ */
-window.addEventListener('resize', () => {
-  W = window.innerWidth; H = window.innerHeight;
-  renderer.setSize(W, H);
-  composer.setSize(W, H);
-  camera.aspect = W / H;
-  camera.updateProjectionMatrix();
-});
+/* ──────────────────────────────────────────────────────────────────
+   SCENE, CAMERA, FOG
+──────────────────────────────────────────────────────────────────── */
+const scene  = new THREE.Scene();
+scene.background = new THREE.Color(0x04040e);
+scene.fog        = new THREE.FogExp2(0x06061a, IS_MOB ? 0.006 : 0.0048);
 
-/* ═══ LIGHTING ══════════════════════════════════════════════ */
-scene.add(new THREE.AmbientLight(0x0d1242, 1.1));
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.4, 900);
+camera.position.set(5, 75, 95);
 
-const moon = new THREE.DirectionalLight(0x3a5aaa, 0.7);
-moon.position.set(-120, 200, 80);
-scene.add(moon);
+/* ──────────────────────────────────────────────────────────────────
+   BLOOM COMPOSER
+──────────────────────────────────────────────────────────────────── */
+if (renderer) {
+  composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  composer.addPass(new UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    IS_MOB ? 0.95 : 1.4,   /* strength  */
+    0.40,                    /* radius    */
+    0.055                    /* threshold */
+  ));
+}
 
-const hemi = new THREE.HemisphereLight(0x0a0a30, 0x030315, 0.55);
-scene.add(hemi);
+/* ──────────────────────────────────────────────────────────────────
+   LIGHTS
+──────────────────────────────────────────────────────────────────── */
+scene.add(new THREE.AmbientLight(0x0d0d28, 1.1));
+const sun = new THREE.DirectionalLight(0x7799ff, 0.5);
+sun.position.set(60, 130, 70);
+scene.add(sun);
+scene.add(new THREE.HemisphereLight(0x0a0a30, 0x050510, 0.5));
 
-const cityGlow = new THREE.AmbientLight(0xF5365C, 0);
-scene.add(cityGlow);
+/* ──────────────────────────────────────────────────────────────────
+   GROUND & GRID
+──────────────────────────────────────────────────────────────────── */
+const gnd = new THREE.Mesh(
+  new THREE.PlaneGeometry(800, 800),
+  new THREE.MeshStandardMaterial({ color: 0x04040e, roughness: 1 })
+);
+gnd.rotation.x = -Math.PI / 2;
+gnd.position.y = -0.5;
+scene.add(gnd);
+const grid = new THREE.GridHelper(440, 44, 0x0d0d24, 0x090918);
+grid.position.y = -0.38;
+scene.add(grid);
 
-/* ═══ SEEDED PRNG ═══════════════════════════════════════════ */
-let _s = 271828;
-const rng = () => { _s = (_s * 1664525 + 1013904223) >>> 0; return _s / 4294967295; };
+/* ──────────────────────────────────────────────────────────────────
+   STARS
+──────────────────────────────────────────────────────────────────── */
+{
+  const n   = IS_MOB ? 700 : 1600;
+  const pos = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) {
+    pos[i*3]   = rr(-350, 350);
+    pos[i*3+1] = rr(90,  350);
+    pos[i*3+2] = rr(-350, 350);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  scene.add(new THREE.Points(geo,
+    new THREE.PointsMaterial({ color: 0xffffff, size: .22, sizeAttenuation: true })
+  ));
+}
 
-/* ═══ WINDOW TEXTURE ════════════════════════════════════════
-   Applied as emissive map to tall buildings so you see lit
-   windows from afar. Created once, tiled on UV.             */
+/* ──────────────────────────────────────────────────────────────────
+   BUILDING WINDOW TEXTURE
+──────────────────────────────────────────────────────────────────── */
 function makeWinTex() {
-  const c = document.createElement('canvas');
-  c.width = 64; c.height = 128;
-  const x = c.getContext('2d');
-  x.fillStyle = '#02031a'; x.fillRect(0, 0, 64, 128);
-  const cols = 4, rows = 14, cw = 14, ch = 7;
+  const W = 64, H = 128;
+  const cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = '#06061a';
+  ctx.fillRect(0, 0, W, H);
+  const cols = 4, rows = 10, cw = W/cols, ch = H/rows;
   for (let r = 0; r < rows; r++) {
-    for (let col = 0; col < cols; col++) {
-      if (rng() > 0.28) {
-        const warm = rng() > 0.6;
-        const a = 0.35 + rng() * 0.55;
-        x.fillStyle = warm
-          ? `rgba(255,215,130,${a})`
-          : `rgba(90,130,255,${a})`;
-        x.fillRect(col * 16 + 2, r * 9 + 2, cw, ch);
+    for (let c = 0; c < cols; c++) {
+      if (rnd() < 0.52) {
+        const warm = rnd() > 0.48;
+        const a = .65 + rnd() * .3;
+        ctx.fillStyle = warm
+          ? `rgba(255,${195+ri(0,55)},${90+ri(0,80)},${a})`
+          : `rgba(${130+ri(0,55)},${165+ri(0,45)},255,${a})`;
+        ctx.fillRect(c*cw+1.5, r*ch+1.5, cw-3, ch-3);
       }
     }
   }
-  const t = new THREE.CanvasTexture(c);
-  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return new THREE.CanvasTexture(cv);
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   INSTANCED BUILDINGS
+──────────────────────────────────────────────────────────────────── */
+const GRID_N = IS_MOB ? 10 : 13;
+const CELL   = 22;
+const HALF   = (GRID_N * CELL) / 2;
+
+const bldgMat = new THREE.MeshStandardMaterial({
+  color:       0x0c0c22,
+  roughness:   0.82,
+  metalness:   0.12,
+  emissiveMap: makeWinTex(),
+  emissive:    new THREE.Color(1.25, 1.05, 0.68),
+});
+
+const instB  = new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1), bldgMat, N_BLDG);
+scene.add(instB);
+
+const dum    = new THREE.Object3D();
+const bData  = [];   /* { x, z, w, d, h } */
+let   bIdx   = 0;
+
+for (let gi = 0; gi < GRID_N && bIdx < N_BLDG; gi++) {
+  for (let gj = 0; gj < GRID_N && bIdx < N_BLDG; gj++) {
+    const cx = gi * CELL - HALF + CELL/2;
+    const cz = gj * CELL - HALF + CELL/2;
+
+    /* Keep center-right clear for the AdCentral node */
+    if (Math.abs(cx - 22) < 24 && Math.abs(cz) < 24) continue;
+    /* Road strips */
+    if (Math.abs(cx) < 2.5 || Math.abs(cz) < 2.5) continue;
+
+    const ndx  = (gi / (GRID_N-1) - 0.5) * 2;
+    const ndz  = (gj / (GRID_N-1) - 0.5) * 2;
+    const dist = Math.min(1, Math.sqrt(ndx*ndx + ndz*ndz) / 1.42);
+    const maxH = 9 + (1 - dist) * (1 - dist) * 128;
+    const h = rr(maxH * 0.32, maxH);
+    const w = rr(7, 13);
+    const d = rr(7, 13);
+    const x = cx + rr(-2.5, 2.5);
+    const z = cz + rr(-2.5, 2.5);
+
+    dum.position.set(x, h/2, z);
+    dum.scale.set(w, h, d);
+    dum.rotation.set(0, 0, 0);
+    dum.updateMatrix();
+    instB.setMatrixAt(bIdx, dum.matrix);
+    bData.push({ x, z, w, d, h });
+    bIdx++;
+  }
+}
+instB.instanceMatrix.needsUpdate = true;
+instB.count = bIdx;
+
+/* ──────────────────────────────────────────────────────────────────
+   AD SCREEN CANVAS TEXTURES
+──────────────────────────────────────────────────────────────────── */
+const CATS = [
+  { bg:'#080f20', ac:'#2196F3', l1:'DISCOVER',  l2:'THE WORLD'  },
+  { bg:'#180810', ac:'#E91E8C', l1:'NEW',       l2:'COLLECTION' },
+  { bg:'#08180a', ac:'#43A047', l1:'LIVE',      l2:'WELL'       },
+  { bg:'#090818', ac:'#9C27B0', l1:'THINK',     l2:'DIFFERENT'  },
+  { bg:'#180e08', ac:'#FF5722', l1:'YOUR',      l2:'MOMENT'     },
+];
+
+/* Helper: shared canvas draw  */
+function _drawAdCanvas(ctx, W, H, cat, titleSize, subtitleSize) {
+  ctx.fillStyle = cat.bg;
+  ctx.fillRect(0, 0, W, H);
+  for (let y = 0; y < H; y += 4) {
+    ctx.fillStyle = 'rgba(255,255,255,0.015)';
+    ctx.fillRect(0, y, W, 1);
+  }
+  ctx.fillStyle = cat.ac;
+  ctx.fillRect(0, 0, W, 4);
+  ctx.fillRect(0, H - 4, W, 4);
+  const g = ctx.createRadialGradient(W/2, H/2, 8, W/2, H/2, W * .62);
+  g.addColorStop(0, cat.ac + '24');
+  g.addColorStop(1, 'transparent');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = 'rgba(255,255,255,0.18)';
+  ctx.font = '700 ' + Math.round(H * 0.032) + 'px monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('ADCENTRAL', W * 0.072, H * 0.084);
+  ctx.textAlign = 'center';
+  ctx.fillStyle = cat.ac;
+  ctx.font = '900 ' + titleSize + 'px Arial, sans-serif';
+  ctx.fillText(cat.l1, W/2, H/2 - H * 0.04);
+  ctx.fillStyle = '#fff';
+  ctx.font = '800 ' + subtitleSize + 'px Arial, sans-serif';
+  ctx.fillText(cat.l2, W/2, H/2 + H * 0.14);
+}
+
+/* Portrait panel  — 256×384 (2:3, aspect 0.667) */
+function makeAdTex(cat) {
+  const W = 256, H = 384;
+  const cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  _drawAdCanvas(cv.getContext('2d'), W, H, cat, 52, 46);
+  const t = new THREE.CanvasTexture(cv);
+  t.colorSpace = THREE.SRGBColorSpace;
   return t;
 }
-const winTex1 = makeWinTex();
-const winTex2 = makeWinTex();
-const winTex3 = makeWinTex();
-const winTexes = [winTex1, winTex2, winTex3];
 
-/* ═══ BILLBOARD CANVAS TEXTURES ════════════════════════════ */
-const adCopies = [
-  ['ADCENTRAL', 'OWN EVERY SCREEN'],
-  ['BOOK NOW',  'REACH YOUR AUDIENCE'],
-  ['500+ VENUES', 'ONE PLATFORM'],
-  ['LAUNCH TODAY', 'DIGITAL OUT-OF-HOME'],
-];
-function makeBBTex(line1, line2) {
-  const c = document.createElement('canvas');
-  c.width = 512; c.height = 256;
-  const x = c.getContext('2d');
-  x.fillStyle = '#110006'; x.fillRect(0, 0, 512, 256);
-  // subtle scan-line grid
-  x.strokeStyle = 'rgba(245,54,92,0.10)'; x.lineWidth = 1;
-  for (let i = 0; i < 512; i += 24) { x.beginPath(); x.moveTo(i,0); x.lineTo(i,256); x.stroke(); }
-  for (let j = 0; j < 256; j += 24) { x.beginPath(); x.moveTo(0,j); x.lineTo(512,j); x.stroke(); }
-  // glow
-  const g = x.createRadialGradient(256,128,0,256,128,200);
-  g.addColorStop(0,'rgba(245,54,92,0.45)');
-  g.addColorStop(1,'rgba(0,0,0,0)');
-  x.fillStyle = g; x.fillRect(0,0,512,256);
-  // headline
-  x.shadowColor = '#F5365C'; x.shadowBlur = 28;
-  x.fillStyle = '#ffffff';
-  x.font = 'bold 68px Arial'; x.textAlign = 'center'; x.textBaseline = 'alphabetic';
-  x.fillText(line1, 256, 130);
-  // sub
-  x.shadowBlur = 10;
-  x.fillStyle = 'rgba(255,170,185,0.90)';
-  x.font = '28px Arial';
-  x.fillText(line2, 256, 178);
-  return new THREE.CanvasTexture(c);
-}
-const bbTextures = adCopies.map(([a,b]) => makeBBTex(a,b));
-
-/* ═══ GLOW SPRITE TEXTURE ════════════════════════════════════ */
-const glowC = document.createElement('canvas');
-glowC.width = glowC.height = 128;
-const gc = glowC.getContext('2d');
-const gg = gc.createRadialGradient(64,64,0,64,64,64);
-gg.addColorStop(0,   'rgba(245,54,92,1)');
-gg.addColorStop(0.25,'rgba(245,54,92,0.6)');
-gg.addColorStop(0.65,'rgba(180,20,60,0.18)');
-gg.addColorStop(1,   'rgba(0,0,0,0)');
-gc.fillStyle = gg; gc.fillRect(0,0,128,128);
-const glowTex = new THREE.CanvasTexture(glowC);
-
-/* ═══ CITY GENERATION ═══════════════════════════════════════
-   14×14 grid. Buildings are tallest at centre (up to 150 u),
-   shortest at edges (min ~10 u). Looks like a proper skyline.*/
-const GRID=14, BLOCK=16, GAP=8, CELL=BLOCK+GAP;
-
-const matBuilding = new THREE.MeshStandardMaterial({ color:0x0c1038, roughness:0.88, metalness:0.15 });
-const matRoof     = new THREE.MeshStandardMaterial({ color:0x111545, roughness:0.96 });
-const matFrame    = new THREE.MeshStandardMaterial({ color:0x14142a, roughness:0.72, metalness:0.72 });
-
-// Ground — slightly reflective
-const ground = new THREE.Mesh(
-  new THREE.PlaneGeometry(2000, 2000),
-  new THREE.MeshStandardMaterial({ color:0x040416, roughness:0.88, metalness:0.08, envMapIntensity:0.2 })
-);
-ground.rotation.x = -Math.PI / 2;
-scene.add(ground);
-
-// Stars
-{ const n=2400, pos=new Float32Array(n*3);
-  for(let i=0;i<n;i++){
-    const th=rng()*Math.PI*2,ph=Math.acos(2*rng()-1),r=600+rng()*300;
-    pos[i*3]=r*Math.sin(ph)*Math.cos(th); pos[i*3+1]=Math.abs(r*Math.cos(ph))+60; pos[i*3+2]=r*Math.sin(ph)*Math.sin(th);
-  }
-  const sg=new THREE.BufferGeometry(); sg.setAttribute('position',new THREE.BufferAttribute(pos,3));
-  scene.add(new THREE.Points(sg,new THREE.PointsMaterial({color:0xffffff,size:0.65,sizeAttenuation:true,transparent:true,opacity:0.52})));
+/* Landscape billboard — 512×288 (16:9, aspect 1.778) */
+function makeBBTex(cat) {
+  const W = 512, H = 288;
+  const cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  _drawAdCanvas(cv.getContext('2d'), W, H, cat, 72, 26);
+  const t = new THREE.CanvasTexture(cv);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
 }
 
-const billboards = [];
-let   bbLights   = 0;
+const adTex = CATS.map(makeAdTex);   /* portrait panels  2:3   */
+const bbTex = CATS.map(makeBBTex);   /* landscape boards 16:9  */
 
-for (let gx = 0; gx < GRID; gx++) {
-  for (let gz = 0; gz < GRID; gz++) {
-    const cx = (gx - (GRID-1)/2) * CELL;
-    const cz = (gz - (GRID-1)/2) * CELL;
+/* ──────────────────────────────────────────────────────────────────
+   AD SCREENS — placed on building faces
+──────────────────────────────────────────────────────────────────── */
+const scrGrp = new THREE.Group();
+scene.add(scrGrp);
+const screens = [];
 
-    // Normalised distance from city centre [0=centre, 1=corner]
-    const ndx = (gx/(GRID-1)-0.5)*2, ndz = (gz/(GRID-1)-0.5)*2;
-    const dist = Math.min(1, Math.sqrt(ndx*ndx+ndz*ndz)/1.42);
+for (let i = 0; i < N_SCR; i++) {
+  const catIdx = i % CATS.length;
+  const cat    = CATS[catIdx];
 
-    // Height budget — quadratic falloff so centre is MUCH taller
-    const maxH = 12 + (1-dist)*(1-dist) * 148;
+  /* Billboard (landscape 16:9) or panel (portrait 2:3) */
+  const isBB = rnd() > 0.48;
+  const tex  = isBB ? bbTex[catIdx] : adTex[catIdx];
 
-    const nB = 1 + Math.floor(rng() * 2);
-    let tallH=0, tallX=cx, tallZ=cz;
+  const mat = new THREE.MeshBasicMaterial({
+    map:   tex,
+    color: new THREE.Color(0.016, 0.016, 0.016),
+  });
 
-    for (let b=0; b<nB; b++) {
-      const bw = 5 + rng()*(BLOCK*0.55);
-      const bd = 5 + rng()*(BLOCK*0.55);
-      const bh = Math.max(8, (rng()*0.7+0.3)*maxH);
-      const ox = (rng()-0.5)*(BLOCK-bw)*0.5;
-      const oz = (rng()-0.5)*(BLOCK-bd)*0.5;
-      if (bh > tallH) { tallH=bh; tallX=cx+ox; tallZ=cz+oz; }
+  const bld = bData[Math.floor(rnd() * bData.length)];
+  if (!bld) continue;
 
-      const bm = new THREE.Mesh(new THREE.BoxGeometry(bw,bh,bd), matBuilding);
-      bm.position.set(cx+ox, bh*0.5, cz+oz);
-      scene.add(bm);
+  /* Preserve exact texture aspect ratio — no stretching */
+  const sw = isBB ? rr(12, 18) : rr(5, 9);
+  const sh = isBB ? sw * (288/512) : sw * (384/256);  /* 16:9 or 2:3 */
 
-      const rm = new THREE.Mesh(new THREE.BoxGeometry(bw+0.3,0.45,bd+0.3), matRoof);
-      rm.position.set(cx+ox, bh+0.22, cz+oz);
-      scene.add(rm);
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(sw, sh), mat);
 
-      // Window glow — emissive texture on side faces
-      if (bh > 18) {
-        const wt = winTexes[Math.floor(rng()*3)];
-        const wMat = new THREE.MeshStandardMaterial({
-          color: 0x010118,
-          emissiveMap: wt,
-          emissive: new THREE.Color(1,1,1),
-          emissiveIntensity: 0.22 + rng()*0.28,
-          transparent: true, opacity: 0.75, depthWrite: false
-        });
-        // +Z face
-        const w1 = new THREE.Mesh(new THREE.PlaneGeometry(bw*0.75, bh*0.80), wMat);
-        w1.position.set(cx+ox, bh*0.52, cz+oz+bd*0.5+0.06);
-        scene.add(w1);
-        // -Z face
-        const w2 = w1.clone();
-        w2.position.set(cx+ox, bh*0.52, cz+oz-bd*0.5-0.06);
-        w2.rotation.y = Math.PI;
-        scene.add(w2);
-        // +X face
-        const w3 = new THREE.Mesh(new THREE.PlaneGeometry(bd*0.75, bh*0.80), wMat.clone());
-        w3.position.set(cx+ox+bw*0.5+0.06, bh*0.52, cz+oz);
-        w3.rotation.y = Math.PI/2;
-        scene.add(w3);
-      }
-    }
+  const side = ri(0, 3);
+  let sx = bld.x, sz = bld.z, ry = 0;
+  if      (side === 0) { sz = bld.z + bld.d/2 + 0.25; ry = 0; }
+  else if (side === 1) { sx = bld.x + bld.w/2 + 0.25; ry = Math.PI/2; }
+  else if (side === 2) { sz = bld.z - bld.d/2 - 0.25; ry = Math.PI; }
+  else                 { sx = bld.x - bld.w/2 - 0.25; ry = -Math.PI/2; }
 
-    // Billboard — ~42% of blocks with tall buildings
-    if (rng() < 0.42 && tallH > 18) {
-      const bbW  = 15 + rng() * 9;   // BIG — 15-24 units wide
-      const bbH  = 6  + rng() * 4;   // 6-10 units tall
-      const face = Math.floor(rng() * 4);
-      const bbY  = tallH + bbH*0.55 + 2.2;
-      const push = 0.5;
+  const sy = rr(sh/2 + 1.5, Math.max(sh/2 + 2, bld.h * 0.62));
+  mesh.position.set(sx, sy, sz);
+  mesh.rotation.y = ry;
+  scrGrp.add(mesh);
 
-      // Random ad copy from our set
-      const adIdx = Math.floor(rng() * bbTextures.length);
-      const bbMat = new THREE.MeshStandardMaterial({
-        map: bbTextures[adIdx],
-        emissiveMap: bbTextures[adIdx],
-        emissive: new THREE.Color(1, 1, 1),
-        emissiveIntensity: 0.0,
-        roughness: 0.18, metalness: 0.55, side: THREE.DoubleSide
-      });
-
-      const bbMesh = new THREE.Mesh(new THREE.PlaneGeometry(bbW, bbH), bbMat);
-      bbMesh.position.set(
-        tallX + (face===1?push:face===3?-push:0),
-        bbY,
-        tallZ + (face===0?push:face===2?-push:0)
-      );
-      bbMesh.rotation.y = face * (Math.PI/2);
-      scene.add(bbMesh);
-
-      // Metal frame + pole
-      const fm = new THREE.Mesh(new THREE.BoxGeometry(bbW+0.9,bbH+0.9,0.28), matFrame);
-      fm.position.copy(bbMesh.position); fm.rotation.copy(bbMesh.rotation);
-      scene.add(fm);
-      const pm = new THREE.Mesh(new THREE.CylinderGeometry(0.18,0.18,bbH*0.5+2,8), matFrame);
-      pm.position.set(tallX, tallH+(bbH*0.5+2)*0.5, tallZ);
-      scene.add(pm);
-
-      // Glow sprite — additive blend, scales with emissive
-      const glowMat = new THREE.SpriteMaterial({
-        map: glowTex, blending: THREE.AdditiveBlending,
-        transparent: true, depthWrite: false, opacity: 0
-      });
-      const glow = new THREE.Sprite(glowMat);
-      glow.position.set(tallX, bbY, tallZ);
-      glow.scale.set(bbW*4, bbH*4, 1);
-      scene.add(glow);
-
-      // Point light (max 32 to stay within GPU limits)
-      let pl = null;
-      if (bbLights < 32) {
-        pl = new THREE.PointLight(0xF5365C, 0, 55, 2.0);
-        pl.position.set(tallX, bbY-bbH*0.2, tallZ);
-        scene.add(pl);
-        bbLights++;
-      }
-
-      billboards.push({ mat:bbMat, glow:glowMat, light:pl, targetInt:0, activateAt:rng() });
-    }
-  }
+  screens.push({
+    mesh, mat,
+    activateAt: rnd() * 0.5,
+    pos:        new THREE.Vector3(sx, sy, sz),
+    lit:        false,
+  });
 }
 
-/* ═══ CAMERA KEYFRAMES ═══════════════════════════════════════
-   [progress, posX,posY,posZ,  lookX,lookY,lookZ]
-   NOTE: camera starts OUTSIDE the city (z=230) looking at the
-   skyline — never a top-down view.                           */
-const KF = [
-  [0.00,    0,  72, 230,    0, 24,   0],  // AERIAL from south, full skyline
-  [0.20,  110,  55, 160,    0, 20,   0],  // bank around the east side
-  [0.42,   38,  28, 110,    0, 20,   0],  // descending, mid-city
-  [0.62,   18,  22,  80,    0, 20,   0],  // street-level pull — city all around
-  [0.82,  -95,  52, -48,    0, 26,   5],  // sweeping panoramic wide shot
-  [1.00,    0,  68, 200,    0, 14,   0],  // final pullback — full lit city
+/* ──────────────────────────────────────────────────────────────────
+   ADCENTRAL NODE
+──────────────────────────────────────────────────────────────────── */
+const NODE_POS  = new THREE.Vector3(22, 18, 0);
+const nodeGroup = new THREE.Group();
+nodeGroup.position.copy(NODE_POS);
+scene.add(nodeGroup);
+
+/* Outer rotating ring */
+const torusMat = new THREE.MeshBasicMaterial({ color: 0xFF3355, transparent: true, opacity: 0 });
+const torus    = new THREE.Mesh(new THREE.TorusGeometry(5.2, 0.28, 8, 36), torusMat);
+torus.rotation.x = Math.PI / 2;
+nodeGroup.add(torus);
+
+/* Inner tilted ring */
+const tor2Mat = new THREE.MeshBasicMaterial({ color: 0xFF3355, transparent: true, opacity: 0 });
+const torus2  = new THREE.Mesh(new THREE.TorusGeometry(5.2, 0.12, 6, 36), tor2Mat);
+torus2.rotation.x = Math.PI / 4;
+nodeGroup.add(torus2);
+
+/* Core platform */
+const coreMat = new THREE.MeshStandardMaterial({
+  color: 0x0a0a1e, emissive: 0xFF3355, emissiveIntensity: 0,
+  roughness: 0.6, metalness: 0.5, transparent: true, opacity: 0,
+});
+nodeGroup.add(new THREE.Mesh(new THREE.BoxGeometry(6, 6, 0.5), coreMat));
+
+/* Logo plane — logo.png, doubled size, correct 340:88 aspect ratio */
+const logoTex  = new THREE.TextureLoader().load('assets/images/logo.png');
+logoTex.colorSpace = THREE.SRGBColorSpace;
+const logoPMat = new THREE.MeshBasicMaterial({ map: logoTex, transparent: true, opacity: 0, depthWrite: false });
+/* 340:88 ≈ 3.864:1 — at width 16 → height = 16/3.864 = 4.14 */
+const logoPl   = new THREE.Mesh(new THREE.PlaneGeometry(16, 4.14), logoPMat);
+logoPl.position.z = 0.4;
+nodeGroup.add(logoPl);
+
+/* Glow sprite */
+function mkGlowTex(hex) {
+  const cv = document.createElement('canvas');
+  cv.width = cv.height = 128;
+  const ctx = cv.getContext('2d');
+  const g   = ctx.createRadialGradient(64,64,0,64,64,64);
+  g.addColorStop(0,   hex+'cc');
+  g.addColorStop(.32, hex+'44');
+  g.addColorStop(1,   hex+'00');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 128, 128);
+  return new THREE.CanvasTexture(cv);
+}
+const glowMat = new THREE.SpriteMaterial({
+  map: mkGlowTex('#ff3355'), blending: THREE.AdditiveBlending,
+  transparent: true, depthWrite: false, opacity: 0,
+});
+const glowSpr = new THREE.Sprite(glowMat);
+glowSpr.scale.set(34, 34, 1);
+nodeGroup.add(glowSpr);
+
+/* ──────────────────────────────────────────────────────────────────
+   CONNECTION LINES & TRAVELING PULSES
+──────────────────────────────────────────────────────────────────── */
+const conns = [];
+
+function addConn(i) {
+  const s = screens[i];
+  if (!s) return;
+
+  const linMat = new THREE.LineBasicMaterial({
+    color: 0xFF3355, transparent: true, opacity: 0, depthWrite: false,
+  });
+  const line = new THREE.Line(
+    new THREE.BufferGeometry().setFromPoints([NODE_POS.clone(), s.pos.clone()]),
+    linMat
+  );
+  scene.add(line);
+
+  const pulMat = new THREE.MeshBasicMaterial({ color: 0xFF7799, transparent: true, opacity: 0 });
+  const pulse  = new THREE.Mesh(new THREE.SphereGeometry(0.22, 6, 6), pulMat);
+  scene.add(pulse);
+
+  conns.push({ line, linMat, pulse, pulMat, s, t: rnd() });
+}
+
+for (let i = 0; i < Math.min(N_CONN, screens.length); i++) addConn(i);
+
+/* ──────────────────────────────────────────────────────────────────
+   CAMERA PATH — CatmullRomCurve3
+──────────────────────────────────────────────────────────────────── */
+const posCurve = new THREE.CatmullRomCurve3([
+  new THREE.Vector3(  5,  75,  95),  /* 0.00 – aerial south         */
+  new THREE.Vector3( 90,  55,  30),  /* 0.17 – banking east         */
+  new THREE.Vector3( 48,  34, -20),  /* 0.33 – mid-city descent     */
+  new THREE.Vector3( 22,  24,  24),  /* 0.50 – near node            */
+  new THREE.Vector3( -6,  30, -18),  /* 0.62 – proof angle          */
+  new THREE.Vector3(-78,  50,  28),  /* 0.78 – wide panoramic       */
+  new THREE.Vector3(  0,  82,  98),  /* 1.00 – final pullback       */
+], false, 'catmullrom', 0.5);
+
+const lkCurve = new THREE.CatmullRomCurve3([
+  new THREE.Vector3(  0,  8,   0),   /* 0.00 */
+  new THREE.Vector3( 14, 16,  -8),   /* 0.17 */
+  new THREE.Vector3( 22, 16,   0),   /* 0.33 */
+  new THREE.Vector3( 22, 18,   0),   /* 0.50 – node */
+  new THREE.Vector3( 22, 18,   0),   /* 0.62 – node */
+  new THREE.Vector3(  0, 14,   0),   /* 0.78 */
+  new THREE.Vector3(  0,  6,   0),   /* 1.00 */
+], false, 'catmullrom', 0.5);
+
+let camP  = new THREE.Vector3(5, 75, 95);
+let lookP = new THREE.Vector3(0,  8,  0);
+
+/* ──────────────────────────────────────────────────────────────────
+   CHAPTER ELEMENTS
+──────────────────────────────────────────────────────────────────── */
+const CHAPS = [
+  { el: document.getElementById('ch0'), start: 0.00, end: 0.20 },
+  { el: document.getElementById('ch1'), start: 0.20, end: 0.40 },
+  { el: document.getElementById('ch2'), start: 0.40, end: 0.62 },
+  { el: document.getElementById('ch3'), start: 0.62, end: 0.80 },
+  { el: document.getElementById('ch4'), start: 0.80, end: 0.95 },
 ];
 
-const ss = t => t*t*(3-2*t);   // smooth-step
-function camAt(p) {
-  let a=KF[0], b=KF[KF.length-1];
-  for(let i=0;i<KF.length-1;i++) if(p>=KF[i][0]&&p<=KF[i+1][0]){a=KF[i];b=KF[i+1];break;}
-  const t = b[0]===a[0] ? 0 : ss((p-a[0])/(b[0]-a[0]));
-  return {
-    pos: new THREE.Vector3(a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t, a[3]+(b[3]-a[3])*t),
-    tgt: new THREE.Vector3(a[4]+(b[4]-a[4])*t, a[5]+(b[5]-a[5])*t, a[6]+(b[6]-a[6])*t)
-  };
-}
-
-/* ═══ SCROLL LOGIC ══════════════════════════════════════════ */
-const storyEl = document.getElementById('storyScroll');
-const pbarEl  = document.getElementById('pbar');
-const hintEl  = document.getElementById('scrollHint');
-const dotsEl  = document.getElementById('chDots');
-const dots    = [...document.querySelectorAll('.ch-dot')];
-const chs     = [0,1,2,3,4].map(i=>document.getElementById('ch'+i));
-const WINS    = [[0,.17],[.20,.37],[.40,.57],[.60,.77],[.80,.94]];
-let scrollP   = 0;
+/* ──────────────────────────────────────────────────────────────────
+   SCROLL
+──────────────────────────────────────────────────────────────────── */
+let scrollP = 0;
+let rawY    = 0;
+const storyEl = document.getElementById('story');
+const ctaEl   = document.getElementById('cta-section');
 
 function onScroll() {
-  const sh = storyEl.offsetHeight;
-  if (!sh) return;
-  const raw  = window.scrollY;
-  const past = raw > sh - H * 0.45;   // hide overlays before CTA enters viewport
-  scrollP    = Math.min(1, raw / sh);
-
-  dotsEl.style.opacity = past ? '0' : '1';
-  dotsEl.style.pointerEvents = past ? 'none' : '';
-  pbarEl.style.width = past ? '0' : (scrollP*100)+'%';
-  if (past) { chs.forEach(c=>c.classList.remove('active')); return; }
-  if (raw > 60) hintEl.classList.add('gone');
-
-  WINS.forEach((w,ci) => {
-    const on = scrollP>=w[0] && scrollP<=w[1];
-    chs[ci].classList.toggle('active', on);
-    dots[ci].classList.toggle('on', on);
-  });
-
-  let lit = 0;
-  billboards.forEach(bb => {
-    bb.targetInt = scrollP >= (0.20 + bb.activateAt*0.58) ? 1 : 0;
-    if (bb.targetInt > 0.5) lit++;
-  });
-  cityGlow.intensity = (lit / Math.max(1, billboards.length)) * 0.20;
+  rawY    = window.scrollY;
+  scrollP = Math.min(1, rawY / storyEl.offsetHeight);
 }
-window.addEventListener('scroll', onScroll, { passive:true });
+window.addEventListener('scroll', onScroll, { passive: true });
 
-dots.forEach((d,i) => d.addEventListener('click', () => {
-  window.scrollTo({ top:(WINS[i][0]+0.02)*storyEl.offsetHeight, behavior:'smooth' });
-}));
+/* ──────────────────────────────────────────────────────────────────
+   UI ELEMENTS
+──────────────────────────────────────────────────────────────────── */
+const progFill    = document.getElementById('prog-fill');
+const scrollHint  = document.getElementById('scroll-hint');
+const reportCards = document.getElementById('report-cards');
 
-/* ═══ CURSOR TILT ═══════════════════════════════════════════ */
-let mx=0, my=0, tx=0, ty=0;
-window.addEventListener('mousemove', e => {
-  mx = (e.clientX/W)-0.5; my = (e.clientY/H)-0.5;
-}, { passive:true });
+/* ──────────────────────────────────────────────────────────────────
+   ANIMATION
+──────────────────────────────────────────────────────────────────── */
+let paused = false;
+document.addEventListener('visibilitychange', () => { paused = document.hidden; });
 
-/* ═══ RENDER LOOP ═══════════════════════════════════════════ */
-const camPos = new THREE.Vector3(0, 72, 230);
-const camTgt = new THREE.Vector3(0, 24, 0);
+let t = 0;
 
-function animate() {
-  requestAnimationFrame(animate);
-  const t = Date.now() / 1000;
+function tick() {
+  requestAnimationFrame(tick);
+  if (paused || !renderer) return;
+  t += 0.0165;
 
-  // cursor tilt
-  tx += (mx*12 - tx) * 0.042;
-  ty += (my* 6 - ty) * 0.042;
+  /* Camera */
+  if (!REDUCED) {
+    camP.lerp(posCurve.getPoint(scrollP), 0.075);
+    lookP.lerp(lkCurve.getPoint(scrollP), 0.075);
+    camera.position.copy(camP);
+    camera.lookAt(lookP);
+  }
 
-  // camera lerp — 0.10 = responsive but smooth
-  const kf = camAt(scrollP);
-  camPos.lerp(kf.pos, 0.10);
-  camTgt.lerp(kf.tgt, 0.10);
-  camera.position.set(camPos.x+tx, camPos.y-ty, camPos.z);
-  camera.lookAt(camTgt);
+  /* UI */
+  scrollHint.classList.toggle('hidden', rawY > 90);
+  progFill.style.height = (scrollP * 100) + '%';
 
-  // billboard emissive + pulse
-  billboards.forEach((bb, i) => {
-    bb.mat.emissiveIntensity += (bb.targetInt - bb.mat.emissiveIntensity) * 0.04;
-    const ei = bb.mat.emissiveIntensity;
-    if (bb.glow) bb.glow.opacity = ei * (0.70 + Math.sin(t*1.3+i*0.7)*0.18);
-    if (bb.light) bb.light.intensity = ei * (2.0 + Math.sin(t*1.5+i*0.85)*0.4) * 2.4;
+  /* CTA overlap detection */
+  const ctaIn = ctaEl.getBoundingClientRect().top < window.innerHeight * 0.62;
+
+  /* Chapter overlays */
+  CHAPS.forEach(c => {
+    const show = !ctaIn && scrollP >= c.start && scrollP < c.end;
+    if (c.el) c.el.classList.toggle('active', show);
+  });
+
+  /* Report cards – visible during Chapter 3 */
+  reportCards.classList.toggle('visible', !ctaIn && scrollP >= 0.62 && scrollP < 0.80);
+
+  /* Screen activation */
+  screens.forEach(s => {
+    const active  = scrollP >= 0.20 + s.activateAt * 0.50;
+    s.lit         = active;
+    const target  = active ? 1.72 : 0.016;
+    const cur     = s.mat.color.r;
+    s.mat.color.setRGB(
+      cur + (target - cur) * 0.055,
+      cur + (target - cur) * 0.055,
+      cur + (target - cur) * 0.055
+    );
+  });
+
+  /* Node */
+  const nVis = scrollP >= 0.38;
+  const nOp  = nVis ? Math.min(1, (scrollP - 0.38) / 0.14) : 0;
+  const gPulse = nOp * (.35 + .18 * Math.sin(t * 1.9));
+
+  torusMat.opacity          = nOp * 0.85;
+  tor2Mat.opacity           = nOp * 0.45;
+  coreMat.opacity           = nOp * 0.92;
+  coreMat.emissiveIntensity = nOp * 0.18;
+  logoPMat.opacity          = nOp;
+  glowMat.opacity           = gPulse;
+
+  torus.rotation.z  = t * 0.38;
+  torus2.rotation.y = t * 0.22;
+  nodeGroup.rotation.y = Math.sin(t * 0.3) * 0.04;
+
+  /* Connections + pulses */
+  const connVis = scrollP >= 0.40;
+  conns.forEach((c, i) => {
+    const want = (connVis && c.s.lit) ? 0.2 + 0.08 * Math.sin(t * 1.1 + i * 0.62) : 0;
+    c.linMat.opacity += (want - c.linMat.opacity) * 0.045;
+
+    c.t += 0.009;
+    if (c.t > 1) c.t -= 1;
+    if (connVis && c.s.lit) {
+      c.pulse.position.lerpVectors(NODE_POS, c.s.pos, c.t);
+      c.pulMat.opacity = 0.9 * Math.sin(c.t * Math.PI);
+    } else {
+      c.pulMat.opacity = 0;
+    }
   });
 
   composer.render();
 }
 
+/* ──────────────────────────────────────────────────────────────────
+   RESIZE
+──────────────────────────────────────────────────────────────────── */
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  composer.setSize(window.innerWidth, window.innerHeight);
+});
+
+/* ──────────────────────────────────────────────────────────────────
+   KICK OFF
+──────────────────────────────────────────────────────────────────── */
 onScroll();
-animate();
+tick();
 </script>
 </body>
 </html>
