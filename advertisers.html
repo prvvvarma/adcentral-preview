@@ -10,7 +10,7 @@
   <style>
 
   /* ─────────────────────────────────────────────────────────────
-     DESIGN TOKENS  (identical to index.html)
+     DESIGN TOKENS
   ───────────────────────────────────────────────────────────── */
   :root {
     --red:        #F5365C;
@@ -18,7 +18,6 @@
     --red-tint:   #FFF0F3;
     --red-tint-2: #FFDDE4;
     --ink:        #0F1117;
-    --ink-2:      #1E2330;
     --body:       #374151;
     --muted:      #6B7280;
     --subtle:     #9CA3AF;
@@ -38,7 +37,6 @@
     --text-lg:   1.125rem;
     --text-xl:   1.3rem;
     --text-2xl:  1.625rem;
-    --text-3xl:  2.1rem;
     --text-4xl:  2.75rem;
     --text-5xl:  3.5rem;
     --sp-1:4px;  --sp-2:8px;   --sp-3:12px;  --sp-4:16px;
@@ -58,13 +56,7 @@
   ───────────────────────────────────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html  { scroll-behavior: smooth; font-size: 16px; }
-  body  {
-    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    background: var(--white);
-    color: var(--ink);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
+  body  { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; background: var(--white); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a   { color: inherit; text-decoration: none; }
   img { display: block; max-width: 100%; }
   ul  { list-style: none; }
@@ -72,10 +64,9 @@
   /* ─────────────────────────────────────────────────────────────
      LAYOUT
   ───────────────────────────────────────────────────────────── */
-  .wrap         { width: min(100% - var(--gutter)*2, var(--container)); margin-inline: auto; }
-  .section      { padding: var(--sp-24) 0; }
-  .section-alt  { background: var(--surface-1); }
-  .section-alt2 { background: var(--surface-2); }
+  .wrap    { width: min(100% - var(--gutter)*2, var(--container)); margin-inline: auto; }
+  .section { padding: var(--sp-24) 0; }
+  .section-alt { background: var(--surface-1); }
 
   /* ─────────────────────────────────────────────────────────────
      TYPOGRAPHY
@@ -93,29 +84,21 @@
   h1 {
     font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
     font-size: clamp(2rem, 4.2vw, 3.5rem);
-    font-weight: 800; line-height: 1.10;
-    letter-spacing: -.028em; color: var(--ink);
+    font-weight: 800; line-height: 1.10; letter-spacing: -.028em; color: var(--ink);
   }
   h2 {
     font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
     font-size: clamp(1.5rem, 3.0vw, 2.75rem);
-    font-weight: 700; line-height: 1.14;
-    letter-spacing: -.022em; color: var(--ink);
+    font-weight: 700; line-height: 1.14; letter-spacing: -.022em; color: var(--ink);
   }
-  h3 {
-    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    font-size: var(--text-lg); font-weight: 700;
-    line-height: 1.30; letter-spacing: -.015em; color: var(--ink);
-  }
-  h4 { font-size: var(--text-base); font-weight: 700; line-height: 1.3; letter-spacing: -.008em; color: var(--ink); }
+  h3 { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; font-size: var(--text-lg); font-weight: 700; line-height: 1.30; letter-spacing: -.015em; color: var(--ink); }
   .lead    { font-size: clamp(var(--text-base), 1.6vw, var(--text-lg)); color: var(--muted); line-height: 1.78; }
-  .body-sm { font-size: var(--text-sm); color: var(--muted); line-height: 1.7; }
   .accent  { color: var(--red); }
 
   .section-header { max-width: 640px; margin-bottom: var(--sp-14); }
   .section-header.center { margin-inline: auto; text-align: center; }
   .section-header h2 { margin-bottom: var(--sp-3); }
-  .section-header .lead { margin-top: var(--sp-2); }
+  .section-header .lead { margin-top: var(--sp-3); }
 
   /* ─────────────────────────────────────────────────────────────
      BUTTONS
@@ -124,22 +107,17 @@
     display: inline-flex; align-items: center; justify-content: center;
     gap: var(--sp-2); border-radius: var(--r-sm); border: 1.5px solid transparent;
     font-family: inherit; font-weight: 600; cursor: pointer;
-    white-space: nowrap; transition: all 160ms ease;
-    text-decoration: none;
+    white-space: nowrap; transition: all 160ms ease; text-decoration: none;
   }
   .btn:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
   .btn:hover { transform: translateY(-1px); }
-  .btn-md { font-size: var(--text-sm);   padding: 10px 20px; min-height: 42px; }
-  .btn-lg { font-size: var(--text-base); padding: 13px 26px; min-height: 50px; }
-  .btn-sm { font-size: var(--text-sm);   padding: 8px 16px;  min-height: 36px; }
+  .btn-md  { font-size: var(--text-sm);   padding: 10px 20px; min-height: 42px; }
+  .btn-lg  { font-size: var(--text-base); padding: 13px 26px; min-height: 50px; }
 
   .btn-primary   { background: var(--red); color: #fff; box-shadow: 0 2px 10px rgba(245,54,92,.25); }
   .btn-primary:hover { background: var(--red-dark); box-shadow: 0 4px 18px rgba(245,54,92,.35); }
 
-  .btn-secondary {
-    background: var(--ink); border-color: var(--ink);
-    color: var(--white); box-shadow: var(--shadow-1);
-  }
+  .btn-secondary { background: var(--ink); border-color: var(--ink); color: var(--white); box-shadow: var(--shadow-1); }
   .btn-secondary:hover { background: #1a1f2e; border-color: #1a1f2e; box-shadow: var(--shadow-2); }
 
   .btn-ghost-brand { background: transparent; border-color: var(--red); color: var(--red); }
@@ -149,18 +127,16 @@
   .btn-outline:hover { border-color: #C8CDD8; box-shadow: var(--shadow-2); }
 
   /* ─────────────────────────────────────────────────────────────
-     IMAGE PLACEHOLDERS
+     PLACEHOLDERS
   ───────────────────────────────────────────────────────────── */
   .ph {
     position: relative; overflow: hidden;
-    border: 2px dashed var(--ph-border); border-radius: var(--r-lg);
+    border: 2px dashed var(--ph-border); border-radius: var(--r-xl);
     background: var(--ph-bg); display: grid; place-items: center;
   }
   .ph::before {
     content: ""; position: absolute; inset: 0;
-    background-image:
-      linear-gradient(45deg, var(--ph-line) 1px, transparent 1px),
-      linear-gradient(-45deg, var(--ph-line) 1px, transparent 1px);
+    background-image: linear-gradient(45deg, var(--ph-line) 1px, transparent 1px), linear-gradient(-45deg, var(--ph-line) 1px, transparent 1px);
     background-size: 24px 24px; opacity: .55;
   }
   .ph::after {
@@ -175,38 +151,14 @@
     border-radius: var(--r-sm); padding: var(--sp-3) var(--sp-5);
     max-width: 75%; text-align: center;
   }
-  .ph-icon  { color: var(--ph-label); opacity: .6; }
-  .ph-name  { font-size: var(--text-sm); font-weight: 700; color: var(--ph-label); letter-spacing: .02em; }
-  .ph-dim   { font-size: var(--text-xs); color: var(--subtle); font-weight: 500; }
-  .ph-hero  { min-height: 460px; border-radius: var(--r-xl); }
-  .ph-split { min-height: 420px; }
-  .ph-wide  { min-height: 360px; }
+  .ph-icon { color: var(--ph-label); opacity: .6; }
+  .ph-name { font-size: var(--text-sm); font-weight: 700; color: var(--ph-label); letter-spacing: .02em; }
+  .ph-dim  { font-size: var(--text-xs); color: var(--subtle); font-weight: 500; }
+  .ph-hero  { min-height: 460px; }
+  .ph-split { min-height: 400px; }
 
   /* ─────────────────────────────────────────────────────────────
-     CARDS & ICON BOX
-  ───────────────────────────────────────────────────────────── */
-  .card-flat {
-    background: var(--white); border: 1px solid var(--hairline);
-    border-radius: var(--r-lg); padding: var(--sp-7) var(--sp-6);
-    box-shadow: var(--shadow-1); transition: all 200ms ease;
-  }
-  .card-flat:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); }
-
-  .icon-box {
-    display: grid; place-items: center;
-    width: 44px; height: 44px; border-radius: 11px;
-    font-size: 20px; flex-shrink: 0; margin-bottom: var(--sp-5);
-  }
-  .ib-rose    { background: #FEE2E2; }
-  .ib-emerald { background: #D1FAE5; }
-  .ib-sky     { background: #E0F2FE; }
-  .ib-violet  { background: #EDE9FE; }
-  .ib-amber   { background: #FEF3C7; }
-  .ib-teal    { background: #CCFBF1; }
-  .ib-red     { background: var(--red-tint); }
-
-  /* ─────────────────────────────────────────────────────────────
-     NAVIGATION  (identical to index.html)
+     NAVIGATION
   ───────────────────────────────────────────────────────────── */
   .site-nav  { position: sticky; top: 0; z-index: 200; background: rgb(255,236,240); }
   .nav-inner { display: flex; align-items: center; min-height: 96px; gap: var(--sp-5); }
@@ -216,31 +168,25 @@
   .nav-links { display: flex; align-items: center; gap: 0; flex: none; margin-left: var(--sp-4); }
   .nav-item  { position: relative; }
   .nav-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 16px 20px; border: none; background: none;
-    color: var(--body); font: 500 var(--text-md) 'Inter', sans-serif;
-    border-radius: var(--r-sm); cursor: pointer;
-    transition: background 130ms, color 130ms;
+    display: inline-flex; align-items: center; gap: 6px; padding: 16px 20px;
+    border: none; background: none; color: var(--body);
+    font: 500 var(--text-md) 'Inter', sans-serif; border-radius: var(--r-sm);
+    cursor: pointer; transition: background 130ms, color 130ms;
   }
   .nav-btn::after { content:""; width:5px; height:5px; border-right:1.5px solid currentColor; border-bottom:1.5px solid currentColor; transform:rotate(45deg) translateY(-2px); opacity:.45; }
   .nav-btn:hover { background: var(--surface-2); color: var(--ink); }
+
   .nav-dropdown {
-    position: absolute; top: calc(100% + 8px); left: 0;
-    min-width: 190px; padding: 6px;
-    background: var(--white); border: 1px solid var(--hairline);
-    border-radius: var(--r-md); box-shadow: var(--shadow-3);
-    opacity: 0; pointer-events: none;
+    position: absolute; top: calc(100% + 8px); left: 0; min-width: 190px; padding: 6px;
+    background: var(--white); border: 1px solid var(--hairline); border-radius: var(--r-md);
+    box-shadow: var(--shadow-3); opacity: 0; pointer-events: none;
     transform: translateY(6px); transition: opacity 150ms, transform 150ms;
   }
   .nav-dropdown[hidden] { display: none; }
   .nav-item:hover .nav-dropdown, .nav-item.open .nav-dropdown { opacity:1; pointer-events:auto; transform:translateY(0); }
-  .nav-dropdown a {
-    display: block; padding: 9px 11px; border-radius: var(--r-sm);
-    font-size: var(--text-sm); font-weight: 500; color: var(--body);
-    transition: background 110ms, color 110ms;
-  }
+  .nav-dropdown a { display: block; padding: 9px 11px; border-radius: var(--r-sm); font-size: var(--text-sm); font-weight: 500; color: var(--body); transition: background 110ms, color 110ms; }
   .nav-dropdown a:hover { background: var(--surface-1); color: var(--ink); }
-  .nav-dropdown a.active-page { color: var(--red); font-weight: 600; background: var(--red-tint); }
+  .nav-dropdown a.current { color: var(--red); font-weight: 600; background: var(--red-tint); }
 
   .nav-right { display: flex; align-items: center; gap: var(--sp-2); margin-left: auto; }
   .nav-link-plain { font-size: var(--text-md); font-weight: 500; color: var(--body); padding: 16px 20px; border-radius: var(--r-sm); transition: color 130ms; }
@@ -260,15 +206,14 @@
     position: fixed; top: 80px; left: 0; right: 0; z-index: 199;
     background: rgba(255,236,240,0.97); backdrop-filter: blur(24px) saturate(1.6);
     -webkit-backdrop-filter: blur(24px) saturate(1.6);
-    border-bottom: 1px solid rgba(255,255,255,0.55);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.10);
+    border-bottom: 1px solid rgba(255,255,255,0.55); box-shadow: 0 16px 48px rgba(0,0,0,0.10);
     max-height: calc(100dvh - 80px); overflow-y: auto;
-    visibility: hidden; opacity: 0; pointer-events: none;
-    transform: translateY(-6px); transition: opacity 200ms ease, transform 200ms ease, visibility 0ms 200ms;
+    visibility: hidden; opacity: 0; pointer-events: none; transform: translateY(-6px);
+    transition: opacity 200ms ease, transform 200ms ease, visibility 0ms 200ms;
   }
-  .mobile-nav.open { visibility:visible; opacity:1; pointer-events:auto; transform:translateY(0); transition:opacity 200ms ease,transform 200ms ease,visibility 0ms; }
+  .mobile-nav.open { visibility:visible; opacity:1; pointer-events:auto; transform:translateY(0); transition:opacity 200ms ease, transform 200ms ease, visibility 0ms; }
   .mobile-nav-inner { padding: 16px 20px 28px; display: grid; gap: 8px; }
-  .mobile-group { background:rgba(255,255,255,0.55); border:1px solid rgba(255,255,255,0.85); border-radius:var(--r-md); overflow:hidden; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+  .mobile-group { background:rgba(255,255,255,0.55); border:1px solid rgba(255,255,255,0.85); border-radius:var(--r-md); overflow:hidden; }
   .mobile-acc { display:flex; width:100%; align-items:center; justify-content:space-between; border:none; background:transparent; color:var(--ink); padding:14px 16px; font:600 var(--text-sm) 'Inter',sans-serif; cursor:pointer; }
   .mobile-acc::after { content:""; width:7px; height:7px; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:rotate(45deg); opacity:.5; transition:transform 150ms; flex-shrink:0; }
   .mobile-acc[aria-expanded="true"]::after { transform:rotate(225deg); }
@@ -283,144 +228,84 @@
   ───────────────────────────────────────────────────────────── */
   .hero {
     padding: var(--sp-20) 0 var(--sp-16);
-    background: transparent; position: relative; overflow: hidden;
+    position: relative; overflow: hidden;
   }
   .hero::before {
-    content: "";
-    position: absolute; inset: 0;
+    content: ""; position: absolute; inset: 0;
     background:
       radial-gradient(ellipse 780px 500px at 110% 50%, rgba(245,54,92,.055) 0%, transparent 65%),
       radial-gradient(ellipse 400px 300px at -5% -10%, rgba(245,54,92,.04) 0%, transparent 55%);
     pointer-events: none;
   }
-  .hero-grid {
-    display: grid; grid-template-columns: 1fr 1.2fr;
-    gap: var(--sp-10); align-items: center; position: relative;
-  }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: var(--sp-12); align-items: center; position: relative; }
   .hero-copy h1 { margin-bottom: var(--sp-5); }
-  .hero-lead {
-    font-size: clamp(var(--text-base), 1.6vw, var(--text-lg));
-    color: var(--body); line-height: 1.78;
-    margin-bottom: var(--sp-8);
-  }
-  .hero-lead p + p { margin-top: var(--sp-3); }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-bottom: var(--sp-8); }
-  .hero-proof {
-    padding-top: var(--sp-6); border-top: 1px solid var(--hairline);
-    display: flex; flex-wrap: wrap; gap: var(--sp-4);
-  }
-  .hero-proof-item {
-    display: flex; align-items: center; gap: var(--sp-2);
-    font-size: var(--text-xs); font-weight: 700;
-    letter-spacing: .09em; text-transform: uppercase; color: var(--subtle);
-  }
-  .proof-dot { width:6px; height:6px; border-radius:50%; background:var(--red); flex-shrink:0; }
+  .hero-lead { font-size: clamp(var(--text-base), 1.6vw, var(--text-lg)); color: var(--body); line-height: 1.78; margin-bottom: var(--sp-8); }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
 
   /* ─────────────────────────────────────────────────────────────
-     § 2  WHY SECTION — 4-column feature grid
+     § 2  WHY — clean two-column text layout
   ───────────────────────────────────────────────────────────── */
-  .why-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5);
-    margin-top: var(--sp-6);
-  }
-  .why-card {
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-16); align-items: center; }
+  .why-copy h2 { margin-bottom: var(--sp-5); }
+  .why-copy p  { font-size: var(--text-base); color: var(--body); line-height: 1.78; }
+  .why-bullets { display: grid; gap: var(--sp-4); margin-top: var(--sp-7); }
+  .why-bullet  {
+    display: flex; align-items: flex-start; gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-5);
     background: var(--white); border: 1px solid var(--hairline);
-    border-radius: var(--r-lg); padding: var(--sp-7) var(--sp-6);
-    box-shadow: var(--shadow-1); transition: all 180ms ease;
-  }
-  .why-card:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); border-color: rgba(245,54,92,.18); }
-  .why-card h3 { font-size: var(--text-md); margin-bottom: var(--sp-2); }
-  .why-card p  { font-size: var(--text-sm); color: var(--muted); line-height: 1.65; }
-
-  /* Intro bullet strip above grid */
-  .why-intro-bullets {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: var(--sp-2) var(--sp-8);
-    margin: var(--sp-5) 0 var(--sp-10); max-width: 600px;
-  }
-  .why-bullet {
-    display: flex; align-items: baseline; gap: var(--sp-2);
+    border-radius: var(--r-lg); box-shadow: var(--shadow-1);
     font-size: var(--text-base); color: var(--body); line-height: 1.6;
+    transition: border-color 160ms, box-shadow 160ms;
   }
-  .why-bullet::before {
-    content: ""; display: block; flex-shrink: 0;
-    width: 5px; height: 5px; border-radius: 50%;
-    background: var(--red); margin-top: 8px;
+  .why-bullet:hover { border-color: rgba(245,54,92,.2); box-shadow: var(--shadow-2); }
+  .why-bullet-icon {
+    display: grid; place-items: center; flex-shrink: 0;
+    width: 36px; height: 36px; border-radius: var(--r-sm);
+    background: var(--red-tint); border: 1px solid var(--red-tint-2); font-size: 16px;
   }
 
   /* ─────────────────────────────────────────────────────────────
      § 3  VENUES — split layout
   ───────────────────────────────────────────────────────────── */
-  .split-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: var(--sp-16); align-items: center;
-  }
+  .split-grid      { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-16); align-items: center; }
   .split-grid.flip { direction: rtl; }
   .split-grid.flip > * { direction: ltr; }
 
-  .venue-tag-list {
-    display: flex; flex-wrap: wrap; gap: var(--sp-2); margin: var(--sp-6) 0 var(--sp-7);
-  }
+  .split-copy h2  { margin-bottom: var(--sp-5); }
+  .split-copy p   { font-size: var(--text-base); color: var(--body); line-height: 1.78; margin-bottom: var(--sp-6); }
+
+  .venue-tag-list { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-bottom: var(--sp-8); }
   .venue-tag {
     display: inline-flex; align-items: center; gap: 6px;
-    padding: 7px 13px; background: var(--white);
+    padding: 7px 14px; background: var(--white);
     border: 1px solid var(--hairline); border-radius: 999px;
     font-size: var(--text-sm); font-weight: 500; color: var(--ink);
     box-shadow: var(--shadow-1); transition: all 150ms;
   }
   .venue-tag:hover { border-color: rgba(245,54,92,.3); color: var(--red); background: var(--red-tint); transform: translateY(-1px); }
-  .venue-tag-icon { font-size: 14px; }
 
   /* ─────────────────────────────────────────────────────────────
-     § 4  CAMPAIGN SETUP — steps + image
+     § 4  REPORTING
   ───────────────────────────────────────────────────────────── */
-  .step-list { display: grid; gap: var(--sp-5); margin: var(--sp-6) 0 var(--sp-8); }
-  .step-row  { display: flex; gap: var(--sp-4); align-items: flex-start; }
-  .step-num  {
-    display: grid; place-items: center; flex-shrink: 0;
-    width: 34px; height: 34px; border-radius: var(--r-sm);
-    background: var(--red); color: #fff;
-    font-size: var(--text-xs); font-weight: 900;
-    box-shadow: 0 3px 10px rgba(245,54,92,.3);
-  }
-  .step-copy h4 { margin-bottom: 3px; }
-  .step-copy p  { font-size: var(--text-sm); color: var(--muted); line-height: 1.65; }
-
-  .closing-note {
-    font-size: var(--text-sm); color: var(--muted); line-height: 1.7;
-    padding: var(--sp-4) var(--sp-5);
-    background: var(--surface-1); border-left: 3px solid var(--red);
-    border-radius: 0 var(--r-sm) var(--r-sm) 0;
-    margin-top: var(--sp-4);
-  }
-
-  /* ─────────────────────────────────────────────────────────────
-     § 5  REPORTING — split layout with mini dashboard
-  ───────────────────────────────────────────────────────────── */
-  .report-bullets { display: grid; gap: var(--sp-3); margin: var(--sp-5) 0 var(--sp-7); }
-  .report-bullet  {
+  .track-list { display: grid; gap: var(--sp-3); margin: var(--sp-6) 0 var(--sp-7); }
+  .track-item {
     display: flex; align-items: center; gap: var(--sp-3);
     font-size: var(--text-base); color: var(--body);
   }
-  .rb-icon {
-    display: grid; place-items: center; flex-shrink: 0;
-    width: 32px; height: 32px; border-radius: var(--r-sm);
-    background: var(--red-tint); border: 1px solid var(--red-tint-2);
+  .track-dot { width:7px; height:7px; border-radius:50%; background:var(--red); flex-shrink:0; }
+  .track-note {
+    margin-top: var(--sp-5); padding: var(--sp-4) var(--sp-5);
+    background: var(--surface-1); border-left: 3px solid var(--red);
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    font-size: var(--text-sm); color: var(--muted); line-height: 1.7;
   }
 
-  /* mini reporting dashboard mockup */
-  .report-dash {
-    background: var(--white); border: 1px solid var(--hairline);
-    border-radius: var(--r-xl);
-    box-shadow: var(--shadow-3), 0 20px 60px rgba(0,0,0,.06);
-    overflow: hidden; user-select: none;
-  }
+  /* reporting dashboard mockup */
+  .report-dash { background: var(--white); border: 1px solid var(--hairline); border-radius: var(--r-xl); box-shadow: var(--shadow-3), 0 20px 60px rgba(0,0,0,.06); overflow: hidden; user-select: none; }
   .rd-topbar { background: var(--surface-1); border-bottom: 1px solid var(--hairline); padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
   .rd-dots { display: flex; gap: 5px; }
   .rd-dot { width: 9px; height: 9px; border-radius: 50%; }
-  .rd-dot-r { background: #fc5c65; }
-  .rd-dot-y { background: #fed330; }
-  .rd-dot-g { background: #26de81; }
+  .rd-dot-r { background: #fc5c65; } .rd-dot-y { background: #fed330; } .rd-dot-g { background: #26de81; }
   .rd-title { flex: 1; text-align: center; font-size: 9px; font-weight: 600; color: var(--muted); letter-spacing: .03em; }
   .rd-body { padding: 14px 16px; }
   .rd-slbl { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
@@ -429,14 +314,14 @@
   .rd-stat-val { font-size: 15px; font-weight: 900; letter-spacing: -.02em; color: var(--ink); line-height: 1; margin-bottom: 3px; }
   .rd-stat-lbl { font-size: 8px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
   .rd-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-  .rd-bar-lbl { font-size: 9px; font-weight: 600; color: var(--body); width: 84px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rd-bar-lbl { font-size: 9px; font-weight: 600; color: var(--body); width: 72px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .rd-bar-track { flex: 1; height: 8px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
-  .rd-bar-fill  { height: 100%; border-radius: 4px; background: var(--red); opacity: .8; }
-  .rd-bar-num { font-size: 9px; font-weight: 700; color: var(--ink); width: 32px; text-align: right; flex-shrink: 0; }
+  .rd-bar-fill  { height: 100%; border-radius: 4px; background: var(--red); }
+  .rd-bar-num { font-size: 9px; font-weight: 700; color: var(--ink); width: 30px; text-align: right; flex-shrink: 0; }
   .rd-divider { height: 1px; background: var(--hairline); margin: 12px 0; }
-  .rd-thead { display: grid; grid-template-columns: 1fr 64px 50px; gap: 6px; padding: 0 6px 5px; }
-  .rd-th    { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-  .rd-trow  { display: grid; grid-template-columns: 1fr 64px 50px; gap: 6px; padding: 6px 6px; border-radius: var(--r-sm); }
+  .rd-thead { display: grid; grid-template-columns: 1fr 60px 52px; gap: 6px; padding: 0 6px 5px; }
+  .rd-th { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .rd-trow { display: grid; grid-template-columns: 1fr 60px 52px; gap: 6px; padding: 6px; border-radius: var(--r-sm); }
   .rd-trow:nth-child(odd) { background: var(--surface-1); }
   .rd-td { font-size: 9px; font-weight: 500; color: var(--body); display: flex; align-items: center; }
   .rd-td.bold { font-weight: 700; color: var(--ink); }
@@ -445,26 +330,7 @@
   .rd-status.done { background: var(--surface-2); color: var(--muted); }
 
   /* ─────────────────────────────────────────────────────────────
-     § 6  USE CASES grid
-  ───────────────────────────────────────────────────────────── */
-  .use-cases-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5);
-    margin-top: var(--sp-6);
-  }
-  .use-case-card {
-    background: var(--white); border: 1.5px solid var(--hairline);
-    border-radius: var(--r-xl); padding: var(--sp-7) var(--sp-6);
-    box-shadow: var(--shadow-1); transition: all 200ms ease;
-  }
-  .use-case-card:hover { border-color: rgba(245,54,92,.25); box-shadow: var(--shadow-3); transform: translateY(-3px); }
-  .use-case-card .uc-icon { font-size: 28px; margin-bottom: var(--sp-4); }
-  .use-case-card h3 { font-size: var(--text-md); font-weight: 700; margin-bottom: var(--sp-2); color: var(--ink); }
-  .use-case-card p  { font-size: var(--text-sm); color: var(--muted); line-height: 1.65; }
-  /* 5th card — bump to full row span or centre last row */
-  .use-case-card.wide { grid-column: span 1; }
-
-  /* ─────────────────────────────────────────────────────────────
-     § 7  FINAL CTA
+     § 5  FINAL CTA
   ───────────────────────────────────────────────────────────── */
   .final-cta-section { padding: var(--sp-20) 0; }
   .final-cta-card {
@@ -473,41 +339,23 @@
       radial-gradient(ellipse 700px 380px at 80% 50%, rgba(245,54,92,.045) 0%, transparent 65%),
       var(--surface-1);
     padding: var(--sp-16) var(--sp-14);
-    display: grid; grid-template-columns: 1fr 1fr;
-    align-items: center; gap: var(--sp-16);
+    text-align: center;
   }
-  .cta-copy h2    { margin-bottom: var(--sp-3); }
-  .cta-copy .lead { margin-bottom: var(--sp-8); color: var(--body); }
-  .cta-actions    { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
-  .cta-right-aside {
-    display: flex; flex-direction: column; gap: var(--sp-5);
-  }
-  .cta-aside-item {
-    display: flex; align-items: flex-start; gap: var(--sp-4);
-    padding: var(--sp-5); background: var(--white);
-    border: 1px solid var(--hairline); border-radius: var(--r-lg);
-    box-shadow: var(--shadow-1);
-  }
-  .cta-aside-icon {
-    width: 40px; height: 40px; flex-shrink: 0;
-    display: grid; place-items: center;
-    background: var(--red-tint); border: 1px solid var(--red-tint-2);
-    border-radius: var(--r-md); font-size: 18px;
-  }
-  .cta-aside-item h4 { font-size: var(--text-sm); margin-bottom: 3px; }
-  .cta-aside-item p  { font-size: var(--text-xs); color: var(--muted); line-height: 1.6; }
+  .final-cta-card h2  { margin-bottom: var(--sp-3); }
+  .final-cta-card .lead { margin-bottom: var(--sp-8); max-width: 480px; margin-inline: auto; }
+  .cta-actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: center; }
 
   /* ─────────────────────────────────────────────────────────────
      FOOTER
   ───────────────────────────────────────────────────────────── */
-  .footer { background: transparent; border-top: none; padding: var(--sp-14) 0 var(--sp-7); }
+  .footer { padding: var(--sp-14) 0 var(--sp-7); }
   .footer-grid {
     display: grid;
     grid-template-columns: minmax(220px, 1.6fr) repeat(3, minmax(110px, .6fr));
     gap: var(--sp-10); margin-bottom: var(--sp-12);
   }
   .footer-brand p { font-size: var(--text-sm); color: var(--muted); line-height: 1.78; max-width: 270px; margin: var(--sp-4) 0 var(--sp-5); }
-  .social-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-2); }
+  .social-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
   .social-btn { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--hairline); border-radius: var(--r-sm); background: var(--white); color: var(--muted); font-size: 13px; transition: all 140ms; }
   .social-btn:hover { border-color: var(--red); color: var(--red); background: var(--red-tint); }
   .footer-col h5 { font-size: var(--text-xs); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); margin-bottom: var(--sp-4); }
@@ -531,30 +379,22 @@
   @media (max-width: 1024px) {
     .nav-links, .nav-right { display: none; }
     .nav-burger { display: inline-flex; margin-left: auto; }
-    .hero-grid, .split-grid, .split-grid.flip, .final-cta-card { grid-template-columns: 1fr; direction: ltr; gap: var(--sp-10); }
-    .why-grid { grid-template-columns: repeat(2, 1fr); }
-    .use-cases-grid { grid-template-columns: repeat(2, 1fr); }
-    .ph-hero { min-height: 300px; }
-    .ph-split { min-height: 300px; }
-    .final-cta-card { padding: var(--sp-10) var(--sp-8); }
+    .hero-grid, .why-grid, .split-grid, .split-grid.flip { grid-template-columns: 1fr; direction: ltr; gap: var(--sp-10); }
+    .ph-hero, .ph-split { min-height: 300px; }
     .hero { padding: var(--sp-14) 0; }
+    .final-cta-card { padding: var(--sp-10) var(--sp-8); }
   }
-
   @media (max-width: 768px) {
-    .why-grid { grid-template-columns: 1fr; }
-    .use-cases-grid { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: repeat(2, 1fr); }
-    .why-intro-bullets { grid-template-columns: 1fr; }
     h2 { font-size: clamp(1.6rem, 7vw, 2.3rem); }
   }
-
   @media (max-width: 560px) {
     :root { --gutter: 16px; }
     .section { padding: var(--sp-16) 0; }
     .hero { padding: var(--sp-12) 0; }
     h1 { font-size: clamp(2rem, 10.5vw, 2.7rem); }
-    .hero-actions, .cta-actions { flex-direction: column; }
-    .hero-actions .btn, .cta-actions .btn { width: 100%; justify-content: center; }
+    .hero-actions, .cta-actions { flex-direction: column; align-items: stretch; }
+    .hero-actions .btn, .cta-actions .btn { justify-content: center; }
     .footer-grid { grid-template-columns: 1fr; }
     .final-cta-card { padding: var(--sp-8) var(--sp-5); }
   }
@@ -577,7 +417,7 @@
       <div class="nav-item">
         <button class="nav-btn" type="button" aria-expanded="false" aria-haspopup="true">Solutions</button>
         <div class="nav-dropdown" role="menu" hidden>
-          <a href="advertisers.html" role="menuitem" class="active-page">Advertisers</a>
+          <a href="advertisers.html" role="menuitem" class="current">Advertisers</a>
           <a href="#"                role="menuitem">Screen Owners</a>
           <a href="#"                role="menuitem">Partners</a>
         </div>
@@ -605,12 +445,12 @@
       <a href="#final-cta" class="btn btn-ghost-brand btn-md">Book a Demo</a>
     </div>
 
-    <button class="nav-burger" aria-label="Open menu" aria-controls="mobile-nav-panel" aria-expanded="false">
+    <button class="nav-burger" aria-label="Open menu" aria-controls="mob-nav" aria-expanded="false">
       <span class="burger-icon" aria-hidden="true"></span>
     </button>
   </div>
 
-  <nav id="mobile-nav-panel" class="mobile-nav" aria-label="Mobile navigation">
+  <nav id="mob-nav" class="mobile-nav" aria-label="Mobile navigation">
     <div class="mobile-nav-inner">
       <div class="mobile-group">
         <button class="mobile-acc" type="button" aria-expanded="false">Solutions</button>
@@ -653,14 +493,10 @@
   <div class="wrap">
     <div class="hero-grid">
 
-      <!-- Copy -->
       <div class="hero-copy">
         <div class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>For Advertisers</div>
-        <h1>Show your ad<br>in <span class="accent">busy places</span></h1>
-        <div class="hero-lead">
-          <p>AdCentral helps advertisers place approved ads on connected digital screens across cafes, clinics, gyms, hotels, retail spaces, lounges, malls, offices, and other high-footfall venues.</p>
-          <p>Instead of contacting screen owners one by one, plan your campaign from one platform and see exactly where your ad played.</p>
-        </div>
+        <h1>Show your ad in<br><span class="accent">busy places</span></h1>
+        <p class="hero-lead">Reach people through connected digital screens in cafes, clinics, gyms, hotels, retail spaces, lounges, malls, offices, and other high-footfall venues.</p>
         <div class="hero-actions">
           <a href="#final-cta" class="btn btn-primary btn-lg">
             Plan a Campaign
@@ -668,20 +504,14 @@
           </a>
           <a href="#final-cta" class="btn btn-secondary btn-lg">Talk to AdCentral</a>
         </div>
-        <div class="hero-proof">
-          <div class="hero-proof-item"><span class="proof-dot" aria-hidden="true"></span>One platform</div>
-          <div class="hero-proof-item"><span class="proof-dot" aria-hidden="true"></span>Approved venues</div>
-          <div class="hero-proof-item"><span class="proof-dot" aria-hidden="true"></span>Clear reporting</div>
-        </div>
       </div>
 
-      <!-- Visual -->
-      <div class="hero-visual">
-        <div class="ph ph-hero" role="img" aria-label="Image Placeholder 1 — Advertiser hero visual">
+      <div>
+        <div class="ph ph-hero" role="img" aria-label="Image Placeholder — Advertiser hero visual">
           <div class="ph-inner">
-            <svg class="ph-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-            <span class="ph-name">Image Placeholder 1</span>
-            <span class="ph-dim">Advertiser hero visual</span>
+            <svg class="ph-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            <span class="ph-name">Advertiser hero visual</span>
+            <span class="ph-dim">Replace with final image</span>
           </div>
         </div>
       </div>
@@ -692,86 +522,72 @@
 
 
 <!-- ═══════════════════════════════════════════════════════════════
-     § 2  WHY ADVERTISERS USE ADCENTRAL
+     § 2  WHY ADCENTRAL
 ═══════════════════════════════════════════════════════════════ -->
 <section class="section section-alt" id="why" aria-labelledby="why-title">
   <div class="wrap">
-    <div class="section-header sr">
-      <div class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Why AdCentral</div>
-      <h2 id="why-title">Why advertisers use AdCentral</h2>
-      <p class="lead">Finding the right venue screens can be slow and manual. AdCentral gives you a simpler way to reach the right places.</p>
-    </div>
-
-    <div class="why-intro-bullets sr">
-      <div class="why-bullet">Choose where your ad should appear</div>
-      <div class="why-bullet">Submit your creative for approval</div>
-      <div class="why-bullet">Run campaigns across connected screens</div>
-      <div class="why-bullet">View campaign delivery in one dashboard</div>
-    </div>
-
     <div class="why-grid">
-      <div class="why-card sr">
-        <div class="icon-box ib-rose" aria-hidden="true">🎯</div>
-        <h3>Choose your venues</h3>
-        <p>Select venue types and locations that match where your audience already spends time — cafes, clinics, gyms, malls, and more.</p>
+
+      <div class="why-copy sr">
+        <div class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Why AdCentral</div>
+        <h2 id="why-title">Why advertisers use AdCentral</h2>
+        <p>Getting ads onto venue screens can be slow and manual. AdCentral gives you one simpler way to plan campaigns, choose approved venues, and see where your ad played.</p>
       </div>
-      <div class="why-card sr">
-        <div class="icon-box ib-sky" aria-hidden="true">📤</div>
-        <h3>Submit your creative</h3>
-        <p>Upload your ad creative and submit for approval. AdCentral routes it to the right screens once approved by venue owners.</p>
+
+      <div class="why-bullets sr">
+        <div class="why-bullet">
+          <div class="why-bullet-icon" aria-hidden="true">🎯</div>
+          Choose where your ad should appear
+        </div>
+        <div class="why-bullet">
+          <div class="why-bullet-icon" aria-hidden="true">📤</div>
+          Submit your creative for approval
+        </div>
+        <div class="why-bullet">
+          <div class="why-bullet-icon" aria-hidden="true">▶️</div>
+          Run campaigns across connected screens
+        </div>
+        <div class="why-bullet">
+          <div class="why-bullet-icon" aria-hidden="true">📊</div>
+          View campaign delivery in one dashboard
+        </div>
       </div>
-      <div class="why-card sr">
-        <div class="icon-box ib-emerald" aria-hidden="true">▶️</div>
-        <h3>Run your campaign</h3>
-        <p>Your ad runs across connected screens in approved venues for the duration of your campaign dates and selected screen formats.</p>
-      </div>
-      <div class="why-card sr">
-        <div class="icon-box ib-amber" aria-hidden="true">📊</div>
-        <h3>See what happened</h3>
-        <p>View where your ad played, how many times it was delivered, and which venues were active — all in one reporting dashboard.</p>
-      </div>
+
     </div>
   </div>
 </section>
 
 
 <!-- ═══════════════════════════════════════════════════════════════
-     § 3  WHERE YOUR ADS CAN APPEAR
+     § 3  WHERE ADS CAN APPEAR
 ═══════════════════════════════════════════════════════════════ -->
 <section class="section" id="venues" aria-labelledby="venues-title">
   <div class="wrap">
     <div class="split-grid">
 
-      <!-- Copy -->
-      <div class="sr">
-        <div class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Venue Network</div>
+      <div class="split-copy sr">
+        <div class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Venue network</div>
         <h2 id="venues-title">Where your ads can appear</h2>
-        <p class="lead" style="margin-top:var(--sp-3)">Your campaign can run in approved venues where people already spend time — no cold outreach to screen owners required.</p>
+        <p>Your ads can run on approved screens in places people already visit — no cold outreach, no manual coordination with screen owners.</p>
 
-        <div class="venue-tag-list" role="list" aria-label="Venue types">
-          <span class="venue-tag" role="listitem"><span class="venue-tag-icon" aria-hidden="true">☕</span> Cafes &amp; restaurants</span>
-          <span class="venue-tag" role="listitem"><span class="venue-tag-icon" aria-hidden="true">🏥</span> Clinics &amp; waiting areas</span>
-          <span class="venue-tag" role="listitem"><span class="venue-tag-icon" aria-hidden="true">🏋️</span> Gyms &amp; fitness centres</span>
-          <span class="venue-tag" role="listitem"><span class="venue-tag-icon" aria-hidden="true">🏨</span> Hotels &amp; hospitality</span>
-          <span class="venue-tag" role="listitem"><span class="venue-tag-icon" aria-hidden="true">🛍️</span> Retail stores</span>
-          <span class="venue-tag" role="listitem"><span class="venue-tag-icon" aria-hidden="true">🛋️</span> Lounges</span>
-          <span class="venue-tag" role="listitem"><span class="venue-tag-icon" aria-hidden="true">🏬</span> Malls</span>
-          <span class="venue-tag" role="listitem"><span class="venue-tag-icon" aria-hidden="true">🏢</span> Office buildings</span>
+        <div class="venue-tag-list" role="list">
+          <span class="venue-tag" role="listitem">☕ Cafes</span>
+          <span class="venue-tag" role="listitem">🏥 Clinics</span>
+          <span class="venue-tag" role="listitem">🏋️ Gyms</span>
+          <span class="venue-tag" role="listitem">🏨 Hotels</span>
+          <span class="venue-tag" role="listitem">🛍️ Retail stores</span>
+          <span class="venue-tag" role="listitem">🛋️ Lounges</span>
+          <span class="venue-tag" role="listitem">🏬 Malls</span>
+          <span class="venue-tag" role="listitem">🏢 Offices</span>
         </div>
-
-        <a href="#final-cta" class="btn btn-ghost-brand btn-md">
-          Browse available venues
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
       </div>
 
-      <!-- Visual -->
       <div class="sr">
-        <div class="ph ph-split" role="img" aria-label="Image Placeholder 2 — Venue network visual">
+        <div class="ph ph-split" role="img" aria-label="Image Placeholder — Venue network visual">
           <div class="ph-inner">
-            <svg class="ph-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            <span class="ph-name">Image Placeholder 2</span>
-            <span class="ph-dim">Venue network visual</span>
+            <svg class="ph-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="ph-name">Venue network visual</span>
+            <span class="ph-dim">Replace with final image</span>
           </div>
         </div>
       </div>
@@ -782,202 +598,56 @@
 
 
 <!-- ═══════════════════════════════════════════════════════════════
-     § 4  CAMPAIGN SETUP
+     § 4  WHAT YOU CAN TRACK
 ═══════════════════════════════════════════════════════════════ -->
-<section class="section section-alt" id="setup" aria-labelledby="setup-title">
+<section class="section section-alt" id="reporting" aria-labelledby="reporting-title">
   <div class="wrap">
     <div class="split-grid flip">
 
-      <!-- Visual -->
+      <!-- Reporting dashboard mockup -->
       <div class="sr">
-        <div class="ph ph-split" role="img" aria-label="Image Placeholder 3 — Campaign setup visual">
-          <div class="ph-inner">
-            <svg class="ph-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-            <span class="ph-name">Image Placeholder 3</span>
-            <span class="ph-dim">Campaign setup visual</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Copy -->
-      <div class="sr">
-        <div class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Getting Started</div>
-        <h2 id="setup-title">Campaign setup</h2>
-        <p class="lead" style="margin-top:var(--sp-3)">Create your campaign by choosing the details that matter for your business. No specialist knowledge needed.</p>
-
-        <div class="step-list" role="list">
-          <div class="step-row" role="listitem">
-            <div class="step-num" aria-hidden="true">1</div>
-            <div class="step-copy">
-              <h4>Location &amp; venue type</h4>
-              <p>Choose the areas and venue categories where your ad should appear.</p>
-            </div>
-          </div>
-          <div class="step-row" role="listitem">
-            <div class="step-num" aria-hidden="true">2</div>
-            <div class="step-copy">
-              <h4>Campaign dates &amp; screen formats</h4>
-              <p>Set your start and end dates, and select the screen sizes your creative is designed for.</p>
-            </div>
-          </div>
-          <div class="step-row" role="listitem">
-            <div class="step-num" aria-hidden="true">3</div>
-            <div class="step-copy">
-              <h4>Upload your ad creative</h4>
-              <p>Submit the ad file you want to display. AdCentral checks it meets the screen requirements.</p>
-            </div>
-          </div>
-          <div class="step-row" role="listitem">
-            <div class="step-num" aria-hidden="true">4</div>
-            <div class="step-copy">
-              <h4>Budget or campaign plan</h4>
-              <p>Set your budget or choose a campaign plan that fits your goals.</p>
-            </div>
-          </div>
-          <div class="step-row" role="listitem">
-            <div class="step-num" aria-hidden="true">5</div>
-            <div class="step-copy">
-              <h4>Approval &amp; launch</h4>
-              <p>Once your campaign is approved, it goes live across eligible connected screens automatically.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="closing-note">
-          Once approved, your campaign runs across eligible connected screens with no further action needed from you.
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     § 5  REPORTING
-═══════════════════════════════════════════════════════════════ -->
-<section class="section" id="reporting" aria-labelledby="reporting-title">
-  <div class="wrap">
-    <div class="split-grid">
-
-      <!-- Dashboard mockup -->
-      <div class="sr">
-        <div class="report-dash" role="img" aria-label="Reporting dashboard mockup">
+        <div class="report-dash" role="img" aria-label="Reporting dashboard — placeholder mockup">
           <div class="rd-topbar">
-            <div class="rd-dots">
-              <div class="rd-dot rd-dot-r"></div>
-              <div class="rd-dot rd-dot-y"></div>
-              <div class="rd-dot rd-dot-g"></div>
-            </div>
+            <div class="rd-dots"><div class="rd-dot rd-dot-r"></div><div class="rd-dot rd-dot-y"></div><div class="rd-dot rd-dot-g"></div></div>
             <div class="rd-title">AdCentral — Campaign Reporting</div>
           </div>
           <div class="rd-body">
             <div class="rd-slbl">Campaign overview</div>
             <div class="rd-stat-row">
-              <div class="rd-stat">
-                <div class="rd-stat-val">48,210</div>
-                <div class="rd-stat-lbl">Plays delivered</div>
-              </div>
-              <div class="rd-stat">
-                <div class="rd-stat-val">87</div>
-                <div class="rd-stat-lbl">Screens reached</div>
-              </div>
-              <div class="rd-stat">
-                <div class="rd-stat-val">34</div>
-                <div class="rd-stat-lbl">Venues used</div>
-              </div>
+              <div class="rd-stat"><div class="rd-stat-val">48,210</div><div class="rd-stat-lbl">Plays delivered</div></div>
+              <div class="rd-stat"><div class="rd-stat-val">87</div><div class="rd-stat-lbl">Screens reached</div></div>
+              <div class="rd-stat"><div class="rd-stat-val">34</div><div class="rd-stat-lbl">Venues used</div></div>
             </div>
-
             <div class="rd-slbl">Delivery by venue type</div>
-            <div class="rd-bar-row">
-              <div class="rd-bar-lbl">Cafes</div>
-              <div class="rd-bar-track"><div class="rd-bar-fill" style="width:82%"></div></div>
-              <div class="rd-bar-num">82%</div>
-            </div>
-            <div class="rd-bar-row">
-              <div class="rd-bar-lbl">Retail</div>
-              <div class="rd-bar-track"><div class="rd-bar-fill" style="width:68%"></div></div>
-              <div class="rd-bar-num">68%</div>
-            </div>
-            <div class="rd-bar-row">
-              <div class="rd-bar-lbl">Gyms</div>
-              <div class="rd-bar-track"><div class="rd-bar-fill" style="width:54%"></div></div>
-              <div class="rd-bar-num">54%</div>
-            </div>
-            <div class="rd-bar-row">
-              <div class="rd-bar-lbl">Hotels</div>
-              <div class="rd-bar-track"><div class="rd-bar-fill" style="width:40%"></div></div>
-              <div class="rd-bar-num">40%</div>
-            </div>
-
+            <div class="rd-bar-row"><div class="rd-bar-lbl">Cafes</div><div class="rd-bar-track"><div class="rd-bar-fill" style="width:82%"></div></div><div class="rd-bar-num">82%</div></div>
+            <div class="rd-bar-row"><div class="rd-bar-lbl">Retail</div><div class="rd-bar-track"><div class="rd-bar-fill" style="width:68%"></div></div><div class="rd-bar-num">68%</div></div>
+            <div class="rd-bar-row"><div class="rd-bar-lbl">Gyms</div><div class="rd-bar-track"><div class="rd-bar-fill" style="width:54%"></div></div><div class="rd-bar-num">54%</div></div>
+            <div class="rd-bar-row"><div class="rd-bar-lbl">Hotels</div><div class="rd-bar-track"><div class="rd-bar-fill" style="width:40%"></div></div><div class="rd-bar-num">40%</div></div>
             <div class="rd-divider"></div>
-
             <div class="rd-slbl">Campaign history</div>
-            <div class="rd-thead">
-              <div class="rd-th">Campaign</div>
-              <div class="rd-th">Plays</div>
-              <div class="rd-th">Status</div>
-            </div>
-            <div class="rd-trow">
-              <div class="rd-td bold">Summer Launch</div>
-              <div class="rd-td">22,400</div>
-              <div class="rd-td"><span class="rd-status live">Live</span></div>
-            </div>
-            <div class="rd-trow">
-              <div class="rd-td bold">Brand Awareness Q1</div>
-              <div class="rd-td">18,910</div>
-              <div class="rd-td"><span class="rd-status done">Complete</span></div>
-            </div>
-            <div class="rd-trow">
-              <div class="rd-td bold">Retail Promo</div>
-              <div class="rd-td">6,900</div>
-              <div class="rd-td"><span class="rd-status done">Complete</span></div>
-            </div>
+            <div class="rd-thead"><div class="rd-th">Campaign</div><div class="rd-th">Plays</div><div class="rd-th">Status</div></div>
+            <div class="rd-trow"><div class="rd-td bold">Summer Launch</div><div class="rd-td">22,400</div><div class="rd-td"><span class="rd-status live">Live</span></div></div>
+            <div class="rd-trow"><div class="rd-td bold">Brand Awareness Q1</div><div class="rd-td">18,910</div><div class="rd-td"><span class="rd-status done">Complete</span></div></div>
+            <div class="rd-trow"><div class="rd-td bold">Retail Promo</div><div class="rd-td">6,900</div><div class="rd-td"><span class="rd-status done">Complete</span></div></div>
           </div>
         </div>
       </div>
 
       <!-- Copy -->
-      <div class="sr">
+      <div class="split-copy sr">
         <div class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Reporting</div>
-        <h2 id="reporting-title">See where your ad played</h2>
-        <p class="lead" style="margin-top:var(--sp-3)">AdCentral reporting helps you see campaign activity after your ad runs — without the noise of web metrics that don't apply to venue screens.</p>
+        <h2 id="reporting-title">What you can track</h2>
+        <p>AdCentral reporting helps you see where your ad played and how your campaign performed across connected screens.</p>
 
-        <div class="report-bullets" role="list">
-          <div class="report-bullet" role="listitem">
-            <div class="rb-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
-            </div>
-            Where your ad played
-          </div>
-          <div class="report-bullet" role="listitem">
-            <div class="rb-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-            </div>
-            Which venues and screens were used
-          </div>
-          <div class="report-bullet" role="listitem">
-            <div class="rb-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            How many plays were delivered
-          </div>
-          <div class="report-bullet" role="listitem">
-            <div class="rb-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            Campaign status and delivery progress
-          </div>
-          <div class="report-bullet" role="listitem">
-            <div class="rb-icon" aria-hidden="true">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            </div>
-            Full campaign history
-          </div>
+        <div class="track-list" role="list">
+          <div class="track-item" role="listitem"><span class="track-dot" aria-hidden="true"></span>Where your ad played</div>
+          <div class="track-item" role="listitem"><span class="track-dot" aria-hidden="true"></span>Which venues were used</div>
+          <div class="track-item" role="listitem"><span class="track-dot" aria-hidden="true"></span>How many plays were delivered</div>
+          <div class="track-item" role="listitem"><span class="track-dot" aria-hidden="true"></span>Campaign status</div>
         </div>
 
-        <div class="closing-note">
-          AdCentral focuses on delivery and visibility — not web metrics like clicks or CTR, which don't apply to venue screen advertising.
+        <div class="track-note">
+          No clicks. No CTR. No web-ad confusion. Just clear screen delivery visibility.
         </div>
       </div>
 
@@ -987,97 +657,21 @@
 
 
 <!-- ═══════════════════════════════════════════════════════════════
-     § 6  USE CASES
-═══════════════════════════════════════════════════════════════ -->
-<section class="section section-alt" id="use-cases" aria-labelledby="usecases-title">
-  <div class="wrap">
-    <div class="section-header center sr">
-      <div class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Use Cases</div>
-      <h2 id="usecases-title">What advertisers use it for</h2>
-      <p class="lead">AdCentral works across a range of campaign types. Here are some of the most common.</p>
-    </div>
-
-    <div class="use-cases-grid">
-
-      <div class="use-case-card sr">
-        <div class="uc-icon" aria-hidden="true">🚀</div>
-        <h3>Product launches</h3>
-        <p>Introduce a new product in high-footfall venues where your audience is already present. Build visibility fast across multiple locations.</p>
-      </div>
-
-      <div class="use-case-card sr">
-        <div class="uc-icon" aria-hidden="true">📍</div>
-        <h3>Local awareness</h3>
-        <p>Promote your business in selected areas or venue types. Ideal for local businesses, new branches, or area-specific offers.</p>
-      </div>
-
-      <div class="use-case-card sr">
-        <div class="uc-icon" aria-hidden="true">🎟️</div>
-        <h3>Events &amp; openings</h3>
-        <p>Drive awareness for upcoming events, offers, or new openings. Run time-limited campaigns with clear start and end dates.</p>
-      </div>
-
-      <div class="use-case-card sr">
-        <div class="uc-icon" aria-hidden="true">🛍️</div>
-        <h3>Retail campaigns</h3>
-        <p>Support seasonal promotions, collections, or in-store activity. Target retail venues and shopping areas where purchase intent is high.</p>
-      </div>
-
-      <div class="use-case-card sr">
-        <div class="uc-icon" aria-hidden="true">🌿</div>
-        <h3>Hospitality &amp; lifestyle</h3>
-        <p>Promote hotels, dining, travel, wellness, or lifestyle services in venues where your audience is already in the right mindset.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     § 7  FINAL CTA
+     § 5  FINAL CTA
 ═══════════════════════════════════════════════════════════════ -->
 <section class="final-cta-section" id="final-cta" aria-labelledby="cta-title">
   <div class="wrap">
     <div class="final-cta-card sr">
-
-      <div class="cta-copy">
-        <div class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Get started</div>
-        <h2 id="cta-title">Ready to advertise?</h2>
-        <p class="lead">Plan your campaign with AdCentral. Choose your venues, upload your creative, and see where your ad plays.</p>
-        <div class="cta-actions">
-          <a href="#" class="btn btn-primary btn-lg">
-            Plan a Campaign
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a href="#" class="btn btn-outline btn-lg">Talk to AdCentral</a>
-        </div>
+      <div class="eyebrow" style="display:inline-flex"><span class="eyebrow-dot" aria-hidden="true"></span>Get started</div>
+      <h2 id="cta-title">Ready to advertise?</h2>
+      <p class="lead">Plan your campaign with AdCentral.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-primary btn-lg">
+          Plan a Campaign
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#" class="btn btn-outline btn-lg">Talk to AdCentral</a>
       </div>
-
-      <div class="cta-right-aside" aria-label="Quick highlights">
-        <div class="cta-aside-item">
-          <div class="cta-aside-icon" aria-hidden="true">🗺️</div>
-          <div>
-            <h4>Approved venues</h4>
-            <p>Your ad only runs in venues that have connected their screens to AdCentral and approved the campaign.</p>
-          </div>
-        </div>
-        <div class="cta-aside-item">
-          <div class="cta-aside-icon" aria-hidden="true">📋</div>
-          <div>
-            <h4>One platform</h4>
-            <p>Set up, manage, and review your campaigns from a single dashboard — no venue-by-venue coordination.</p>
-          </div>
-        </div>
-        <div class="cta-aside-item">
-          <div class="cta-aside-icon" aria-hidden="true">📈</div>
-          <div>
-            <h4>Clear reporting</h4>
-            <p>See plays delivered, screens reached, and venues used. Simple numbers, no web metric jargon.</p>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -1138,7 +732,6 @@
       </div>
 
     </div>
-
     <div class="footer-bottom">
       <span>&copy; 2026 Adora AI Solutions. All rights reserved.</span>
       <div class="footer-legal">
@@ -1150,9 +743,6 @@
   </div>
 </footer>
 
-<!-- ═══════════════════════════════════════════════════════════════
-     JAVASCRIPT
-═══════════════════════════════════════════════════════════════ -->
 <script>
 (function () {
   'use strict';
@@ -1160,34 +750,25 @@
   /* ── Desktop nav dropdowns ── */
   var navItems = document.querySelectorAll('.nav-item');
   var closeTimer;
-
   function closeAll(except) {
     navItems.forEach(function (item) {
       if (item === except) return;
       item.classList.remove('open');
-      var btn = item.querySelector('.nav-btn');
-      var dd  = item.querySelector('.nav-dropdown');
+      var btn = item.querySelector('.nav-btn'), dd = item.querySelector('.nav-dropdown');
       if (btn) btn.setAttribute('aria-expanded', 'false');
       if (dd)  dd.hidden = true;
     });
   }
-
   function openItem(item) {
     item.classList.add('open');
-    var btn = item.querySelector('.nav-btn');
-    var dd  = item.querySelector('.nav-dropdown');
+    var btn = item.querySelector('.nav-btn'), dd = item.querySelector('.nav-dropdown');
     if (btn) btn.setAttribute('aria-expanded', 'true');
     if (dd)  dd.hidden = false;
     closeAll(item);
   }
-
   navItems.forEach(function (item) {
     var btn = item.querySelector('.nav-btn');
-    if (btn) {
-      btn.addEventListener('click', function () {
-        item.classList.contains('open') ? closeAll(null) : openItem(item);
-      });
-    }
+    if (btn) btn.addEventListener('click', function () { item.classList.contains('open') ? closeAll(null) : openItem(item); });
     item.addEventListener('mouseenter', function () { clearTimeout(closeTimer); openItem(item); });
     item.addEventListener('mouseleave', function () { closeTimer = setTimeout(function () { closeAll(null); }, 150); });
     item.addEventListener('focusout',   function (e) { if (!item.contains(e.relatedTarget)) closeAll(null); });
@@ -1195,64 +776,48 @@
   document.addEventListener('click', function (e) { if (!e.target.closest('.nav-item')) closeAll(null); });
 
   /* ── Mobile hamburger ── */
-  var burger      = document.querySelector('.nav-burger');
-  var mobilePanel = document.querySelector('#mobile-nav-panel');
-  var siteNavEl   = document.querySelector('.site-nav');
-
+  var burger = document.querySelector('.nav-burger');
+  var mobNav = document.querySelector('#mob-nav');
+  var siteNav = document.querySelector('.site-nav');
   function closeMobile() {
     burger.setAttribute('aria-expanded', 'false');
     burger.setAttribute('aria-label', 'Open menu');
-    mobilePanel.classList.remove('open');
+    mobNav.classList.remove('open');
     document.body.style.overflow = '';
   }
-
   burger.addEventListener('click', function () {
     var isOpen = burger.getAttribute('aria-expanded') === 'true';
-    var h = siteNavEl.getBoundingClientRect().height;
-    mobilePanel.style.top = h + 'px';
-    mobilePanel.style.maxHeight = 'calc(100dvh - ' + h + 'px)';
+    var h = siteNav.getBoundingClientRect().height;
+    mobNav.style.top = h + 'px';
+    mobNav.style.maxHeight = 'calc(100dvh - ' + h + 'px)';
     burger.setAttribute('aria-expanded', String(!isOpen));
     burger.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
-    mobilePanel.classList.toggle('open', !isOpen);
+    mobNav.classList.toggle('open', !isOpen);
     document.body.style.overflow = isOpen ? '' : 'hidden';
   });
-
   document.addEventListener('click', function (e) {
-    if (mobilePanel.classList.contains('open') && !burger.contains(e.target) && !mobilePanel.contains(e.target)) closeMobile();
+    if (mobNav.classList.contains('open') && !burger.contains(e.target) && !mobNav.contains(e.target)) closeMobile();
   });
-
   document.querySelectorAll('.mobile-acc').forEach(function (acc) {
     acc.addEventListener('click', function () {
-      var panel  = acc.nextElementSibling;
-      var isOpen = acc.getAttribute('aria-expanded') === 'true';
-      if (isOpen) {
-        acc.setAttribute('aria-expanded', 'false');
-        panel.style.maxHeight = '0';
-        setTimeout(function () { if (acc.getAttribute('aria-expanded') === 'false') panel.hidden = true; }, 220);
-      } else {
-        acc.setAttribute('aria-expanded', 'true');
-        panel.hidden = false;
-        panel.style.maxHeight = panel.scrollHeight + 'px';
-      }
+      var panel = acc.nextElementSibling, isOpen = acc.getAttribute('aria-expanded') === 'true';
+      if (isOpen) { acc.setAttribute('aria-expanded', 'false'); panel.style.maxHeight = '0'; setTimeout(function () { if (acc.getAttribute('aria-expanded') === 'false') panel.hidden = true; }, 220); }
+      else { acc.setAttribute('aria-expanded', 'true'); panel.hidden = false; panel.style.maxHeight = panel.scrollHeight + 'px'; }
     });
   });
-
-  mobilePanel.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMobile); });
+  mobNav.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMobile); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeAll(null); closeMobile(); } });
 
   /* ── Scroll reveal ── */
   var srEls = document.querySelectorAll('.sr');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
-      });
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.12 });
     srEls.forEach(function (el) { io.observe(el); });
   } else {
     srEls.forEach(function (el) { el.classList.add('in'); });
   }
-
 })();
 </script>
 
