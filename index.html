@@ -490,31 +490,63 @@
   [aria-expanded="true"] .burger-icon::before { transform: translateY(5px) rotate(45deg); }
   [aria-expanded="true"] .burger-icon::after  { transform: translateY(-5px) rotate(-45deg); }
 
-  .mobile-nav { display: none; border-top: 1px solid var(--hairline); background: var(--white); }
-  .mobile-nav.open { display: block; }
-  .mobile-nav-inner { padding: 14px 20px 22px; display: grid; gap: 6px; }
-  .mobile-group { border: 1px solid var(--hairline); border-radius: var(--r-md); overflow: hidden; }
+  .mobile-nav {
+    position: fixed;
+    top: 80px; left: 0; right: 0;
+    z-index: 199;
+    background: rgba(255, 236, 240, 0.97);
+    backdrop-filter: blur(24px) saturate(1.6);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6);
+    border-bottom: 1px solid rgba(255,255,255,0.55);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.10);
+    max-height: calc(100dvh - 80px);
+    overflow-y: auto;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity 200ms ease, transform 200ms ease, visibility 0ms 200ms;
+  }
+  .mobile-nav.open {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: opacity 200ms ease, transform 200ms ease, visibility 0ms;
+  }
+  .mobile-nav-inner { padding: 16px 20px 28px; display: grid; gap: 8px; }
+  .mobile-group {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.85);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
   .mobile-acc {
     display: flex; width: 100%;
     align-items: center; justify-content: space-between;
-    border: none; background: var(--white); color: var(--ink);
-    padding: 13px 15px; font: 600 var(--text-sm) 'Inter', sans-serif; cursor: pointer;
+    border: none; background: transparent; color: var(--ink);
+    padding: 14px 16px; font: 600 var(--text-sm) 'Inter', sans-serif; cursor: pointer;
   }
   .mobile-acc::after {
     content: ""; width: 7px; height: 7px;
     border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
     transform: rotate(45deg); opacity: .5; transition: transform 150ms;
+    flex-shrink: 0;
   }
   .mobile-acc[aria-expanded="true"]::after { transform: rotate(225deg); }
   .mobile-links { display: grid; max-height: 0; overflow: hidden; transition: max-height 220ms ease; }
   .mobile-links[hidden] { display: none; }
   .mobile-links a {
-    border-top: 1px solid var(--hairline);
-    padding: 11px 15px; color: var(--muted);
+    border-top: 1px solid rgba(0,0,0,0.07);
+    padding: 12px 16px; color: var(--body);
     font-size: var(--text-sm); font-weight: 500;
+    transition: color 120ms, background 120ms;
+    display: block;
   }
-  .mobile-links a:hover { color: var(--ink); }
-  .mobile-actions { display: grid; gap: 8px; padding-top: 8px; }
+  .mobile-links a:hover { color: var(--red); background: rgba(245,54,92,0.05); }
+  .mobile-actions { display: grid; gap: 10px; padding-top: 8px; }
 
   /* ─────────────────────────────────────────────────────────────
      2. HERO
@@ -2503,18 +2535,37 @@
   /* ── Mobile hamburger ──────────────────────────────────────── */
   var burger     = document.querySelector('.nav-burger');
   var mobilePanel = document.querySelector('#mobile-nav-panel');
+  var siteNavEl  = document.querySelector('.site-nav');
+
+  function setMobileNavTop() {
+    var h = siteNavEl.getBoundingClientRect().height;
+    mobilePanel.style.top = h + 'px';
+    mobilePanel.style.maxHeight = 'calc(100dvh - ' + h + 'px)';
+  }
 
   function closeMobile() {
     burger.setAttribute('aria-expanded', 'false');
     burger.setAttribute('aria-label', 'Open menu');
     mobilePanel.classList.remove('open');
+    document.body.style.overflow = '';
   }
 
   burger.addEventListener('click', function () {
     var isOpen = burger.getAttribute('aria-expanded') === 'true';
+    setMobileNavTop();
     burger.setAttribute('aria-expanded', String(!isOpen));
     burger.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
     mobilePanel.classList.toggle('open', !isOpen);
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  });
+
+  /* Close when tapping outside the panel or burger */
+  document.addEventListener('click', function (e) {
+    if (mobilePanel.classList.contains('open') &&
+        !burger.contains(e.target) &&
+        !mobilePanel.contains(e.target)) {
+      closeMobile();
+    }
   });
 
   document.querySelectorAll('.mobile-acc').forEach(function (acc) {
