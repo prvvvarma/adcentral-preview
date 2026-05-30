@@ -2160,74 +2160,92 @@
   .proof-bar { border-top-color: rgba(255,255,255,0.07); }
 
   /* ═══════════════════════════════════════════════════════════════
-     IMAGE BACKGROUND VARIANT — replaces WebGL canvas
+     IMMERSIVE PARALLAX — multi-layer depth system
   ═══════════════════════════════════════════════════════════════ */
 
-  /* Hide the WebGL canvas stub (it's already replaced with .bg-image-layer in HTML,
-     but guard against any residual reference) */
   .hero-wave-canvas { display: none !important; }
 
-  /* Fixed background image layer — oversized so parallax never shows edges */
+  /* ── Layer 1: Background image ─────────────────────────────────
+     Huge bleed (160px) gives JS room to shift ±100px without gaps */
   .bg-image-layer {
     position: fixed;
-    inset: -60px;          /* bleed 60px on all sides */
+    inset: -160px;
     z-index: -2;
     background: url('assets/images/darkbackground.png') center/cover no-repeat;
-    transform: scale(1);   /* JS will drive translate3d + scale */
     will-change: transform;
   }
 
-  /* Dark overlay — ensures text readability while letting the image breathe */
+  /* Dark gradient over the image — lighter so more image shows through */
   .bg-image-layer::after {
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(180deg,
-        rgba(7,7,26,0.72) 0%,      /* top — matches nav colour closely */
-        rgba(7,7,26,0.52) 30%,     /* upper-mid — let image show through */
-        rgba(7,7,26,0.58) 65%,     /* lower sections */
-        rgba(7,7,26,0.82) 100%     /* bottom — footer area stays readable */
-      );
+    background: linear-gradient(
+      180deg,
+      rgba(5,5,20,0.65) 0%,
+      rgba(5,5,20,0.38) 25%,
+      rgba(5,5,20,0.45) 60%,
+      rgba(5,5,20,0.80) 100%
+    );
   }
 
-  /* Bump glass depth slightly — background image gives more to blur through */
+  /* ── Layer 2: Cursor spotlight ─────────────────────────────────
+     Red glow that follows the mouse — makes it feel like a light source */
+  .cursor-glow {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      circle 600px at var(--gx, 50%) var(--gy, 50%),
+      rgba(245,54,92,0.13) 0%,
+      rgba(200,20,60,0.06) 45%,
+      transparent 72%
+    );
+  }
+
+  /* ── Layer 3: Hero content layers ──────────────────────────────
+     JS drives translate3d on each independently */
+  .hero-visual {
+    will-change: transform;
+    transform-origin: center center;
+  }
+  .hero-copy {
+    will-change: transform;
+  }
+
+  /* Glass tokens — richer now that real image blurs through */
   :root {
-    --glass-bg:      rgba(8,6,24,0.52);
+    --glass-bg:      rgba(6,5,20,0.55);
     --glass-border:  rgba(255,255,255,0.13);
-    --glass-blur:    blur(28px) saturate(2.2);
-    --glass-shadow:  0 8px 44px rgba(0,0,0,0.65), 0 2px 14px rgba(0,0,0,0.42),
+    --glass-blur:    blur(30px) saturate(2.4);
+    --glass-shadow:  0 8px 44px rgba(0,0,0,0.68), 0 2px 14px rgba(0,0,0,0.44),
                      inset 0 1px 0 rgba(255,255,255,0.10);
   }
 
-  /* Nav — slightly more opaque so it sits cleanly above the image */
+  /* Nav */
   .site-nav {
-    background: rgba(7,7,26,0.88);
-    backdrop-filter: blur(20px) saturate(1.6);
-    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    background: rgba(5,5,20,0.82);
+    backdrop-filter: blur(22px) saturate(1.7);
+    -webkit-backdrop-filter: blur(22px) saturate(1.7);
     border-bottom: 1px solid rgba(255,255,255,0.07);
   }
-  .site-nav.scrolled {
-    background: rgba(7,7,26,0.95) !important;
-  }
+  .site-nav.scrolled { background: rgba(5,5,20,0.96) !important; }
 
-  /* Section tints — slightly more visible over the image */
-  .section-off  { background: rgba(255,255,255,0.028); }
-  .section-off2 { background: rgba(255,255,255,0.048); }
+  .section-off  { background: rgba(255,255,255,0.025); }
+  .section-off2 { background: rgba(255,255,255,0.045); }
 
-  /* Hero overlay — no additional gradient needed (handled by bg-image-layer) */
+  /* Suppress the hero's own gradient — bg-image-layer handles it */
   .hero::before { display: none; }
 
-  /* Snapshot strip — keep its own background */
   .snapshot-strip { position: relative; z-index: 1; }
-
-  /* Footer — slight extra dark so content is legible */
-  .footer { background: rgba(5,5,18,0.60); backdrop-filter: blur(8px); }
+  .footer { background: rgba(4,4,16,0.65); backdrop-filter: blur(10px); }
 
   </style>
 </head>
 <body>
 <div class="bg-image-layer" aria-hidden="true"></div>
+<div class="cursor-glow" aria-hidden="true"></div>
 
 <!-- ═══════════════════════════════════════════════════════════════
      §1  NAVIGATION
@@ -3083,56 +3101,105 @@
 
 }());
 
-  /* ── Parallax background — mouse + idle drift + device tilt ─────── */
+  /* ══════════════════════════════════════════════════════════════
+     MULTI-LAYER PARALLAX — cursor / tilt / idle depth story
+     ──────────────────────────────────────────────────────────────
+     Layer 1  .bg-image-layer  far background  ±100 px  inverted
+     Layer 2  .hero-visual     mid floating    ±28 px + 3D tilt
+     Layer 3  .hero-copy       near text       ±12 px  same dir
+     Layer 4  .cursor-glow     spotlight       instant CSS var
+  ══════════════════════════════════════════════════════════════ */
   (function () {
-    var layer = document.querySelector('.bg-image-layer');
-    if (!layer) return;
 
-    var tx = 0, ty = 0;   // target position
-    var cx = 0, cy = 0;   // current (lerped) position
-    var STRENGTH = 24;    // max px shift
-    var EASE     = 0.05;  // lerp factor (lower = smoother/slower)
+    var bgLayer = document.querySelector('.bg-image-layer');
+    var visual  = document.querySelector('.hero-visual');
+    var copy    = document.querySelector('.hero-copy');
+    var glow    = document.querySelector('.cursor-glow');
+    if (!bgLayer) return;
+
+    /* ── Strength constants ── */
+    var BG_STR   = 100;   /* background:   big shift  – feels far away   */
+    var VIS_STR  = 28;    /* hero visual:  mid shift  – floating closer   */
+    var VIS_TILT = 7;     /* hero visual:  tilt ±deg  – 3-D depth cue     */
+    var COPY_STR = 12;    /* hero copy:    small shift – nearest plane    */
+
+    /* ── Shared normalised cursor offset  (-0.5 → +0.5) ── */
+    var mx = 0, my = 0;
     var lastMove = 0;
 
-    /* ── Mouse parallax ── */
+    /* ── Per-layer lerp accumulators ── */
+    var bgX  = 0, bgY  = 0;
+    var visX = 0, visY = 0;
+    var cpX  = 0, cpY  = 0;
+
+    /* ── Mouse / pointer input ── */
     window.addEventListener('mousemove', function (e) {
-      /* invert: move opposite to cursor for a depth illusion */
-      tx = (e.clientX / innerWidth  - 0.5) * -STRENGTH;
-      ty = (e.clientY / innerHeight - 0.5) * -STRENGTH;
+      mx = (e.clientX / innerWidth)  - 0.5;
+      my = (e.clientY / innerHeight) - 0.5;
       lastMove = Date.now();
+
+      /* Cursor glow follows instantly — no lerp needed */
+      if (glow) {
+        glow.style.setProperty('--gx', e.clientX + 'px');
+        glow.style.setProperty('--gy', e.clientY + 'px');
+      }
     }, { passive: true });
 
-    /* ── Device tilt (mobile / tablet) ── */
+    /* ── Device tilt (phones / tablets) ── */
     if (window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', function (e) {
         if (e.gamma == null) return;
-        var gx = Math.max(-25, Math.min(25, e.gamma));        // left/right  ±25°
-        var gy = Math.max(-25, Math.min(25, e.beta  - 15));   // fwd/back    ±25°
-        tx = (gx / 25) * -STRENGTH;
-        ty = (gy / 25) * -STRENGTH;
+        mx = Math.max(-1, Math.min(1, e.gamma        / 25)) * 0.5;
+        my = Math.max(-1, Math.min(1, (e.beta - 15)  / 25)) * 0.5;
         lastMove = Date.now();
       }, { passive: true });
     }
 
-    /* ── Animation loop ── */
+    /* ── rAF loop ── */
     function tick() {
-      /* Idle drift — kicks in after 2 s of no input */
-      if (Date.now() - lastMove > 2000) {
-        var s = Date.now() / 1000;
-        tx = Math.sin(s * 0.20) * 12;
-        ty = Math.cos(s * 0.15) *  8;
+
+      /* ── Idle drift — starts 1.5 s after last input ── */
+      var now = Date.now();
+      if (now - lastMove > 1500) {
+        var s = now / 1000;
+        mx = Math.sin(s * 0.22) * 0.28;
+        my = Math.cos(s * 0.17) * 0.20;
       }
 
-      /* Lerp toward target */
-      cx += (tx - cx) * EASE;
-      cy += (ty - cy) * EASE;
+      /* ── Layer 1: Background — INVERTED direction (camera parallax)
+         When cursor moves right the bg slides left, revealing more of
+         the far scene on the right — strong depth illusion            ── */
+      bgX += (-mx * BG_STR - bgX) * 0.055;
+      bgY += (-my * BG_STR - bgY) * 0.055;
+      bgLayer.style.transform =
+        'translate3d(' + bgX.toFixed(2) + 'px,' + bgY.toFixed(2) + 'px,0)';
 
-      layer.style.transform =
-        'translate3d(' + cx.toFixed(3) + 'px,' + cy.toFixed(3) + 'px,0)';
+      /* ── Layer 2: Hero visual — SAME direction, 3-D tilt
+         Floats toward the cursor; rotates on the opposite axis so it
+         appears to tilt away from the viewer on the side near the cursor ── */
+      if (visual) {
+        visX += ( mx * VIS_STR - visX) * 0.08;
+        visY += ( my * VIS_STR - visY) * 0.08;
+        visual.style.transform =
+          'perspective(900px)' +
+          ' rotateY('  + ( mx * VIS_TILT).toFixed(2) + 'deg)' +
+          ' rotateX('  + (-my * VIS_TILT).toFixed(2) + 'deg)' +
+          ' translate3d(' + visX.toFixed(2) + 'px,' + visY.toFixed(2) + 'px,0)';
+      }
+
+      /* ── Layer 3: Hero copy — SAME direction, smallest shift
+         Moves the least because it is the nearest plane in the stack   ── */
+      if (copy) {
+        cpX += ( mx * COPY_STR - cpX) * 0.06;
+        cpY += ( my * COPY_STR - cpY) * 0.06;
+        copy.style.transform =
+          'translate3d(' + cpX.toFixed(2) + 'px,' + cpY.toFixed(2) + 'px,0)';
+      }
 
       requestAnimationFrame(tick);
     }
     tick();
+
   }());
 
 </script>
