@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 88" fill="none">
+  <!-- Icon mark — skewed screen/monitor shape -->
+  <path d="M14 8 C11 8 8 10 8 14 L10 76 C10 80 13 83 17 83 L78 82 C82 82 85 79 85 75 L84 13 C84 9 81 7 77 7 Z" fill="#F5365C"/>
+  <!-- Inner white rounded rect -->
+  <rect x="18" y="17" width="58" height="52" rx="7" fill="white"/>
+  <!-- Ad text -->
+  <text x="47" y="50" text-anchor="middle" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="900" font-size="20" fill="#F5365C" letter-spacing="-0.5">Ad</text>
+  <!-- Central wordmark -->
+  <text x="103" y="61" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="38" fill="#F5365C" letter-spacing="-1">Central</text>
+</svg>

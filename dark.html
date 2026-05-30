@@ -1322,7 +1322,7 @@
 
   /* Site logo */
   .site-logo { display: inline-flex; align-items: center; flex-shrink: 0; }
-  .site-logo img { display: block; width: auto; mix-blend-mode: multiply; }
+  .site-logo img { display: block; width: auto; }
 
 
   /* ─────────────────────────────────────────────────────────────
@@ -1693,11 +1693,11 @@
 
   /* --- Shared glass mixin values — DARK --- */
   :root {
-    --glass-bg:      rgba(255,255,255,0.06);
-    --glass-border:  rgba(255,255,255,0.12);
-    --glass-blur:    blur(18px) saturate(1.5);
-    --glass-shadow:  0 8px 32px rgba(0,0,0,0.30), 0 2px 8px rgba(0,0,0,0.20),
-                     inset 0 1px 0 rgba(255,255,255,0.10);
+    --glass-bg:      rgba(255,255,255,0.055);
+    --glass-border:  rgba(255,255,255,0.11);
+    --glass-blur:    blur(26px) saturate(2.0);
+    --glass-shadow:  0 8px 42px rgba(0,0,0,0.58), 0 2px 14px rgba(0,0,0,0.38),
+                     inset 0 1px 0 rgba(255,255,255,0.09);
     --ease-spring:   cubic-bezier(.34,1.46,.64,1);
     --ease-out:      cubic-bezier(.22,1,.36,1);
   }
@@ -1730,16 +1730,19 @@
   }
   .btn-primary:active { transform: translateY(0); }
   .btn-secondary {
-    background: rgba(255,255,255,0.70);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-color: rgba(255,255,255,0.85);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,1);
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(16px) saturate(1.7);
+    -webkit-backdrop-filter: blur(16px) saturate(1.7);
+    border-color: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.90);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.10);
   }
   .btn-secondary:hover {
-    background: rgba(255,255,255,0.88);
+    background: rgba(255,255,255,0.13);
+    border-color: rgba(255,255,255,0.24);
+    color: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,1);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.13);
   }
   /* Hero secondary stays dark */
   .hero-actions .btn-secondary {
@@ -1765,9 +1768,10 @@
   }
   .persona-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(245,54,92,.35);
-    box-shadow: 0 20px 56px rgba(0,0,0,.10), 0 4px 16px rgba(0,0,0,.06),
-                inset 0 1px 0 rgba(255,255,255,.95);
+    border-color: rgba(245,54,92,.40);
+    box-shadow: 0 24px 64px rgba(0,0,0,.65), 0 6px 20px rgba(0,0,0,.40),
+                0 0 48px rgba(245,54,92,.10),
+                inset 0 1px 0 rgba(255,255,255,.13);
   }
   /* Red gradient top-line on hover */
   .persona-card { position: relative; }
@@ -1813,9 +1817,10 @@
   .res-card:hover::after { opacity: 1; }
   .res-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(245,54,92,.3);
-    box-shadow: 0 20px 56px rgba(0,0,0,.10), 0 4px 16px rgba(0,0,0,.06),
-                inset 0 1px 0 rgba(255,255,255,.95);
+    border-color: rgba(245,54,92,.35);
+    box-shadow: 0 24px 64px rgba(0,0,0,.65), 0 6px 20px rgba(0,0,0,.40),
+                0 0 48px rgba(245,54,92,.10),
+                inset 0 1px 0 rgba(255,255,255,.13);
   }
 
   /* --- Glassmorphism: Trust features container --- */
@@ -1832,7 +1837,8 @@
   }
   .trust-feature:hover {
     transform: translateY(-3px);
-    box-shadow: 0 16px 40px rgba(0,0,0,.09), inset 0 1px 0 rgba(255,255,255,.95);
+    box-shadow: 0 18px 52px rgba(0,0,0,.60), 0 4px 16px rgba(0,0,0,.38),
+                inset 0 1px 0 rgba(255,255,255,.12);
   }
 
   /* --- Glassmorphism: Problem section image card --- */
@@ -1908,6 +1914,41 @@
     box-shadow: 0 0 20px rgba(245,54,92,.35);
   }
 
+  /* --- Dark nav: text, logo, burger visibility --- */
+  .nav-btn {
+    color: rgba(255,255,255,0.80);
+  }
+  .nav-btn:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+  }
+  .nav-link-plain {
+    color: rgba(255,255,255,0.70);
+  }
+  .nav-link-plain:hover { color: #fff; }
+  .nav-dropdown {
+    background: #13101e;
+    border-color: rgba(255,255,255,0.10);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.50);
+  }
+  .nav-dropdown a { color: rgba(255,255,255,0.75); }
+  .nav-dropdown a:hover { background: rgba(255,255,255,0.07); color: #fff; }
+  .nav-burger {
+    border-color: rgba(255,255,255,0.20);
+    background: rgba(255,255,255,0.08);
+  }
+  .burger-icon,
+  .burger-icon::before,
+  .burger-icon::after { background: #fff; }
+  .btn-ghost-brand {
+    border-color: rgba(245,54,92,0.70);
+    color: #fff;
+  }
+  .btn-ghost-brand:hover {
+    background: rgba(245,54,92,0.15);
+    border-color: var(--red);
+  }
+
   /* --- Footer links hover --- */
   .footer-col a {
     transition: color 150ms, transform 150ms;
@@ -1922,6 +1963,202 @@
     line-height: 1.6;
   }
 
+  /* --- Hero venue chips — dark mode --- */
+  .hero-venue-label {
+    color: rgba(255,255,255,0.38);
+    letter-spacing: .10em;
+  }
+  .venue-chip {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.82);
+    backdrop-filter: blur(10px) saturate(1.4);
+    -webkit-backdrop-filter: blur(10px) saturate(1.4);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.10),
+                0 2px 8px rgba(0,0,0,0.25);
+  }
+  .venue-chip:hover {
+    background: rgba(255,255,255,0.13);
+    border-color: rgba(245,54,92,0.50);
+    color: #fff;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.12),
+                0 0 14px rgba(245,54,92,0.18),
+                0 2px 8px rgba(0,0,0,0.30);
+  }
+  .venue-chip-more {
+    background: rgba(245,54,92,0.16);
+    border-color: rgba(245,54,92,0.42);
+    color: #ff8fab;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08),
+                0 0 14px rgba(245,54,92,0.22),
+                0 2px 8px rgba(0,0,0,0.28);
+  }
+  .venue-chip-more:hover {
+    background: rgba(245,54,92,0.26);
+    border-color: rgba(245,54,92,0.65);
+    color: #fff;
+  }
+
+  /* ── DARK MODE — EXTENDED PREMIUM COVERAGE ──────────────────────── */
+
+  /* Shadow tokens — deeper for dark mode */
+  :root {
+    --shadow-1: 0 1px 3px rgba(0,0,0,.38), 0 2px 10px rgba(0,0,0,.30);
+    --shadow-2: 0 4px 14px rgba(0,0,0,.45), 0 8px 30px rgba(0,0,0,.34);
+    --shadow-3: 0 8px 28px rgba(0,0,0,.52), 0 20px 68px rgba(0,0,0,.42);
+  }
+
+  /* Mobile nav dark glass */
+  .mobile-group {
+    background: rgba(10,8,26,0.92);
+    border-color: rgba(255,255,255,0.09);
+    backdrop-filter: blur(24px) saturate(1.9);
+    -webkit-backdrop-filter: blur(24px) saturate(1.9);
+  }
+  .mobile-acc { color: rgba(255,255,255,0.82); }
+  .mobile-links a {
+    border-top-color: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.60);
+  }
+  .mobile-links a:hover {
+    color: var(--red);
+    background: rgba(245,54,92,0.08);
+  }
+  .mobile-actions .btn-secondary {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.13);
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* Icon boxes — jewel tones for dark mode */
+  .ib-rose    { background: rgba(245,54,92,0.16);  }
+  .ib-emerald { background: rgba(16,185,129,0.15); }
+  .ib-sky     { background: rgba(14,165,233,0.15); }
+  .ib-violet  { background: rgba(139,92,246,0.15); }
+  .ib-amber   { background: rgba(245,158,11,0.14); }
+  .ib-teal    { background: rgba(20,184,166,0.14); }
+
+  /* Glass: marketplace summary cards */
+  .market-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-color: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+  .market-card:hover {
+    border-color: rgba(245,54,92,.28);
+    box-shadow: 0 22px 64px rgba(0,0,0,.60), 0 4px 18px rgba(0,0,0,.38),
+                0 0 50px rgba(245,54,92,.08),
+                inset 0 1px 0 rgba(255,255,255,.10);
+    transform: translateY(-4px);
+  }
+
+  /* Glass: problem cards */
+  .problem-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-color: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+  .problem-card-body h3 { color: var(--ink); }
+
+  /* How it works — deeper image shadows */
+  .hiw-row-img {
+    box-shadow: 0 28px 72px rgba(0,0,0,.65), 0 6px 22px rgba(0,0,0,.42);
+  }
+
+  /* Problem flow — timeline nodes */
+  .pf-num {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.40);
+    box-shadow: none;
+  }
+  .pf-solution .pf-num {
+    box-shadow: 0 4px 22px rgba(245,54,92,.48);
+  }
+  .pf-connector {
+    background: linear-gradient(to bottom, rgba(255,255,255,0.10), transparent);
+  }
+
+  /* HIW section header bar border */
+  .hiw-sc-header {
+    border-bottom-color: rgba(255,255,255,0.07);
+  }
+
+  /* Step numbers in HiW steps */
+  .step-num {
+    box-shadow: 0 3px 16px rgba(245,54,92,.48);
+  }
+
+  /* Trust icon box */
+  .trust-feat-icon {
+    background: rgba(245,54,92,0.12);
+    border-color: rgba(245,54,92,0.22);
+  }
+
+  /* Proof bar readability */
+  .proof-item { color: rgba(255,255,255,0.38); }
+  .proof-sep  { color: rgba(255,255,255,0.14); }
+
+  /* Social buttons */
+  .social-btn {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.10);
+    color: rgba(255,255,255,0.48);
+  }
+  .social-btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+    background: rgba(245,54,92,0.10);
+    box-shadow: 0 0 16px rgba(245,54,92,0.22);
+  }
+
+  /* Footer bottom readability */
+  .footer-bottom { color: rgba(255,255,255,0.32); }
+  .footer-legal a { color: rgba(255,255,255,0.30); }
+  .footer-legal a:hover { color: rgba(255,255,255,0.80); }
+
+  /* Dividers */
+  .divider { background: rgba(255,255,255,0.07); }
+
+  /* Eyebrow dot pulse */
+  .eyebrow-dot {
+    box-shadow: 0 0 0 3px rgba(245,54,92,0.18);
+  }
+
+  /* Problem label badges */
+  .pr-label {
+    background: rgba(245,54,92,0.12);
+    border: 1px solid rgba(245,54,92,0.22);
+  }
+  .pl-badge {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.10);
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* Hero section subtle gradient overlay — deepen it slightly */
+  .hero::before {
+    background:
+      radial-gradient(ellipse 900px 600px at 110% 45%, rgba(245,54,92,.08) 0%, transparent 60%),
+      radial-gradient(ellipse 500px 400px at -5% -10%, rgba(160,40,200,.05) 0%, transparent 55%);
+  }
+
+  /* Metric chips */
+  .metric-chip {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.10);
+    box-shadow: 0 4px 14px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  .metric-chip strong { color: var(--ink); }
+  .metric-chip.pending strong { color: rgba(255,255,255,0.15); }
+
+  /* Hero proof bar */
+  .proof-bar { border-top-color: rgba(255,255,255,0.07); }
+
   </style>
 </head>
 <body>
@@ -1935,7 +2172,7 @@
 
     <!-- Logo -->
     <a href="#" class="site-logo" aria-label="AdCentral home">
-      <img src="assets/images/logo.png" alt="AdCentral" height="84" style="width:auto;display:block;">
+      <img src="assets/images/logo-transparent.png" alt="AdCentral" height="84" style="width:auto;display:block;">
     </a>
 
     <!-- Desktop nav -->
@@ -2428,7 +2665,7 @@
       <!-- Brand -->
       <div class="footer-brand">
         <a href="#" class="site-logo" aria-label="AdCentral home">
-          <img src="assets/images/logo.png" alt="AdCentral" height="76" style="width:auto;display:block;">
+          <img src="assets/images/logo-transparent.png" alt="AdCentral" height="76" style="width:auto;display:block;">
         </a>
         <p>Digital-out-of-home advertising for real-world screens, clearer campaign visibility, and screen owner earnings.</p>
         <div class="social-row" aria-label="Social media links">
@@ -2648,50 +2885,57 @@
       '  vec2 uv=gl_FragCoord.xy/u_res;',
       /* flip Y so origin is top-left */
       '  uv.y=1.0-uv.y;',
-      '  float t=u_t*0.18;',
+      '  float t=u_t*0.13;',
 
-      /* blob centres — b0 anchored top-left (nav/logo area) */
-      '  vec2 b0=vec2(0.05+0.08*sin(t*0.50),          0.04+0.06*cos(t*0.42));',
-      '  vec2 b1=vec2(0.80+0.10*cos(t*0.47),          0.15+0.12*sin(t*0.61));',
-      '  vec2 b2=vec2(0.50+0.20*sin(t*0.39+1.3),      0.55+0.15*cos(t*0.44));',
-      '  vec2 b3=vec2(0.25+0.08*cos(t*0.83),          0.75+0.10*sin(t*0.37));',
-      '  vec2 b4=vec2(0.72+0.12*sin(t*0.55+2.1),      0.80+0.08*cos(t*0.69));',
-      '  vec2 b5=vec2(0.90+0.06*cos(t*0.32),          0.45+0.14*sin(t*0.58));',
+      /* aspect ratio so blobs are circular, not stretched */
+      '  vec2 asp=vec2(u_res.x/u_res.y,1.0);',
 
-      /* radial influence of each blob (soft, large radius) */
-      '  float r=0.72;',
-      '  float d0=1.0-smoothstep(0.0,r,length(uv-b0));',
-      '  float d1=1.0-smoothstep(0.0,r*0.85,length(uv-b1));',
-      '  float d2=1.0-smoothstep(0.0,r*1.1,length(uv-b2));',
-      '  float d3=1.0-smoothstep(0.0,r*0.9,length(uv-b3));',
-      '  float d4=1.0-smoothstep(0.0,r*0.75,length(uv-b4));',
-      '  float d5=1.0-smoothstep(0.0,r*0.65,length(uv-b5));',
+      /* blob centres — slow organic drift */
+      '  vec2 b0=vec2(0.08+0.09*sin(t*0.48),          0.05+0.07*cos(t*0.40));',
+      '  vec2 b1=vec2(0.78+0.11*cos(t*0.44),          0.18+0.11*sin(t*0.58));',
+      '  vec2 b2=vec2(0.48+0.18*sin(t*0.36+1.2),      0.58+0.14*cos(t*0.45));',
+      '  vec2 b3=vec2(0.22+0.09*cos(t*0.80),          0.78+0.09*sin(t*0.35));',
+      '  vec2 b4=vec2(0.70+0.13*sin(t*0.52+2.0),      0.82+0.09*cos(t*0.67));',
+      '  vec2 b5=vec2(0.91+0.06*cos(t*0.30),          0.48+0.15*sin(t*0.54));',
 
-      /* dark deep navy/crimson blobs */
-      '  vec3 base = vec3(0.039,0.039,0.086);',   /* deep navy */
-      '  vec3 c0   = vec3(0.110,0.030,0.160);',   /* deep violet */
-      '  vec3 c1c  = vec3(0.200,0.020,0.070);',   /* dark crimson */
-      '  vec3 c2c  = vec3(0.080,0.025,0.140);',   /* dark purple */
-      '  vec3 c3c  = vec3(0.160,0.015,0.055);',   /* deep wine */
-      '  vec3 c4c  = vec3(0.060,0.035,0.120);',   /* indigo */
-      '  vec3 c5c  = vec3(0.040,0.040,0.100);',   /* near-black blue */
+      /* radial influence — aspect-corrected for true circles */
+      '  float r=0.68;',
+      '  float d0=1.0-smoothstep(0.0,r,      length((uv-b0)*asp));',
+      '  float d1=1.0-smoothstep(0.0,r*0.88, length((uv-b1)*asp));',
+      '  float d2=1.0-smoothstep(0.0,r*1.12, length((uv-b2)*asp));',
+      '  float d3=1.0-smoothstep(0.0,r*0.92, length((uv-b3)*asp));',
+      '  float d4=1.0-smoothstep(0.0,r*0.78, length((uv-b4)*asp));',
+      '  float d5=1.0-smoothstep(0.0,r*0.68, length((uv-b5)*asp));',
+
+      /* richer, more saturated aurora palette */
+      '  vec3 base = vec3(0.027,0.027,0.067);',  /* midnight navy      #07071A */
+      '  vec3 c0   = vec3(0.180,0.040,0.290);',  /* vivid violet       #2E0A4A */
+      '  vec3 c1   = vec3(0.310,0.028,0.115);',  /* deep rose-crimson  #4F071D */
+      '  vec3 c2   = vec3(0.095,0.038,0.230);',  /* dark amethyst      #18063A */
+      '  vec3 c3   = vec3(0.230,0.018,0.085);',  /* rich wine          #3B0516 */
+      '  vec3 c4   = vec3(0.075,0.048,0.210);',  /* deep indigo        #130C35 */
+      '  vec3 c5   = vec3(0.048,0.048,0.150);',  /* midnight blue      #0C0C26 */
 
       '  vec3 col=base;',
-      '  col=mix(col,c0, d0*0.90);',
-      '  col=mix(col,c1c,d1*0.75);',
-      '  col=mix(col,c2c,d2*0.80);',
-      '  col=mix(col,c3c,d3*0.65);',
-      '  col=mix(col,c4c,d4*0.70);',
-      '  col=mix(col,c5c,d5*0.50);',
+      '  col=mix(col,c0, d0*0.96);',
+      '  col=mix(col,c1, d1*0.84);',
+      '  col=mix(col,c2, d2*0.88);',
+      '  col=mix(col,c3, d3*0.74);',
+      '  col=mix(col,c4, d4*0.80);',
+      '  col=mix(col,c5, d5*0.60);',
 
-      /* very subtle fbm grain to break flatness */
-      '  float grain=fbm(uv*3.5+t*0.05)*0.012;',
+      /* organic fbm grain — breaks banding */
+      '  float grain=fbm(uv*4.2+t*0.04)*0.020;',
       '  col=clamp(col+grain,0.0,1.0);',
 
-      /* pin the top of the canvas to match dark nav: rgb(10,10,22) */
-      '  vec3 navCol = vec3(0.039, 0.039, 0.086);',
-      '  float topBlend = (1.0 - smoothstep(0.0, 0.25, uv.y)) * 0.90;',
-      '  col = mix(col, navCol, topBlend);',
+      /* radial vignette — darken the very corners */
+      '  float vig=1.0-smoothstep(0.28,1.05,length((uv-vec2(0.5,0.5))*vec2(1.0,1.35)));',
+      '  col*=(0.72+0.28*vig);',
+
+      /* pin the top to the nav colour: rgb(10,10,22) */
+      '  vec3 navCol=vec3(0.039,0.039,0.086);',
+      '  float topBlend=(1.0-smoothstep(0.0,0.20,uv.y))*0.93;',
+      '  col=mix(col,navCol,topBlend);',
 
       '  gl_FragColor=vec4(col,1.0);',
       '}'
