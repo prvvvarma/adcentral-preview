@@ -679,6 +679,44 @@ const adTex = CATS.map(makeAdTex);   /* portrait panels  2:3   */
 const bbTex = CATS.map(makeBBTex);   /* landscape boards 16:9  */
 
 /* ──────────────────────────────────────────────────────────────────
+   DORMANT SCREEN TEXTURE — dark panel with visible border
+──────────────────────────────────────────────────────────────────── */
+function makeOffTex(isBB) {
+  const W = isBB ? 512 : 256, H = isBB ? 288 : 384;
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const ctx = cv.getContext('2d');
+  /* near-black background */
+  ctx.fillStyle = '#050514'; ctx.fillRect(0, 0, W, H);
+  /* subtle scanlines */
+  for (let y = 0; y < H; y += 3) {
+    ctx.fillStyle = 'rgba(255,255,255,0.014)';
+    ctx.fillRect(0, y, W, 1);
+  }
+  /* dim inner radial glow — makes it look like a screen, not just a wall */
+  const g = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W * 0.56);
+  g.addColorStop(0, 'rgba(40,60,180,0.22)');
+  g.addColorStop(1, 'transparent');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  /* visible border — tells the eye "this is a screen" */
+  ctx.strokeStyle = 'rgba(60,90,220,0.90)'; ctx.lineWidth = isBB ? 4 : 3;
+  ctx.strokeRect(ctx.lineWidth / 2, ctx.lineWidth / 2, W - ctx.lineWidth, H - ctx.lineWidth);
+  /* corner accent marks */
+  const c = isBB ? 18 : 12, lw = ctx.lineWidth;
+  ctx.strokeStyle = 'rgba(120,150,255,0.95)'; ctx.lineWidth = 2;
+  [[0,0,c,0,0,c],[W,0,-c,0,0,c],[0,H,c,0,0,-c],[W,H,-c,0,0,-c]].forEach(([x,y,dx1,dy1,dx2,dy2]) => {
+    ctx.beginPath(); ctx.moveTo(x+lw, y+dy1+lw*Math.sign(dy2||1));
+    ctx.lineTo(x+dx1+lw, y+dy1+lw*Math.sign(dy2||1));
+    ctx.moveTo(x+dx2+lw*Math.sign(dx1||1), y+lw);
+    ctx.lineTo(x+dx2+lw*Math.sign(dx1||1), y+dy2+lw);
+    ctx.stroke();
+  });
+  const t = new THREE.CanvasTexture(cv);
+  t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+const offTexPanel = makeOffTex(false);
+const offTexBoard = makeOffTex(true);
+
+/* ──────────────────────────────────────────────────────────────────
    AD SCREENS — placed on building faces
 ──────────────────────────────────────────────────────────────────── */
 const scrGrp = new THREE.Group();
@@ -693,19 +731,12 @@ for (let i = 0; i < N_SCR; i++) {
   const isBB = rnd() > 0.48;
   const tex  = isBB ? bbTex[catIdx] : adTex[catIdx];
 
-  const mat = new THREE.MeshBasicMaterial({
-    map:   tex,
-    color: new THREE.Color(0.016, 0.016, 0.016),
-  });
-
   const bld = bData[Math.floor(rnd() * bData.length)];
   if (!bld) continue;
 
   /* Preserve exact texture aspect ratio — no stretching */
   const sw = isBB ? rr(12, 18) : rr(5, 9);
   const sh = isBB ? sw * (288/512) : sw * (384/256);  /* 16:9 or 2:3 */
-
-  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(sw, sh), mat);
 
   const side = ri(0, 3);
   let sx = bld.x, sz = bld.z, ry = 0;
@@ -715,15 +746,36 @@ for (let i = 0; i < N_SCR; i++) {
   else                 { sx = bld.x - bld.w/2 - 0.25; ry = -Math.PI/2; }
 
   const sy = rr(sh/2 + 1.5, Math.max(sh/2 + 2, bld.h * 0.62));
+
+  /* ── Frame layer — always visible dark screen ── */
+  const frameMat = new THREE.MeshBasicMaterial({
+    map: isBB ? offTexBoard : offTexPanel,
+    transparent: true, opacity: 0.88, depthWrite: false,
+  });
+  const frameMesh = new THREE.Mesh(new THREE.PlaneGeometry(sw * 1.05, sh * 1.05), frameMat);
+  frameMesh.position.set(sx, sy, sz);
+  frameMesh.rotation.y = ry;
+  frameMesh.renderOrder = 0;
+  scrGrp.add(frameMesh);
+
+  /* ── Ad layer — fades in on activation ── */
+  const mat = new THREE.MeshBasicMaterial({
+    map: tex, transparent: true, opacity: 0, depthWrite: false,
+  });
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(sw, sh), mat);
   mesh.position.set(sx, sy, sz);
   mesh.rotation.y = ry;
+  mesh.renderOrder = 1;
   scrGrp.add(mesh);
 
   screens.push({
     mesh, mat,
-    activateAt: rnd() * 0.5,
-    pos:        new THREE.Vector3(sx, sy, sz),
-    lit:        false,
+    frameMesh, frameMat,
+    activateAt:   rnd() * 0.50,
+    flickerSpeed: 1.2 + rnd() * 2.8,
+    flickerPhase: rnd() * Math.PI * 2,
+    pos:          new THREE.Vector3(sx, sy, sz),
+    lit:          false,
   });
 }
 
@@ -802,8 +854,8 @@ function addConn(i) {
   );
   scene.add(line);
 
-  const pulMat = new THREE.MeshBasicMaterial({ color: 0xFF7799, transparent: true, opacity: 0 });
-  const pulse  = new THREE.Mesh(new THREE.SphereGeometry(0.22, 6, 6), pulMat);
+  const pulMat = new THREE.MeshBasicMaterial({ color: 0xFF5577, transparent: true, opacity: 0 });
+  const pulse  = new THREE.Mesh(new THREE.SphereGeometry(0.35, 7, 7), pulMat);
   scene.add(pulse);
 
   conns.push({ line, linMat, pulse, pulMat, s, t: rnd() });
@@ -919,17 +971,30 @@ function tick() {
     s.className = 'stp-seg' + (i < acIdx ? ' done' : '');
   });
 
-  /* Screen activation */
-  screens.forEach(s => {
-    const active  = scrollP >= 0.20 + s.activateAt * 0.50;
-    s.lit         = active;
-    const target  = active ? 1.72 : 0.016;
-    const cur     = s.mat.color.r;
-    s.mat.color.setRGB(
-      cur + (target - cur) * 0.055,
-      cur + (target - cur) * 0.055,
-      cur + (target - cur) * 0.055
-    );
+  /* Screen states:
+     Ch0 (0.00-0.20): all screens dormant — dark panels clearly visible, no ads
+     Ch1 (0.20-0.40): screens flicker/blink — being "discovered" by AdCentral
+     Ch2+ (0.40+):    AdCentral connects each screen; ads light up staggered */
+  screens.forEach((s, idx) => {
+    const dormant    = scrollP < 0.20;
+    const flickering = scrollP >= 0.20 && scrollP < 0.40;
+    const active     = scrollP >= 0.40 + s.activateAt * 0.38;
+    s.lit = active;
+
+    /* Frame — always visible; dim slightly once ad is on */
+    const frameTarget = active ? Math.max(0.0, 0.88 - s.mat.opacity * 0.88) : 0.88;
+    s.frameMat.opacity += (frameTarget - s.frameMat.opacity) * 0.07;
+
+    /* Ad layer opacity */
+    let adTarget = 0;
+    if (active) {
+      adTarget = 1.0;
+    } else if (flickering) {
+      /* random flicker per screen — some screens blink during ch1 */
+      const flick = Math.pow(Math.max(0, Math.sin(t * s.flickerSpeed + s.flickerPhase)), 6);
+      adTarget = flick * 0.55;
+    }
+    s.mat.opacity += (adTarget - s.mat.opacity) * (active ? 0.045 : 0.12);
   });
 
   /* Node */
@@ -951,7 +1016,7 @@ function tick() {
   /* Connections + pulses */
   const connVis = scrollP >= 0.40;
   conns.forEach((c, i) => {
-    const want = (connVis && c.s.lit) ? 0.2 + 0.08 * Math.sin(t * 1.1 + i * 0.62) : 0;
+    const want = (connVis && c.s.lit) ? 0.50 + 0.14 * Math.sin(t * 1.1 + i * 0.62) : 0;
     c.linMat.opacity += (want - c.linMat.opacity) * 0.045;
 
     c.t += 0.009;
