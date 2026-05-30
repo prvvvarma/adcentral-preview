@@ -392,12 +392,12 @@
   ───────────────────────────────────────────────────────────── */
   .site-nav {
     position: sticky; top: 0; z-index: 200;
-    background: rgba(255, 236, 240, 0.82);
+    background: rgb(255, 236, 240);
   }
   .nav-inner {
     display: flex;
     align-items: center;
-    min-height: 80px;
+    min-height: 96px;
     gap: var(--sp-5);
   }
 
@@ -1263,7 +1263,7 @@
   ───────────────────────────────────────────────────────────── */
   @media (max-width: 1024px) {
     .nav-links, .nav-right { display: none; }
-    .nav-burger { display: inline-flex; }
+    .nav-burger { display: inline-flex; margin-left: auto; }
 
     .hero-grid, .hiw-grid, .hiw-grid.flip,
     .trust-grid, .final-cta-card {
@@ -1315,8 +1315,7 @@
 
   /* Site logo */
   .site-logo { display: inline-flex; align-items: center; flex-shrink: 0; }
-  .site-logo svg { display: block; }
-  .site-logo img { mix-blend-mode: multiply; }
+  .site-logo img { display: block; width: auto; mix-blend-mode: multiply; }
 
 
   /* ─────────────────────────────────────────────────────────────
@@ -1918,7 +1917,7 @@
 
     <!-- Logo -->
     <a href="#" class="site-logo" aria-label="AdCentral home">
-      <img src="assets/images/logo.jpg" alt="AdCentral" height="104" style="width:auto;display:block;">
+      <img src="assets/images/logo.png" alt="AdCentral" height="84" style="width:auto;display:block;">
     </a>
 
     <!-- Desktop nav -->
@@ -2411,7 +2410,7 @@
       <!-- Brand -->
       <div class="footer-brand">
         <a href="#" class="site-logo" aria-label="AdCentral home">
-          <img src="assets/images/logo.jpg" alt="AdCentral" height="96" style="width:auto;display:block;">
+          <img src="assets/images/logo.png" alt="AdCentral" height="76" style="width:auto;display:block;">
         </a>
         <p>Digital-out-of-home advertising for real-world screens, clearer campaign visibility, and screen owner earnings.</p>
         <div class="social-row" aria-label="Social media links">
