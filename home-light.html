@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>AdCentral — Digital Out-of-Home Advertising Marketplace (Dark)</title>
+  <title>AdCentral — Digital Out-of-Home Advertising Marketplace</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet"/>
@@ -19,27 +19,23 @@
     --red-tint:   #FFF0F3;
     --red-tint-2: #FFDDE4;
 
-    /* Neutrals — DARK MODE */
-    --ink:        #F0F2F8;
-    --ink-2:      #D8DCE8;
-    --body:       #A8B0C4;
-    --muted:      #6B7590;
-    --subtle:     #454D62;
-    --hairline:   rgba(255,255,255,0.09);
-    --surface-1:  #141828;
-    --surface-2:  #1A1F30;
-    --white:      #111520;
-
-    /* Red tints — dark mode */
-    --red-tint:   rgba(245,54,92,0.14);
-    --red-tint-2: rgba(245,54,92,0.28);
+    /* Neutrals — light mode */
+    --ink:        #0F1117;
+    --ink-2:      #1E2330;
+    --body:       #374151;
+    --muted:      #6B7280;
+    --subtle:     #9CA3AF;
+    --hairline:   #E5E7EB;
+    --surface-1:  #F9FAFB;
+    --surface-2:  #F3F4F6;
+    --white:      #FFFFFF;
 
     /* Placeholder palette */
-    --ph-bg:      #1A1F30;
-    --ph-border:  #2E3448;
-    --ph-line:    #252A3C;
-    --ph-label:   #6B7590;
-    --ph-chip-bg: rgba(255,255,255,.06);
+    --ph-bg:      #F1F3F5;
+    --ph-border:  #CED4DA;
+    --ph-line:    #DEE2E6;
+    --ph-label:   #6C757D;
+    --ph-chip-bg: rgba(255,255,255,.88);
 
     /* Typography scale (px → rem, base 16) */
     --text-xs:   0.72rem;   /* 11.5 */
@@ -102,8 +98,8 @@
     margin-inline: auto;
   }
   .section      { padding: var(--sp-24) 0; }
-  .section-off  { background: rgba(255,255,255,0.03); }
-  .section-off2 { background: rgba(255,255,255,0.05); }
+  .section-off  { background: rgba(249,250,251,0.55); }
+  .section-off2 { background: rgba(243,244,246,0.55); }
 
   /* ─────────────────────────────────────────────────────────────
      TYPOGRAPHY HELPERS
@@ -399,7 +395,7 @@
   ───────────────────────────────────────────────────────────── */
   .site-nav {
     position: sticky; top: 0; z-index: 200;
-    background: rgb(10, 10, 22);
+    background: rgb(255, 236, 240);
   }
   .nav-inner {
     display: flex;
@@ -501,11 +497,11 @@
     position: fixed;
     top: 80px; left: 0; right: 0;
     z-index: 199;
-    background: rgba(10, 10, 22, 0.97);
+    background: rgba(255, 236, 240, 0.97);
     backdrop-filter: blur(24px) saturate(1.6);
     -webkit-backdrop-filter: blur(24px) saturate(1.6);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.40);
+    border-bottom: 1px solid rgba(255,255,255,0.55);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.10);
     max-height: calc(100dvh - 80px);
     overflow-y: auto;
     visibility: hidden;
@@ -1691,13 +1687,13 @@
      PREMIUM FINISH — Glassmorphism, typography, motion, accents
   ═══════════════════════════════════════════════════════════════ */
 
-  /* --- Shared glass mixin values — DARK --- */
+  /* --- Shared glass mixin values --- */
   :root {
-    --glass-bg:      rgba(255,255,255,0.055);
-    --glass-border:  rgba(255,255,255,0.11);
-    --glass-blur:    blur(26px) saturate(2.0);
-    --glass-shadow:  0 8px 42px rgba(0,0,0,0.58), 0 2px 14px rgba(0,0,0,0.38),
-                     inset 0 1px 0 rgba(255,255,255,0.09);
+    --glass-bg:      rgba(255,255,255,0.52);
+    --glass-border:  rgba(255,255,255,0.78);
+    --glass-blur:    blur(18px) saturate(1.5);
+    --glass-shadow:  0 8px 32px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.04),
+                     inset 0 1px 0 rgba(255,255,255,0.92);
     --ease-spring:   cubic-bezier(.34,1.46,.64,1);
     --ease-out:      cubic-bezier(.22,1,.36,1);
   }
@@ -1730,19 +1726,16 @@
   }
   .btn-primary:active { transform: translateY(0); }
   .btn-secondary {
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(16px) saturate(1.7);
-    -webkit-backdrop-filter: blur(16px) saturate(1.7);
-    border-color: rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.90);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.70);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-color: rgba(255,255,255,0.85);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,1);
   }
   .btn-secondary:hover {
-    background: rgba(255,255,255,0.13);
-    border-color: rgba(255,255,255,0.24);
-    color: #fff;
+    background: rgba(255,255,255,0.88);
     transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.13);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,1);
   }
   /* Hero secondary stays dark */
   .hero-actions .btn-secondary {
@@ -1768,10 +1761,9 @@
   }
   .persona-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(245,54,92,.40);
-    box-shadow: 0 24px 64px rgba(0,0,0,.65), 0 6px 20px rgba(0,0,0,.40),
-                0 0 48px rgba(245,54,92,.10),
-                inset 0 1px 0 rgba(255,255,255,.13);
+    border-color: rgba(245,54,92,.35);
+    box-shadow: 0 20px 56px rgba(0,0,0,.10), 0 4px 16px rgba(0,0,0,.06),
+                inset 0 1px 0 rgba(255,255,255,.95);
   }
   /* Red gradient top-line on hover */
   .persona-card { position: relative; }
@@ -1817,10 +1809,9 @@
   .res-card:hover::after { opacity: 1; }
   .res-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(245,54,92,.35);
-    box-shadow: 0 24px 64px rgba(0,0,0,.65), 0 6px 20px rgba(0,0,0,.40),
-                0 0 48px rgba(245,54,92,.10),
-                inset 0 1px 0 rgba(255,255,255,.13);
+    border-color: rgba(245,54,92,.3);
+    box-shadow: 0 20px 56px rgba(0,0,0,.10), 0 4px 16px rgba(0,0,0,.06),
+                inset 0 1px 0 rgba(255,255,255,.95);
   }
 
   /* --- Glassmorphism: Trust features container --- */
@@ -1837,8 +1828,7 @@
   }
   .trust-feature:hover {
     transform: translateY(-3px);
-    box-shadow: 0 18px 52px rgba(0,0,0,.60), 0 4px 16px rgba(0,0,0,.38),
-                inset 0 1px 0 rgba(255,255,255,.12);
+    box-shadow: 0 16px 40px rgba(0,0,0,.09), inset 0 1px 0 rgba(255,255,255,.95);
   }
 
   /* --- Glassmorphism: Problem section image card --- */
@@ -1888,65 +1878,19 @@
 
   /* --- Nav scrolled: glass effect --- */
   .site-nav.scrolled {
-    background: rgba(10,10,22,0.85) !important;
+    background: rgba(255,236,240,0.75) !important;
     backdrop-filter: blur(20px) saturate(1.5);
     -webkit-backdrop-filter: blur(20px) saturate(1.5);
-    box-shadow: 0 8px 32px rgba(0,0,0,.3), inset 0 -1px 0 rgba(255,255,255,.08);
+    box-shadow: 0 8px 32px rgba(0,0,0,.06), inset 0 -1px 0 rgba(255,255,255,.5);
   }
 
   /* --- Snapshot strip: refined glow --- */
   .snapshot-strip {
-    background: #0D0818;
-    box-shadow: 0 32px 80px rgba(0,0,0,.55), 0 4px 16px rgba(0,0,0,.35),
-                inset 0 1px 0 rgba(255,255,255,.08);
+    box-shadow: 0 32px 80px rgba(15,17,23,.25), 0 4px 16px rgba(15,17,23,.15),
+                inset 0 1px 0 rgba(255,255,255,.06);
   }
-  .snapshot-strip::before {
-    background: radial-gradient(ellipse 70% 90% at 50% 110%, rgba(245,54,92,.35) 0%, transparent 65%);
-  }
-  .snapshot-strip::after {
-    background: linear-gradient(90deg, transparent, rgba(245,54,92,.6) 50%, transparent);
-  }
-  .snap-num { color: #fff; }
-  .snap-label { color: rgba(255,255,255,0.85); }
-  .snap-desc { color: rgba(255,255,255,0.45); }
   .snap-stat-icon {
-    background: rgba(245,54,92,0.18);
-    box-shadow: 0 0 20px rgba(245,54,92,.35);
-  }
-
-  /* --- Dark nav: text, logo, burger visibility --- */
-  .nav-btn {
-    color: rgba(255,255,255,0.80);
-  }
-  .nav-btn:hover {
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-  }
-  .nav-link-plain {
-    color: rgba(255,255,255,0.70);
-  }
-  .nav-link-plain:hover { color: #fff; }
-  .nav-dropdown {
-    background: #13101e;
-    border-color: rgba(255,255,255,0.10);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.50);
-  }
-  .nav-dropdown a { color: rgba(255,255,255,0.75); }
-  .nav-dropdown a:hover { background: rgba(255,255,255,0.07); color: #fff; }
-  .nav-burger {
-    border-color: rgba(255,255,255,0.20);
-    background: rgba(255,255,255,0.08);
-  }
-  .burger-icon,
-  .burger-icon::before,
-  .burger-icon::after { background: #fff; }
-  .btn-ghost-brand {
-    border-color: rgba(245,54,92,0.70);
-    color: #fff;
-  }
-  .btn-ghost-brand:hover {
-    background: rgba(245,54,92,0.15);
-    border-color: var(--red);
+    box-shadow: 0 0 16px rgba(245,54,92,.2);
   }
 
   /* --- Footer links hover --- */
@@ -1963,202 +1907,6 @@
     line-height: 1.6;
   }
 
-  /* --- Hero venue chips — dark mode --- */
-  .hero-venue-label {
-    color: rgba(255,255,255,0.38);
-    letter-spacing: .10em;
-  }
-  .venue-chip {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(255,255,255,0.14);
-    color: rgba(255,255,255,0.82);
-    backdrop-filter: blur(10px) saturate(1.4);
-    -webkit-backdrop-filter: blur(10px) saturate(1.4);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.10),
-                0 2px 8px rgba(0,0,0,0.25);
-  }
-  .venue-chip:hover {
-    background: rgba(255,255,255,0.13);
-    border-color: rgba(245,54,92,0.50);
-    color: #fff;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.12),
-                0 0 14px rgba(245,54,92,0.18),
-                0 2px 8px rgba(0,0,0,0.30);
-  }
-  .venue-chip-more {
-    background: rgba(245,54,92,0.16);
-    border-color: rgba(245,54,92,0.42);
-    color: #ff8fab;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08),
-                0 0 14px rgba(245,54,92,0.22),
-                0 2px 8px rgba(0,0,0,0.28);
-  }
-  .venue-chip-more:hover {
-    background: rgba(245,54,92,0.26);
-    border-color: rgba(245,54,92,0.65);
-    color: #fff;
-  }
-
-  /* ── DARK MODE — EXTENDED PREMIUM COVERAGE ──────────────────────── */
-
-  /* Shadow tokens — deeper for dark mode */
-  :root {
-    --shadow-1: 0 1px 3px rgba(0,0,0,.38), 0 2px 10px rgba(0,0,0,.30);
-    --shadow-2: 0 4px 14px rgba(0,0,0,.45), 0 8px 30px rgba(0,0,0,.34);
-    --shadow-3: 0 8px 28px rgba(0,0,0,.52), 0 20px 68px rgba(0,0,0,.42);
-  }
-
-  /* Mobile nav dark glass */
-  .mobile-group {
-    background: rgba(10,8,26,0.92);
-    border-color: rgba(255,255,255,0.09);
-    backdrop-filter: blur(24px) saturate(1.9);
-    -webkit-backdrop-filter: blur(24px) saturate(1.9);
-  }
-  .mobile-acc { color: rgba(255,255,255,0.82); }
-  .mobile-links a {
-    border-top-color: rgba(255,255,255,0.06);
-    color: rgba(255,255,255,0.60);
-  }
-  .mobile-links a:hover {
-    color: var(--red);
-    background: rgba(245,54,92,0.08);
-  }
-  .mobile-actions .btn-secondary {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(255,255,255,0.13);
-    color: rgba(255,255,255,0.85);
-  }
-
-  /* Icon boxes — jewel tones for dark mode */
-  .ib-rose    { background: rgba(245,54,92,0.16);  }
-  .ib-emerald { background: rgba(16,185,129,0.15); }
-  .ib-sky     { background: rgba(14,165,233,0.15); }
-  .ib-violet  { background: rgba(139,92,246,0.15); }
-  .ib-amber   { background: rgba(245,158,11,0.14); }
-  .ib-teal    { background: rgba(20,184,166,0.14); }
-
-  /* Glass: marketplace summary cards */
-  .market-card {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border-color: var(--glass-border);
-    box-shadow: var(--glass-shadow);
-  }
-  .market-card:hover {
-    border-color: rgba(245,54,92,.28);
-    box-shadow: 0 22px 64px rgba(0,0,0,.60), 0 4px 18px rgba(0,0,0,.38),
-                0 0 50px rgba(245,54,92,.08),
-                inset 0 1px 0 rgba(255,255,255,.10);
-    transform: translateY(-4px);
-  }
-
-  /* Glass: problem cards */
-  .problem-card {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border-color: var(--glass-border);
-    box-shadow: var(--glass-shadow);
-  }
-  .problem-card-body h3 { color: var(--ink); }
-
-  /* How it works — deeper image shadows */
-  .hiw-row-img {
-    box-shadow: 0 28px 72px rgba(0,0,0,.65), 0 6px 22px rgba(0,0,0,.42);
-  }
-
-  /* Problem flow — timeline nodes */
-  .pf-num {
-    background: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.40);
-    box-shadow: none;
-  }
-  .pf-solution .pf-num {
-    box-shadow: 0 4px 22px rgba(245,54,92,.48);
-  }
-  .pf-connector {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.10), transparent);
-  }
-
-  /* HIW section header bar border */
-  .hiw-sc-header {
-    border-bottom-color: rgba(255,255,255,0.07);
-  }
-
-  /* Step numbers in HiW steps */
-  .step-num {
-    box-shadow: 0 3px 16px rgba(245,54,92,.48);
-  }
-
-  /* Trust icon box */
-  .trust-feat-icon {
-    background: rgba(245,54,92,0.12);
-    border-color: rgba(245,54,92,0.22);
-  }
-
-  /* Proof bar readability */
-  .proof-item { color: rgba(255,255,255,0.38); }
-  .proof-sep  { color: rgba(255,255,255,0.14); }
-
-  /* Social buttons */
-  .social-btn {
-    background: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.10);
-    color: rgba(255,255,255,0.48);
-  }
-  .social-btn:hover {
-    border-color: var(--red);
-    color: var(--red);
-    background: rgba(245,54,92,0.10);
-    box-shadow: 0 0 16px rgba(245,54,92,0.22);
-  }
-
-  /* Footer bottom readability */
-  .footer-bottom { color: rgba(255,255,255,0.32); }
-  .footer-legal a { color: rgba(255,255,255,0.30); }
-  .footer-legal a:hover { color: rgba(255,255,255,0.80); }
-
-  /* Dividers */
-  .divider { background: rgba(255,255,255,0.07); }
-
-  /* Eyebrow dot pulse */
-  .eyebrow-dot {
-    box-shadow: 0 0 0 3px rgba(245,54,92,0.18);
-  }
-
-  /* Problem label badges */
-  .pr-label {
-    background: rgba(245,54,92,0.12);
-    border: 1px solid rgba(245,54,92,0.22);
-  }
-  .pl-badge {
-    background: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.10);
-    color: rgba(255,255,255,0.45);
-  }
-
-  /* Hero section subtle gradient overlay — deepen it slightly */
-  .hero::before {
-    background:
-      radial-gradient(ellipse 900px 600px at 110% 45%, rgba(245,54,92,.08) 0%, transparent 60%),
-      radial-gradient(ellipse 500px 400px at -5% -10%, rgba(160,40,200,.05) 0%, transparent 55%);
-  }
-
-  /* Metric chips */
-  .metric-chip {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(255,255,255,0.10);
-    box-shadow: 0 4px 14px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,0.08);
-  }
-  .metric-chip strong { color: var(--ink); }
-  .metric-chip.pending strong { color: rgba(255,255,255,0.15); }
-
-  /* Hero proof bar */
-  .proof-bar { border-top-color: rgba(255,255,255,0.07); }
-
   </style>
 </head>
 <body>
@@ -2171,7 +1919,7 @@
   <div class="wrap nav-inner">
 
     <!-- Logo -->
-    <a href="dark.html" class="site-logo" aria-label="AdCentral home">
+    <a href="#" class="site-logo" aria-label="AdCentral home">
       <img src="assets/images/adcentral_logo_transperant.png" alt="AdCentral" height="41" style="width:auto;display:block;">
     </a>
 
@@ -2181,9 +1929,9 @@
       <div class="nav-item">
         <button class="nav-btn" type="button" aria-expanded="false" aria-haspopup="true">Solutions</button>
         <div class="nav-dropdown" role="menu" hidden>
-          <a href="#personas"      role="menuitem">Advertisers</a>
-          <a href="#personas"      role="menuitem">Screen Owners</a>
-          <a href="#personas"      role="menuitem">Partners</a>
+          <a href="advertisers.html" role="menuitem">Advertisers</a>
+          <a href="#personas"       role="menuitem">Screen Owners</a>
+          <a href="#personas"       role="menuitem">Partners</a>
         </div>
       </div>
       <!-- Resources -->
@@ -2224,7 +1972,7 @@
       <div class="mobile-group">
         <button class="mobile-acc" type="button" aria-expanded="false">Solutions</button>
         <div class="mobile-links" hidden>
-          <a href="#personas">Advertisers</a>
+          <a href="advertisers.html">Advertisers</a>
           <a href="#personas">Screen Owners</a>
           <a href="#personas">Partners</a>
         </div>
@@ -2279,7 +2027,7 @@
       </div>
 
       <div class="hero-actions">
-        <a href="#personas" class="btn btn-primary btn-lg">Plan a Campaign</a>
+        <a href="advertisers.html" class="btn btn-primary btn-lg">Plan a Campaign</a>
         <a href="#personas" class="btn btn-secondary btn-lg">Connect Your Screen</a>
       </div>
 
@@ -2329,10 +2077,10 @@
           <p class="persona-q">Want to run ads on real-world screens?</p>
           <h3>Advertisers</h3>
           <p>Launch campaigns across connected screens with clearer delivery visibility.</p>
-          <button class="persona-btn" type="button">
+          <a href="advertisers.html" class="persona-btn">
             <span>Advertise with AdCentral</span>
             <span class="persona-btn-arrow" aria-hidden="true">→</span>
-          </button>
+          </a>
         </div>
       </article>
 
@@ -2691,7 +2439,7 @@
       <div class="footer-col">
         <h5>Solutions</h5>
         <ul>
-          <li><a href="#personas">Advertisers</a></li>
+          <li><a href="advertisers.html">Advertisers</a></li>
           <li><a href="#personas">Screen Owners</a></li>
           <li><a href="#personas">Partners</a></li>
         </ul>
@@ -2885,57 +2633,52 @@
       '  vec2 uv=gl_FragCoord.xy/u_res;',
       /* flip Y so origin is top-left */
       '  uv.y=1.0-uv.y;',
-      '  float t=u_t*0.13;',
+      '  float t=u_t*0.18;',
 
-      /* aspect ratio so blobs are circular, not stretched */
-      '  vec2 asp=vec2(u_res.x/u_res.y,1.0);',
+      /* blob centres — b0 anchored top-left (nav/logo area) */
+      '  vec2 b0=vec2(0.05+0.08*sin(t*0.50),          0.04+0.06*cos(t*0.42));',
+      '  vec2 b1=vec2(0.80+0.10*cos(t*0.47),          0.15+0.12*sin(t*0.61));',
+      '  vec2 b2=vec2(0.50+0.20*sin(t*0.39+1.3),      0.55+0.15*cos(t*0.44));',
+      '  vec2 b3=vec2(0.25+0.08*cos(t*0.83),          0.75+0.10*sin(t*0.37));',
+      '  vec2 b4=vec2(0.72+0.12*sin(t*0.55+2.1),      0.80+0.08*cos(t*0.69));',
+      '  vec2 b5=vec2(0.90+0.06*cos(t*0.32),          0.45+0.14*sin(t*0.58));',
 
-      /* blob centres — slow organic drift */
-      '  vec2 b0=vec2(0.08+0.09*sin(t*0.48),          0.05+0.07*cos(t*0.40));',
-      '  vec2 b1=vec2(0.78+0.11*cos(t*0.44),          0.18+0.11*sin(t*0.58));',
-      '  vec2 b2=vec2(0.48+0.18*sin(t*0.36+1.2),      0.58+0.14*cos(t*0.45));',
-      '  vec2 b3=vec2(0.22+0.09*cos(t*0.80),          0.78+0.09*sin(t*0.35));',
-      '  vec2 b4=vec2(0.70+0.13*sin(t*0.52+2.0),      0.82+0.09*cos(t*0.67));',
-      '  vec2 b5=vec2(0.91+0.06*cos(t*0.30),          0.48+0.15*sin(t*0.54));',
+      /* radial influence of each blob (soft, large radius) */
+      '  float r=0.72;',
+      '  float d0=1.0-smoothstep(0.0,r,length(uv-b0));',
+      '  float d1=1.0-smoothstep(0.0,r*0.85,length(uv-b1));',
+      '  float d2=1.0-smoothstep(0.0,r*1.1,length(uv-b2));',
+      '  float d3=1.0-smoothstep(0.0,r*0.9,length(uv-b3));',
+      '  float d4=1.0-smoothstep(0.0,r*0.75,length(uv-b4));',
+      '  float d5=1.0-smoothstep(0.0,r*0.65,length(uv-b5));',
 
-      /* radial influence — aspect-corrected for true circles */
-      '  float r=0.68;',
-      '  float d0=1.0-smoothstep(0.0,r,      length((uv-b0)*asp));',
-      '  float d1=1.0-smoothstep(0.0,r*0.88, length((uv-b1)*asp));',
-      '  float d2=1.0-smoothstep(0.0,r*1.12, length((uv-b2)*asp));',
-      '  float d3=1.0-smoothstep(0.0,r*0.92, length((uv-b3)*asp));',
-      '  float d4=1.0-smoothstep(0.0,r*0.78, length((uv-b4)*asp));',
-      '  float d5=1.0-smoothstep(0.0,r*0.68, length((uv-b5)*asp));',
-
-      /* richer, more saturated aurora palette */
-      '  vec3 base = vec3(0.027,0.027,0.067);',  /* midnight navy      #07071A */
-      '  vec3 c0   = vec3(0.180,0.040,0.290);',  /* vivid violet       #2E0A4A */
-      '  vec3 c1   = vec3(0.310,0.028,0.115);',  /* deep rose-crimson  #4F071D */
-      '  vec3 c2   = vec3(0.095,0.038,0.230);',  /* dark amethyst      #18063A */
-      '  vec3 c3   = vec3(0.230,0.018,0.085);',  /* rich wine          #3B0516 */
-      '  vec3 c4   = vec3(0.075,0.048,0.210);',  /* deep indigo        #130C35 */
-      '  vec3 c5   = vec3(0.048,0.048,0.150);',  /* midnight blue      #0C0C26 */
+      /* light brand-red tints */
+      '  vec3 base = vec3(1.000,1.000,1.000);',   /* pure white */
+      '  vec3 c0   = vec3(1.000,0.900,0.915);',   /* soft blush */
+      '  vec3 c1c  = vec3(1.000,0.930,0.940);',   /* rose tint */
+      '  vec3 c2c  = vec3(1.000,0.885,0.900);',   /* coral */
+      '  vec3 c3c  = vec3(1.000,0.920,0.932);',   /* warm pink */
+      '  vec3 c4c  = vec3(1.000,0.910,0.922);',   /* blush */
+      '  vec3 c5c  = vec3(0.990,0.940,0.950);',   /* light rose */
 
       '  vec3 col=base;',
-      '  col=mix(col,c0, d0*0.96);',
-      '  col=mix(col,c1, d1*0.84);',
-      '  col=mix(col,c2, d2*0.88);',
-      '  col=mix(col,c3, d3*0.74);',
-      '  col=mix(col,c4, d4*0.80);',
-      '  col=mix(col,c5, d5*0.60);',
+      '  col=mix(col,c0, d0*0.80);',
+      '  col=mix(col,c1c,d1*0.65);',
+      '  col=mix(col,c2c,d2*0.70);',
+      '  col=mix(col,c3c,d3*0.55);',
+      '  col=mix(col,c4c,d4*0.60);',
+      '  col=mix(col,c5c,d5*0.45);',
 
-      /* organic fbm grain — breaks banding */
-      '  float grain=fbm(uv*4.2+t*0.04)*0.020;',
+      /* very subtle fbm grain to break flatness */
+      '  float grain=fbm(uv*3.5+t*0.05)*0.018;',
       '  col=clamp(col+grain,0.0,1.0);',
 
-      /* radial vignette — darken the very corners */
-      '  float vig=1.0-smoothstep(0.28,1.05,length((uv-vec2(0.5,0.5))*vec2(1.0,1.35)));',
-      '  col*=(0.72+0.28*vig);',
-
-      /* pin the top to the nav colour: rgb(10,10,22) */
-      '  vec3 navCol=vec3(0.039,0.039,0.086);',
-      '  float topBlend=(1.0-smoothstep(0.0,0.20,uv.y))*0.93;',
-      '  col=mix(col,navCol,topBlend);',
+      /* pin the top of the canvas to exactly match the nav background
+         rgba(255,236,240) = vec3(1.0, 0.925, 0.941)
+         blend strength fades out over the top 25% of the canvas */
+      '  vec3 navCol = vec3(1.000, 0.925, 0.941);',
+      '  float topBlend = (1.0 - smoothstep(0.0, 0.25, uv.y)) * 0.82;',
+      '  col = mix(col, navCol, topBlend);',
 
       '  gl_FragColor=vec4(col,1.0);',
       '}'
