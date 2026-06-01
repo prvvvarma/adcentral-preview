@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Advertisers - AdCentral</title>
+  <title>Screen Owners - AdCentral</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet"/>
@@ -671,13 +671,14 @@
     display: grid;
     grid-template-columns: 0.92fr 1.08fr;
     gap: var(--sp-12);
-    align-items: stretch;
+    align-items: start;
   }
-  /* Partnership card fills the column height to match the FAQ list */
+  /* ADCL card sits at the top of its column, sticky as the FAQ scrolls */
   .pf-grid .partner-card {
     display: flex; flex-direction: column;
     gap: var(--sp-5);
     padding: var(--sp-8) var(--sp-8);
+    position: sticky; top: 112px;
   }
   .pf-grid .partner-actions {
     flex-direction: row; flex-wrap: wrap; align-items: center;
@@ -799,6 +800,163 @@
   .dev-note strong { font-weight: 700; color: rgba(251,191,36,.95); }
 
   /* ─────────────────────────────────────────────────────────────
+     SCREEN-OWNER HELPERS
+  ───────────────────────────────────────────────────────────── */
+  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+  .so-note {
+    display: inline-flex; align-items: center; gap: var(--sp-2);
+    margin-top: var(--sp-5); font-size: var(--text-xs); color: var(--muted);
+  }
+  .so-note svg { flex-shrink: 0; color: var(--muted); }
+  .so-examples { display: grid; gap: var(--sp-3); margin: var(--sp-6) 0; }
+  .so-example {
+    display: flex; align-items: flex-start; gap: var(--sp-3);
+    font-size: var(--text-sm); color: var(--body); line-height: 1.6;
+  }
+  .so-example-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--red);
+    flex-shrink: 0; margin-top: 7px;
+  }
+  .faq-wrap { max-width: 800px; margin-inline: auto; }
+  .adcl-card { max-width: 820px; margin-inline: auto; }
+
+  /* How it works - horizontal 4-step row */
+  .steps-row {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-5); margin-bottom: var(--sp-16);
+  }
+  .step-h { position: relative; padding-top: var(--sp-2); }
+  /* connector line between steps */
+  .step-h:not(:last-child)::after {
+    content: ''; position: absolute; top: 21px; left: 52px; right: -10px;
+    height: 2px; background: linear-gradient(90deg, rgba(245,54,92,.30), rgba(245,54,92,.06));
+  }
+  .step-h-num {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(245,54,92,.10); border: 1.5px solid rgba(245,54,92,.32);
+    color: var(--red); font-weight: 800; font-size: var(--text-base);
+    display: grid; place-items: center; margin-bottom: var(--sp-4);
+    position: relative; z-index: 1;
+  }
+  .step-h h4 { font-size: var(--text-base); letter-spacing: -.01em; margin-bottom: var(--sp-2); }
+  .step-h p  { font-size: var(--text-sm); color: var(--muted); line-height: 1.6; }
+
+  /* Supported device gallery (dark cards) */
+  .devices-head {
+    text-align: center; margin-bottom: var(--sp-8);
+  }
+  .devices-head .so-devices-cap {
+    font-size: var(--text-xs); font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--red); margin-bottom: var(--sp-3);
+  }
+  .devices-head h3 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); letter-spacing: -.02em; }
+  .device-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-5);
+  }
+  .device-card {
+    border-radius: var(--r-lg); overflow: hidden;
+    box-shadow: 0 14px 44px rgba(0,0,0,.5);
+    transition: transform 260ms var(--ease-spring), box-shadow 260ms var(--ease-out);
+  }
+  .device-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 24px 64px rgba(0,0,0,.62), 0 0 40px rgba(245,54,92,.10);
+  }
+  .device-card img { width: 100%; height: auto; display: block; }
+
+  /* Two premium value cards */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); margin-bottom: var(--sp-12); }
+  .vcard {
+    position: relative; overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-xl);
+    padding: var(--sp-7) var(--sp-7);
+    box-shadow: var(--glass-shadow);
+    transition: transform 260ms var(--ease-spring), border-color 220ms, box-shadow 260ms var(--ease-out);
+  }
+  .vcard::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red) 50%, transparent);
+    transform: scaleX(0); transform-origin: center;
+    transition: transform 300ms var(--ease-spring);
+  }
+  .vcard:hover::before { transform: scaleX(1); }
+  .vcard:hover {
+    transform: translateY(-4px); border-color: rgba(245,54,92,.30);
+    box-shadow: 0 18px 56px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.10);
+  }
+  .vcard-icon {
+    width: 52px; height: 52px; border-radius: 14px; margin-bottom: var(--sp-4);
+    background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.18);
+    display: grid; place-items: center; font-size: 24px;
+  }
+  .vcard h4 { font-size: var(--text-lg); letter-spacing: -.016em; margin-bottom: var(--sp-2); }
+  .vcard p  { font-size: var(--text-sm); color: var(--muted); line-height: 1.7; }
+
+  /* Premium category-control panel mock (replaces image placeholder) */
+  .ctrl-panel {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-xl);
+    box-shadow: var(--glass-shadow), 0 0 70px rgba(245,54,92,.05);
+    padding: var(--sp-6) var(--sp-6);
+    position: relative; overflow: hidden;
+  }
+  .ctrl-panel::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(245,54,92,.6) 50%, transparent);
+  }
+  .ctrl-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: var(--sp-4); margin-bottom: var(--sp-5);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .ctrl-title { font-size: var(--text-sm); font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
+  .ctrl-toggle { display: inline-flex; align-items: center; gap: 8px; font-size: var(--text-xs); font-weight: 600; color: var(--body); }
+  .ctrl-switch {
+    width: 30px; height: 17px; border-radius: 999px; position: relative;
+    background: rgba(16,185,129,.30); border: 1px solid rgba(16,185,129,.5);
+    flex-shrink: 0;
+  }
+  .ctrl-switch::after {
+    content: ''; position: absolute; top: 1px; right: 1px;
+    width: 13px; height: 13px; border-radius: 50%; background: #10b981;
+    box-shadow: 0 0 8px rgba(16,185,129,.6);
+  }
+  .ctrl-group { margin-bottom: var(--sp-5); }
+  .ctrl-group:last-child { margin-bottom: 0; }
+  .ctrl-label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+    margin-bottom: var(--sp-3);
+  }
+  .ctrl-label.allowed { color: #10b981; }
+  .ctrl-label.blocked { color: var(--red); }
+  .ctrl-chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+  .ctrl-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 13px; border-radius: 999px;
+    font-size: var(--text-sm); font-weight: 500;
+  }
+  .ctrl-chip.ok {
+    background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.22); color: #cdeede;
+  }
+  .ctrl-chip.ok::before { content: '✓'; color: #10b981; font-weight: 800; font-size: 11px; }
+  .ctrl-chip.no {
+    background: rgba(245,54,92,.07); border: 1px solid rgba(245,54,92,.20);
+    color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(245,54,92,.5);
+  }
+  .ctrl-chip.no::before { content: '✕'; color: var(--red); font-weight: 800; font-size: 11px; text-decoration: none; display: inline-block; }
+  .ctrl-foot {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: var(--sp-5); padding-top: var(--sp-4); border-top: 1px solid var(--hairline);
+    font-size: var(--text-xs); color: var(--muted);
+  }
+  .ctrl-foot .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: pulse-badge 2s infinite; flex-shrink: 0; }
+
+  /* ─────────────────────────────────────────────────────────────
      RESPONSIVE
   ───────────────────────────────────────────────────────────── */
   @media (max-width: 1024px) {
@@ -808,13 +966,18 @@
     .campaign-row { grid-template-columns: 180px 1fr auto; gap: var(--sp-5); padding: var(--sp-6) var(--sp-6); }
   }
   @media (max-width: 960px) {
-    .opening-split, .gate-grid, .brands-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
+    .opening-split, .gate-grid, .brands-grid, .how-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
     .uae-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
     /* Partnership + FAQ stack */
     .pf-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
     .pf-grid .partner-card { position: static; grid-template-columns: 1fr auto; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--sp-8); }
     .brands-visual { grid-template-columns: 1fr 1fr; }
+    .trio { grid-template-columns: 1fr; }
+    /* Steps 4→2, device gallery 3→2 */
+    .steps-row { grid-template-columns: 1fr 1fr; gap: var(--sp-8) var(--sp-6); }
+    .step-h:not(:last-child)::after { display: none; }
+    .device-grid { grid-template-columns: 1fr 1fr; }
     /* Campaign rows - hide price on tablet, show name + desc only */
     .campaign-row { grid-template-columns: 180px 1fr; }
     .cr-price { display: none; }
@@ -823,6 +986,9 @@
     .nav-links, .nav-right .nav-link-plain { display: none; }
     .nav-burger { display: inline-flex; }
     .price-grid { grid-template-columns: 1fr; }
+    .duo { grid-template-columns: 1fr; }
+    .steps-row { grid-template-columns: 1fr; gap: var(--sp-5); }
+    .device-grid { grid-template-columns: 1fr; }
     /* Campaign rows - stack on mobile */
     .campaign-row {
       grid-template-columns: 1fr;
@@ -867,8 +1033,8 @@
       <div class="nav-item">
         <button class="nav-btn" type="button" aria-expanded="false" aria-haspopup="true">Solutions</button>
         <div class="nav-dropdown" role="menu" hidden>
-          <a href="advertisers.html"   role="menuitem" class="active">Advertisers</a>
-          <a href="screen-owners.html" role="menuitem">Screen Owners</a>
+          <a href="advertisers.html"   role="menuitem">Advertisers</a>
+          <a href="screen-owners.html" role="menuitem" class="active">Screen Owners</a>
           <a href="#"                  role="menuitem">Partners</a>
         </div>
       </div>
@@ -934,20 +1100,19 @@
 <main>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     §1  OPENING + CAMPAIGN TYPES  (merged, compact, no image)
+     §1  HERO  (left intro · right "who can join")
 ═══════════════════════════════════════════════════════════════ -->
 <section class="opening" id="top">
   <div class="wrap">
-
     <div class="opening-split">
 
-      <!-- LEFT - compact intro -->
+      <!-- LEFT - intro -->
       <div class="opening-head sr">
-        <span class="eyebrow"><span class="eyebrow-dot"></span>For Advertisers</span>
-        <h1>Live in the UAE.<br>Built to scale <span class="accent">globally.</span></h1>
-        <p class="lead">Start with a small test, promote locally, or plan recurring campaigns across connected UAE screens.</p>
+        <span class="eyebrow"><span class="eyebrow-dot"></span>For Screen Owners</span>
+        <h1>Connect your screen.<br>Keep <span class="accent">control.</span></h1>
+        <p class="lead">AdCentral helps eligible venue screens earn from approved ad delivery - while giving owners control over the types of ads that can appear.</p>
         <div class="opening-actions">
-          <a href="#" class="btn btn-primary btn-lg">Book a Demo</a>
+          <a href="/login?role=screen-owner&next=/screen-owner/screens/new" class="btn btn-primary btn-lg">Connect Your Screen</a>
           <a href="#" class="btn btn-secondary btn-lg">Login</a>
         </div>
         <div class="opening-badge">
@@ -956,45 +1121,21 @@
         </div>
       </div>
 
-      <!-- RIGHT - who it's for -->
+      <!-- RIGHT - who can join -->
       <div class="who-block sr" style="transition-delay:80ms;">
-        <div class="who-label"><span class="eyebrow-dot"></span>Who it's for</div>
+        <div class="who-label"><span class="eyebrow-dot"></span>Who can join?</div>
         <div class="cmp-list">
-          <div class="cmp-item">
-            <div class="cmp-icon">🏪</div>
-            <div class="cmp-info">
-              <div class="cmp-name">Local Businesses</div>
-              <div class="cmp-tag">Promote your venue, offer, or service nearby.</div>
-            </div>
-          </div>
-          <div class="cmp-item">
-            <div class="cmp-icon">🌱</div>
-            <div class="cmp-info">
-              <div class="cmp-name">Growing Brands</div>
-              <div class="cmp-tag">Reach selected areas and venue types.</div>
-            </div>
-          </div>
-          <div class="cmp-item">
-            <div class="cmp-icon">📣</div>
-            <div class="cmp-info">
-              <div class="cmp-name">Multi-location Brands</div>
-              <div class="cmp-tag">Build awareness across multiple UAE venues.</div>
-            </div>
-          </div>
-          <div class="cmp-item">
-            <div class="cmp-icon">🏢</div>
-            <div class="cmp-info">
-              <div class="cmp-name">Agencies &amp; Media Buyers</div>
-              <div class="cmp-tag">Manage campaigns for multiple clients.</div>
-            </div>
-          </div>
-          <div class="cmp-item">
-            <div class="cmp-icon">🔁</div>
-            <div class="cmp-info">
-              <div class="cmp-name">Monthly Advertisers</div>
-              <div class="cmp-tag">Run recurring campaigns with consistent visibility.</div>
-            </div>
-          </div>
+          <div class="cmp-item"><div class="cmp-icon">☕</div><div class="cmp-info"><div class="cmp-name">Cafes &amp; restaurants</div></div></div>
+          <div class="cmp-item"><div class="cmp-icon">🏥</div><div class="cmp-info"><div class="cmp-name">Clinics &amp; waiting areas</div></div></div>
+          <div class="cmp-item"><div class="cmp-icon">💪</div><div class="cmp-info"><div class="cmp-name">Gyms &amp; fitness venues</div></div></div>
+          <div class="cmp-item"><div class="cmp-icon">🏨</div><div class="cmp-info"><div class="cmp-name">Hotels &amp; lounges</div></div></div>
+          <div class="cmp-item"><div class="cmp-icon">🛍️</div><div class="cmp-info"><div class="cmp-name">Retail stores</div></div></div>
+          <div class="cmp-item"><div class="cmp-icon">🏬</div><div class="cmp-info"><div class="cmp-name">Malls &amp; shared spaces</div></div></div>
+          <div class="cmp-item"><div class="cmp-icon">🏢</div><div class="cmp-info"><div class="cmp-name">Offices &amp; Other Business Spaces</div></div></div>
+        </div>
+        <div class="so-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+          Eligible screens are reviewed before joining.
         </div>
       </div>
 
@@ -1003,85 +1144,75 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     §2  UAE NETWORK PREVIEW
+     §2  WHY JOIN + VENUE CONTROL  (merged)
 ═══════════════════════════════════════════════════════════════ -->
-<section class="section" id="uae-network">
+<section class="section section-off" id="why">
   <div class="wrap">
-    <div class="uae-grid">
 
-      <!-- Copy + stats -->
-      <div>
-        <div class="section-header sr">
-          <span class="eyebrow"><span class="eyebrow-dot"></span>Network</span>
-          <h2>UAE network preview.</h2>
-          <p class="lead">AdCentral is live in the UAE with selected connected venues. The network is growing - new locations and new countries are planned.</p>
+    <div class="section-header center sr">
+      <span class="eyebrow" style="justify-content:center;"><span class="eyebrow-dot"></span>Why Join</span>
+      <h2>Earn from approved ads -<br>without losing <span class="accent">control.</span></h2>
+    </div>
+
+    <!-- Two value cards -->
+    <div class="duo sr">
+      <div class="vcard">
+        <div class="vcard-icon">💸</div>
+        <h4>Earn from approved ads</h4>
+        <p>Eligible screens can earn when approved ads are delivered through the AdCentral network.</p>
+      </div>
+      <div class="vcard">
+        <div class="vcard-icon">📊</div>
+        <h4>Track activity</h4>
+        <p>View screen activity and payout-related information from your dashboard.</p>
+      </div>
+    </div>
+
+    <!-- Control split: copy + live category-control panel -->
+    <div class="gate-grid">
+
+      <div class="sr">
+        <h2 style="font-size:clamp(1.5rem,2.6vw,2.1rem);">Block ads that do not fit your venue.</h2>
+        <p class="lead" style="margin-top:var(--sp-4);">Restrict the ad categories you do not want to show - competitors, unwanted industries, or anything off-brand.</p>
+        <div class="so-examples">
+          <div class="so-example"><span class="so-example-dot"></span>A cafe may block ads from competing cafes.</div>
+          <div class="so-example"><span class="so-example-dot"></span>A gym may block ads from competing fitness centers.</div>
+          <div class="so-example"><span class="so-example-dot"></span>A family venue may avoid certain industries.</div>
+          <div class="so-example"><span class="so-example-dot"></span>A clinic may choose only suitable categories for its audience.</div>
         </div>
-
-        <!-- Stats grid -->
-        <!-- ⚠️ DEV NOTE: All values below are mockup placeholders.
-             Replace with backend API data.
-             Suggested endpoint: GET /api/network/stats
-             Fields: launch_market · live_screens_count · active_venues_count ·
-                     venue_categories_count · campaigns_delivered_count ·
-                     next_country_status · last_updated_at -->
-        <div class="uae-stats sr">
-          <div class="uae-stat highlight">
-            <div class="uae-stat-label">Launch market</div>
-            <div class="uae-stat-val">🇦🇪 UAE</div>
-            <!-- TODO: backend field → launch_market -->
-          </div>
-          <div class="uae-stat">
-            <div class="uae-stat-label">Live screens</div>
-            <div class="uae-stat-val">50<span class="red">+</span></div>
-            <div class="uae-stat-note">placeholder - replace from backend</div>
-            <!-- TODO: backend field → live_screens_count -->
-          </div>
-          <div class="uae-stat">
-            <div class="uae-stat-label">Active venues</div>
-            <div class="uae-stat-val">45<span class="red">+</span></div>
-            <div class="uae-stat-note">placeholder - replace from backend</div>
-            <!-- TODO: backend field → active_venues_count -->
-          </div>
-          <div class="uae-stat">
-            <div class="uae-stat-label">Venue categories</div>
-            <div class="uae-stat-val">8<span class="red">+</span></div>
-            <div class="uae-stat-note">placeholder - replace from backend</div>
-            <!-- TODO: backend field → venue_categories_count -->
-          </div>
-          <div class="uae-stat">
-            <div class="uae-stat-label">Campaigns delivered</div>
-            <div class="uae-stat-val">340<span class="red">+</span></div>
-            <div class="uae-stat-note">placeholder - replace from backend</div>
-            <!-- TODO: backend field → campaigns_delivered_count -->
-          </div>
-          <div class="uae-stat highlight">
-            <div class="uae-stat-label">Network expansion</div>
-            <div class="uae-stat-val" style="font-size:var(--text-lg);letter-spacing:-.01em;">New countries planned</div>
-            <!-- TODO: backend field → next_country_status -->
-          </div>
-        </div>
-
-        <div class="dev-note sr">
-          <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink:0;margin-top:1px;"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M10 9v5M10 7v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          <span><strong>Dev note:</strong> All six figures above are placeholder values. Connect to backend API (e.g. <code style="font-family:monospace;background:rgba(255,255,255,.06);padding:1px 5px;border-radius:4px;">GET /api/network/stats</code>). Values should update on page load. Exact venue names and locations should remain behind login only.</span>
-        </div>
-
+        <p class="body-sm">AdCentral helps screens earn from approved campaigns while respecting the venue&rsquo;s brand and environment.</p>
       </div>
 
-      <!-- UAE Network image + login nudge below -->
-      <div class="sr" style="transition-delay:120ms;">
-        <div class="uae-img-wrap">
-          <img
-            src="assets/images/advertisers/UAE Network.png"
-            alt="AdCentral UAE network - connected screens across venues"
-            class="uae-img"
-          />
+      <!-- Premium category-control panel (designed, not a placeholder) -->
+      <!-- ⚠️ DEV NOTE: Illustrative UI. Wire to real category controls:
+           allowed categories, blocked categories, competitor blocking,
+           venue-safe rules, "approved ads only" enforcement. -->
+      <div class="ctrl-panel sr" style="transition-delay:120ms;">
+        <div class="ctrl-head">
+          <span class="ctrl-title">Category Controls</span>
+          <span class="ctrl-toggle">Approved ads only <span class="ctrl-switch"></span></span>
         </div>
-        <!-- Login nudge -->
-        <div class="venue-login-note" style="margin-top:var(--sp-4);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span>Exact venue names and screen details are only visible in the portal.</span>
-          <a href="/login?role=advertiser&next=/advertiser/venues" class="venue-login-link">Login to explore venues →</a>
+        <div class="ctrl-group">
+          <div class="ctrl-label allowed">Allowed</div>
+          <div class="ctrl-chips">
+            <span class="ctrl-chip ok">Food &amp; Drink</span>
+            <span class="ctrl-chip ok">Wellness</span>
+            <span class="ctrl-chip ok">Local Events</span>
+            <span class="ctrl-chip ok">Retail Offers</span>
+            <span class="ctrl-chip ok">Travel</span>
+          </div>
+        </div>
+        <div class="ctrl-group">
+          <div class="ctrl-label blocked">Blocked</div>
+          <div class="ctrl-chips">
+            <span class="ctrl-chip no">Competing Cafes</span>
+            <span class="ctrl-chip no">Gambling</span>
+            <span class="ctrl-chip no">Alcohol</span>
+          </div>
+        </div>
+        <div class="ctrl-foot">
+          <span class="dot"></span>
+          Only approved ads in allowed categories can play on this screen.
         </div>
       </div>
 
@@ -1089,27 +1220,72 @@
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════════════
+     §4  HOW IT WORKS
+═══════════════════════════════════════════════════════════════ -->
+<section class="section section-off" id="how">
+  <div class="wrap">
+    <div class="section-header center sr">
+      <span class="eyebrow" style="justify-content:center;"><span class="eyebrow-dot"></span>How It Works</span>
+      <h2>Join the network in a few steps.</h2>
+    </div>
+
+    <!-- Horizontal 4-step row -->
+    <div class="steps-row sr">
+      <div class="step-h">
+        <div class="step-h-num">1</div>
+        <h4>Submit your screen</h4>
+        <p>Share your venue, location, screen type, and operating details.</p>
+      </div>
+      <div class="step-h">
+        <div class="step-h-num">2</div>
+        <h4>Get reviewed</h4>
+        <p>AdCentral reviews screen suitability, visibility, and technical readiness.</p>
+      </div>
+      <div class="step-h">
+        <div class="step-h-num">3</div>
+        <h4>Connect your screen</h4>
+        <p>If approved, your screen is connected through the required setup.</p>
+      </div>
+      <div class="step-h">
+        <div class="step-h-num">4</div>
+        <h4>Show approved ads</h4>
+        <p>Approved ads can play when campaigns are available and your screen meets platform requirements.</p>
+      </div>
+    </div>
+
+    <!-- Supported device gallery (dark cards) -->
+    <div class="devices-head sr">
+      <p class="so-devices-cap">Supported Screen Types</p>
+      <h3>Works with a range of venue screens.</h3>
+    </div>
+    <div class="device-grid sr">
+      <div class="device-card"><img src="assets/images/Screen%20Owners/SmartTV_Dark.png" alt="Smart TV — approved screen type"></div>
+      <div class="device-card"><img src="assets/images/Screen%20Owners/VideoWall_Dark.png" alt="Video Wall — approved screen type"></div>
+      <div class="device-card"><img src="assets/images/Screen%20Owners/IndoorSignage_Dark.png" alt="Indoor Digital Signage — approved screen type"></div>
+      <div class="device-card"><img src="assets/images/Screen%20Owners/OutdoorSignage_Dark.png" alt="Outdoor Signage — approved screen type"></div>
+      <div class="device-card"><img src="assets/images/Screen%20Owners/Tablet_Dark.png" alt="Tablet in venue — approved screen type"></div>
+      <div class="device-card"><img src="assets/images/Screen%20Owners/InVehicle_Dark.png" alt="In-vehicle tablet — approved screen type"></div>
+    </div>
+  </div>
+</section>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     §5  PARTNERSHIP (left) + FAQ (right)  - merged section
+     §5  OPTIONAL ADCL NOTE  (compact card)
 ═══════════════════════════════════════════════════════════════ -->
-<section class="section section-off" id="partnership">
+<section class="section section-off" id="adcl">
   <div class="wrap">
     <div class="pf-grid">
 
-      <!-- LEFT - Partnership spotlight -->
+      <!-- LEFT - Optional ADCL card -->
       <div class="partner-card sr">
         <div>
-          <div class="partner-eyebrow">Advertiser Partnership</div>
-          <h3>Planning regular campaigns with AdCentral?</h3>
-          <p class="lead">Agencies, media buyers, and brands with ongoing campaign activity can speak with AdCentral about preferred onboarding, loyalty benefits, and eligible ADCL-linked participation options.</p>
+          <div class="partner-eyebrow">Optional</div>
+          <h3>Optional ADCL participation</h3>
+          <p class="lead">Eligible screen owners may later opt in to ADCL-linked participation options where available.</p>
           <div class="partner-fine">
-            All participation is subject to platform terms and eligibility review. ADCL-linked benefits are not guaranteed.
+            Participation is optional, subject to eligibility, platform terms, and reward availability. ADCL-linked benefits are not guaranteed and do not represent an investment, ownership right, or fixed return.
           </div>
-        </div>
-        <div class="partner-actions">
-          <a href="#" class="btn btn-primary btn-lg">Discuss Partnership</a>
-          <a href="#" class="btn btn-outline-ink btn-md">Learn More</a>
         </div>
       </div>
 
@@ -1120,85 +1296,53 @@
         </div>
         <div class="faq-list" role="list">
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Can I start with a small campaign?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>Yes. AdCentral is designed to support small test campaigns as well as larger recurring campaigns. You can start with a limited scope and scale over time.</p></div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-btn" aria-expanded="false">Can any screen join AdCentral?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-body" role="region"><div class="faq-inner"><p>No. Screens are reviewed before joining. Approval may depend on venue type, screen visibility, location, operating hours, technical readiness, and platform availability.</p></div></div>
         </div>
-      </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Is AdCentral only for large brands?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>No. The platform is for local businesses, agencies, and brands of different sizes. Whether you are running a single-location promotion or a multi-venue campaign, the platform works the same way.</p></div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-btn" aria-expanded="false">Can I still show my own content?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-body" role="region"><div class="faq-inner"><p>Yes. Venues can continue using screens for menus, promotions, announcements, ambience, or local content. Approved ads can play based on the agreed setup and available screen time.</p></div></div>
         </div>
-      </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Where is AdCentral live now?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>AdCentral is starting in the UAE. New countries are planned as the network scales. The public page shows the network direction - the portal shows the full current availability.</p></div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-btn" aria-expanded="false">Can I block competitors or unwanted industries?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-body" role="region"><div class="faq-inner"><p>Yes. Screen owners can restrict ad categories that do not fit their venue, audience, or business interests. Category controls are subject to platform rules and campaign availability.</p></div></div>
         </div>
-      </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Can I see exact venues before creating a campaign?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>Public pages show the network preview - venue categories, screen counts, and coverage direction. Exact venue names, addresses, and screen details are available inside the portal after login.</p></div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-btn" aria-expanded="false">How do screen owners earn?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-body" role="region"><div class="faq-inner"><p>Eligible screen owners can earn from approved ad delivery based on platform rules, campaign availability, and verified screen activity. Earnings are not guaranteed and may vary.</p></div></div>
         </div>
-      </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Can I choose AED or USD?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>UAE advertisers see AED first. Advertisers outside the UAE may see prices in USD or in their local currency when available. Currency options depend on the platform configuration at time of use.</p></div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-btn" aria-expanded="false">Where is AdCentral live now?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-body" role="region"><div class="faq-inner"><p>AdCentral is starting in the UAE, with more locations and countries planned as the network grows.</p></div></div>
         </div>
-      </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          What campaign types can I run?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>Examples include test campaigns, hyperlocal promotions, brand awareness campaigns, event promotions, retail campaigns, and recurring monthly campaigns. Campaign options depend on available screens and venues at the time of booking.</p></div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-btn" aria-expanded="false">Can I connect multiple screens?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-body" role="region"><div class="faq-inner"><p>Yes. Venues or operators with multiple suitable screens can submit them for review.</p></div></div>
         </div>
-      </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Do you report clicks or CTR?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>No. Screen advertising is different from website advertising. AdCentral focuses on screen delivery visibility - where the ad played, screens reached, venues used, and plays delivered. There are no clicks, CTR, or web traffic metrics.</p></div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-btn" aria-expanded="false">Can screen owners receive ADCL-linked benefits?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-body" role="region"><div class="faq-inner"><p>Eligible screen owners may be able to opt in to ADCL-linked participation options where available. These benefits are optional, subject to eligibility, platform terms, and reward availability. ADCL-linked benefits are not guaranteed.</p></div></div>
         </div>
-      </div>
 
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Can agencies manage campaigns for clients?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>Yes. Agencies can manage ongoing client campaigns directly through the platform. The same self-service marketplace supports both individual advertisers and agency workflows.</p></div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-btn" aria-expanded="false">How do I get started?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-body" role="region"><div class="faq-inner"><p>Connect your screen through the AdCentral portal, or book a demo if you manage multiple screens, venues, or locations.</p></div></div>
         </div>
-      </div>
 
         </div><!-- /faq-list -->
       </div><!-- /#faq -->
