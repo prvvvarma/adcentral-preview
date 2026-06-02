@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AdCentral - Experience the Future of OOH</title>
-<link rel="icon" href="assets/images/logo.svg">
+<link rel="icon" href="assets/images/home/log-small.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -258,7 +258,7 @@ body{background:#050510;color:#fff;font-family:'Inter',system-ui,-apple-system,s
 <!-- ─── NAV ───────────────────────────────────────────────────────── -->
 <header class="nav">
   <a href="home.html" class="nav-logo">
-    <img src="assets/images/adcentral_logo_transperant.png" alt="AdCentral">
+    <img src="assets/images/home/adcentral_logo_transperant.png" alt="AdCentral">
   </a>
   <nav class="nav-links">
     <a href="home.html" class="nav-link">Home</a>
@@ -1020,7 +1020,7 @@ const coreMat = new THREE.MeshStandardMaterial({
 nodeGroup.add(new THREE.Mesh(new THREE.BoxGeometry(6, 6, 0.5), coreMat));
 
 /* Logo plane - logo.png, doubled size, correct 340:88 aspect ratio */
-const logoTex  = new THREE.TextureLoader().load('assets/images/logo.png');
+const logoTex  = new THREE.TextureLoader().load('assets/images/home/logo.png');
 logoTex.colorSpace = THREE.SRGBColorSpace;
 const logoPMat = new THREE.MeshBasicMaterial({ map: logoTex, transparent: true, opacity: 0, depthWrite: false });
 /* 340:88 ≈ 3.864:1 - at width 16 → height = 16/3.864 = 4.14 */
