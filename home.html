@@ -689,6 +689,50 @@
     display: block;
   }
 
+  /* Hero carousel - auto-rotating crossfade */
+  .hero-carousel {
+    position: relative; width: 100%; max-width: 480px; margin-inline: auto;
+    aspect-ratio: 3 / 4; border-radius: var(--r-2xl); overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,.55), 0 4px 16px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.07);
+  }
+  .hero-slide {
+    position: absolute; inset: 0; opacity: 0; transform: scale(1.05);
+    transition: opacity 1200ms ease;
+    pointer-events: none;
+  }
+  .hero-slide.active { opacity: 1; transform: scale(1); transition: opacity 1200ms ease, transform 6500ms ease-out; pointer-events: auto; }
+  .hero-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-slide-caption {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+    padding: var(--sp-14) var(--sp-7) var(--sp-7);
+    background: linear-gradient(to top, rgba(8,8,18,.90) 0%, rgba(8,8,18,.55) 45%, transparent 100%);
+  }
+  .cap-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: var(--text-xs); font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+    color: var(--red); margin-bottom: var(--sp-2);
+  }
+  .cap-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+  .hero-slide-caption h3 {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-size: var(--text-2xl); font-weight: 800; line-height: 1.2; letter-spacing: -.02em;
+    color: #fff; margin-bottom: var(--sp-2);
+  }
+  .hero-slide-caption p { font-size: var(--text-sm); color: rgba(255,255,255,.72); line-height: 1.6; max-width: 90%; }
+  .hero-dots {
+    position: absolute; right: var(--sp-7); bottom: var(--sp-6); z-index: 3;
+    display: flex; gap: 8px;
+  }
+  .hero-dot {
+    width: 8px; height: 8px; padding: 0; border: none; cursor: pointer; border-radius: 999px;
+    background: rgba(255,255,255,.40); transition: width 280ms var(--ease-out), background 280ms;
+  }
+  .hero-dot:hover { background: rgba(255,255,255,.7); }
+  .hero-dot.active { width: 26px; background: var(--red); }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide, .hero-slide.active { transition: opacity 300ms ease; transform: none; }
+  }
+
   .metric-strip {
     display: grid; grid-template-columns: repeat(3,1fr); gap: var(--sp-3);
   }
@@ -2327,10 +2371,39 @@
 
     </div>
 
-    <!-- Visual - replace src with your image when ready -->
+    <!-- Visual - auto-rotating hero carousel -->
+    <!-- ⚠️ DEV NOTE: Replace the slide titles/captions below when provided. -->
     <div class="hero-visual">
-      <div class="hero-img-wrap sr">
-        <img src="assets/images/home/hero.png" alt="AdCentral - digital screens in real-world venues" class="hero-img">
+      <div class="hero-carousel sr" id="heroCarousel" aria-roledescription="carousel" aria-label="AdCentral highlights">
+        <div class="hero-slide active" role="group" aria-roledescription="slide" aria-label="1 of 3">
+          <img src="assets/images/home/carousel/C1.png" alt="AdCentral highlight 1">
+          <div class="hero-slide-caption">
+            <span class="cap-eyebrow">AdCentral</span>
+            <h3>Headline one</h3>
+            <p>Caption placeholder - replace with your text.</p>
+          </div>
+        </div>
+        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
+          <img src="assets/images/home/carousel/C2.png" alt="AdCentral highlight 2">
+          <div class="hero-slide-caption">
+            <span class="cap-eyebrow">AdCentral</span>
+            <h3>Headline two</h3>
+            <p>Caption placeholder - replace with your text.</p>
+          </div>
+        </div>
+        <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
+          <img src="assets/images/home/carousel/C3.png" alt="AdCentral highlight 3">
+          <div class="hero-slide-caption">
+            <span class="cap-eyebrow">AdCentral</span>
+            <h3>Headline three</h3>
+            <p>Caption placeholder - replace with your text.</p>
+          </div>
+        </div>
+        <div class="hero-dots" role="tablist" aria-label="Choose slide">
+          <button class="hero-dot active" type="button" aria-label="Slide 1"></button>
+          <button class="hero-dot" type="button" aria-label="Slide 2"></button>
+          <button class="hero-dot" type="button" aria-label="Slide 3"></button>
+        </div>
       </div>
     </div>
 
@@ -3056,6 +3129,35 @@
       el.classList.add('in');
     });
   }
+
+  /* ── Hero carousel - auto-rotate / crossfade ───────────────── */
+  (function () {
+    var car = document.getElementById('heroCarousel');
+    if (!car) return;
+    var slides = car.querySelectorAll('.hero-slide');
+    var dots = car.querySelectorAll('.hero-dot');
+    if (slides.length < 2) return;
+    var idx = 0, timer = null, INTERVAL = 5500;
+    function show(n) {
+      n = (n + slides.length) % slides.length;
+      if (n === idx) return;
+      slides[idx].classList.remove('active');
+      if (dots[idx]) dots[idx].classList.remove('active');
+      idx = n;
+      slides[idx].classList.add('active');
+      if (dots[idx]) dots[idx].classList.add('active');
+    }
+    function next() { show(idx + 1); }
+    function start() { stop(); timer = setInterval(next, INTERVAL); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    dots.forEach(function (d, i) {
+      d.addEventListener('click', function () { show(i); start(); });
+    });
+    car.addEventListener('mouseenter', stop);
+    car.addEventListener('mouseleave', start);
+    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+    start();
+  }());
 
 }());
 </script>
