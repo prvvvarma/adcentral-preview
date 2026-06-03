@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Screen Owners - AdCentral</title>
+  <title>Help Center - AdCentral</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet"/>
@@ -963,6 +963,270 @@
   .ctrl-foot .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: pulse-badge 2s infinite; flex-shrink: 0; }
 
   /* ─────────────────────────────────────────────────────────────
+     PARTNERS HELPERS
+  ───────────────────────────────────────────────────────────── */
+
+  /* §1 Hero - partner network visual (designed, not a placeholder) */
+  .pnet {
+    position: relative; overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-2xl);
+    box-shadow: var(--glass-shadow), 0 0 80px rgba(245,54,92,.06);
+    padding: var(--sp-10) var(--sp-8);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .pnet::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(245,54,92,.65) 50%, transparent);
+  }
+  .pnet::after {
+    content: ''; position: absolute; top: -70px; left: 50%; transform: translateX(-50%);
+    width: 300px; height: 300px; border-radius: 50%;
+    background: rgba(245,54,92,.06); filter: blur(60px); pointer-events: none;
+  }
+  .pnet-core { display: flex; flex-direction: column; align-items: center; gap: var(--sp-3); position: relative; z-index: 1; }
+  .pnet-hub {
+    width: 88px; height: 88px; border-radius: 24px;
+    background: linear-gradient(145deg, #F5365C 0%, #FF6B85 100%);
+    display: grid; place-items: center;
+    box-shadow: 0 12px 44px rgba(245,54,92,.45), inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .pnet-hub img { width: 48px; height: auto; }
+  .pnet-core-label { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: var(--text-base); color: var(--ink); letter-spacing: -.01em; }
+  .pnet-rail { width: 2px; height: 34px; margin: var(--sp-4) 0; background: linear-gradient(rgba(245,54,92,.6), rgba(245,54,92,.05)); position: relative; z-index: 1; }
+  .pnet-chips { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); width: 100%; position: relative; z-index: 1; }
+  .pnet-chip {
+    display: flex; align-items: center; gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4); border-radius: var(--r-md);
+    background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
+    font-size: var(--text-sm); font-weight: 600; color: var(--ink-2);
+    transition: transform 220ms var(--ease-spring), border-color 200ms;
+  }
+  .pnet-chip:hover { transform: translateY(-2px); border-color: rgba(245,54,92,.30); }
+  .pnet-chip .ico { font-size: 18px; flex-shrink: 0; }
+  .pnet-chip:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+  /* §2 / §3 card grids - 5 cards: 3 on top, 2 centered below
+     (6-col grid, each card spans 2, last two offset to center) */
+  .partner-grid, .ways-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--sp-4);
+  }
+  .partner-grid > *, .ways-grid > * { grid-column: span 2; }
+  .partner-grid > :nth-child(4), .ways-grid > :nth-child(4) { grid-column: 2 / span 2; }
+  .partner-grid > :nth-child(5), .ways-grid > :nth-child(5) { grid-column: 4 / span 2; }
+
+  /* §3 Ways to partner - compact cards */
+  .way-card {
+    display: flex; flex-direction: column; gap: var(--sp-2);
+    padding: var(--sp-6) var(--sp-6);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-lg);
+    box-shadow: var(--glass-shadow);
+    transition: transform 220ms var(--ease-spring), border-color 200ms;
+  }
+  .way-card:hover { transform: translateY(-3px); border-color: rgba(245,54,92,.30); }
+  .way-icon {
+    width: 40px; height: 40px; border-radius: 10px; margin-bottom: var(--sp-2);
+    background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.18);
+    display: grid; place-items: center; font-size: 18px;
+  }
+  .way-card h4 { font-size: var(--text-base); letter-spacing: -.01em; }
+  .way-card p { font-size: var(--text-sm); color: var(--muted); line-height: 1.65; }
+
+  /* §4 Why partner now + Partnership fit - two-column split */
+  .why-grid {
+    display: grid; grid-template-columns: 1fr 1.05fr;
+    gap: var(--sp-12); align-items: start;
+  }
+  .why-left h2 { margin-bottom: var(--sp-3); }
+  .why-left .lead { margin-bottom: var(--sp-7); max-width: 440px; }
+  .why-list { display: grid; gap: var(--sp-4); }
+  .why-row {
+    display: flex; gap: var(--sp-4);
+    padding: var(--sp-5) var(--sp-5);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-lg);
+    box-shadow: var(--glass-shadow);
+    transition: transform 220ms var(--ease-spring), border-color 200ms;
+  }
+  .why-row:hover { transform: translateX(4px); border-color: rgba(245,54,92,.30); }
+  .why-row-icon {
+    width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
+    background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.18);
+    display: grid; place-items: center; font-size: 21px;
+  }
+  .why-row h4 { font-size: var(--text-base); letter-spacing: -.01em; margin-bottom: 4px; }
+  .why-row p  { font-size: var(--text-sm); color: var(--muted); line-height: 1.6; }
+
+  /* Partnership fit - checklist card */
+  .fit-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-2xl);
+    box-shadow: var(--glass-shadow);
+    padding: var(--sp-10) var(--sp-10);
+  }
+  .fit-card h2 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); letter-spacing: -.02em; margin-bottom: var(--sp-3); }
+  .fit-card .lead { margin-bottom: var(--sp-2); }
+  .fit-list { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); margin: var(--sp-7) 0; }
+  .fit-item {
+    display: flex; align-items: center; gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4); border-radius: var(--r-md);
+    background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
+    font-size: var(--text-sm); font-weight: 500; color: var(--ink-2);
+  }
+  .fit-check { width: 18px; height: 18px; flex-shrink: 0; color: #10b981; }
+  .fit-close { font-size: var(--text-base); color: var(--body); line-height: 1.7; padding-top: var(--sp-5); border-top: 1px solid var(--hairline); }
+  .fit-actions { margin-top: var(--sp-7); display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+
+  /* ─────────────────────────────────────────────────────────────
+     HELP CENTER
+  ───────────────────────────────────────────────────────────── */
+  /* §1 Hero - search-first */
+  .help-hero { padding: var(--sp-20) 0 var(--sp-16); text-align: center; }
+  .help-hero .eyebrow { justify-content: center; }
+  .help-hero h1 { margin-bottom: var(--sp-4); }
+  .help-hero .lead { max-width: 560px; margin: 0 auto var(--sp-8); }
+  .help-search {
+    position: relative; max-width: 620px; margin: 0 auto var(--sp-6);
+  }
+  .help-search svg { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+  .help-search input {
+    width: 100%; height: 58px; padding: 0 var(--sp-6) 0 54px;
+    border-radius: var(--r-lg);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
+    color: var(--ink); font: 500 var(--text-md) 'Inter', sans-serif;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+  .help-search input::placeholder { color: var(--muted); }
+  .help-search input:focus { outline: none; border-color: rgba(245,54,92,.45); box-shadow: var(--glass-shadow), 0 0 0 3px rgba(245,54,92,.14); }
+  .help-quick { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-2); }
+  .help-quick a {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 15px; border-radius: 999px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
+    font-size: var(--text-sm); font-weight: 500; color: var(--body);
+    transition: border-color 160ms, color 160ms, transform 200ms var(--ease-spring);
+  }
+  .help-quick a:hover { border-color: rgba(245,54,92,.35); color: var(--ink); transform: translateY(-2px); }
+  .help-quick a svg { width: 13px; height: 13px; color: var(--red); }
+
+  /* §2 Browse by topic - category cards with article lists */
+  .topic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+  .topic-card {
+    display: flex; flex-direction: column;
+    padding: var(--sp-7) var(--sp-7);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-xl);
+    box-shadow: var(--glass-shadow);
+    transition: transform 240ms var(--ease-spring), border-color 220ms, box-shadow 240ms var(--ease-out);
+  }
+  .topic-card:hover { transform: translateY(-4px); border-color: rgba(245,54,92,.30); box-shadow: 0 18px 56px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08); }
+  .topic-icon {
+    width: 48px; height: 48px; border-radius: 13px; margin-bottom: var(--sp-4);
+    background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.18);
+    display: grid; place-items: center; color: var(--red);
+  }
+  .topic-icon svg { width: 22px; height: 22px; }
+  .topic-card h3 { font-size: var(--text-lg); margin-bottom: var(--sp-2); }
+  .topic-card > p { font-size: var(--text-sm); color: var(--muted); line-height: 1.65; margin-bottom: var(--sp-5); }
+  .topic-articles { display: grid; gap: 2px; margin-bottom: var(--sp-5); }
+  .topic-articles a {
+    display: flex; align-items: center; gap: var(--sp-2);
+    padding: 7px 0; font-size: var(--text-sm); color: var(--body);
+    border-bottom: 1px solid var(--hairline); transition: color 140ms, padding-left 160ms;
+  }
+  .topic-articles a:last-child { border-bottom: none; }
+  .topic-articles a::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--subtle); flex-shrink: 0; transition: background 140ms; }
+  .topic-articles a:hover { color: var(--ink); padding-left: 4px; }
+  .topic-articles a:hover::before { background: var(--red); }
+  .topic-cta {
+    margin-top: auto; display: inline-flex; align-items: center; gap: 6px;
+    font-size: var(--text-sm); font-weight: 600; color: var(--red);
+    transition: gap 160ms;
+  }
+  .topic-cta:hover { gap: 10px; }
+
+  /* §3 Start here - article cards */
+  .article-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+  .article-card {
+    display: flex; flex-direction: column; gap: var(--sp-3);
+    padding: var(--sp-6) var(--sp-6);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-lg);
+    box-shadow: var(--glass-shadow);
+    transition: transform 220ms var(--ease-spring), border-color 200ms;
+  }
+  .article-card:hover { transform: translateY(-3px); border-color: rgba(245,54,92,.30); }
+  .article-tag {
+    align-self: flex-start;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--red); background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.20);
+    padding: 4px 9px; border-radius: 999px;
+  }
+  .article-card h4 { font-size: var(--text-base); letter-spacing: -.01em; }
+  .article-card p { font-size: var(--text-sm); color: var(--muted); line-height: 1.6; }
+  .article-card .topic-cta { margin-top: var(--sp-1); }
+
+  /* §5 Contact support - 4 cards */
+  .support-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
+  .support-card {
+    display: flex; flex-direction: column; gap: var(--sp-3);
+    padding: var(--sp-6) var(--sp-6);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-lg);
+    box-shadow: var(--glass-shadow);
+    transition: transform 220ms var(--ease-spring), border-color 200ms;
+  }
+  .support-card:hover { transform: translateY(-3px); border-color: rgba(245,54,92,.30); }
+  .support-icon {
+    width: 40px; height: 40px; border-radius: 11px;
+    background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.18);
+    display: grid; place-items: center; color: var(--red);
+  }
+  .support-icon svg { width: 19px; height: 19px; }
+  .support-card h4 { font-size: var(--text-base); }
+  .support-card p { font-size: var(--text-sm); color: var(--muted); line-height: 1.6; flex: 1; }
+
+  /* §6 Safety note */
+  .safety-card {
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--sp-10);
+    align-items: center;
+    padding: var(--sp-10) var(--sp-10);
+    border-radius: var(--r-2xl);
+    border: 1px solid rgba(16,185,129,.22);
+    background:
+      radial-gradient(ellipse 500px 300px at 0% 0%, rgba(16,185,129,.08) 0%, transparent 60%),
+      var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
+  }
+  .safety-head .safety-badge {
+    display: inline-flex; align-items: center; gap: var(--sp-2);
+    padding: 5px 12px; border-radius: 999px;
+    background: rgba(16,185,129,.10); border: 1px solid rgba(16,185,129,.26);
+    color: #10b981; font-size: var(--text-xs); font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    margin-bottom: var(--sp-4);
+  }
+  .safety-head h2 { margin-bottom: var(--sp-3); }
+  .safety-head p { font-size: var(--text-base); color: var(--body); line-height: 1.7; margin-bottom: var(--sp-5); }
+  .safety-list { display: grid; gap: var(--sp-3); }
+  .safety-item { display: flex; align-items: flex-start; gap: var(--sp-3); font-size: var(--text-sm); color: var(--ink-2); }
+  .safety-check { width: 20px; height: 20px; flex-shrink: 0; color: #10b981; margin-top: 1px; }
+
+  .help-section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-5); margin-bottom: var(--sp-8); flex-wrap: wrap; }
+  .help-section-head h2 { margin-bottom: var(--sp-2); }
+  .help-section-head p { font-size: var(--text-base); color: var(--muted); }
+
+  /* ─────────────────────────────────────────────────────────────
      RESPONSIVE
   ───────────────────────────────────────────────────────────── */
   @media (max-width: 1024px) {
@@ -974,6 +1238,8 @@
   @media (max-width: 960px) {
     .opening-split, .gate-grid, .brands-grid, .how-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
     .uae-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
+    /* Why partner + Partnership fit stack */
+    .why-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
     /* Partnership + FAQ stack */
     .pf-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
     .pf-grid .partner-card { position: static; grid-template-columns: 1fr auto; }
@@ -987,6 +1253,14 @@
     /* Campaign rows - hide price on tablet, show name + desc only */
     .campaign-row { grid-template-columns: 180px 1fr; }
     .cr-price { display: none; }
+    /* Partners - grids to 2 per row (4-col span), 5th card centered */
+    .partner-grid, .ways-grid { grid-template-columns: repeat(4, 1fr); }
+    .partner-grid > :nth-child(4), .ways-grid > :nth-child(4) { grid-column: span 2; }
+    .partner-grid > :nth-child(5), .ways-grid > :nth-child(5) { grid-column: 2 / span 2; }
+    /* Help Center - tablet */
+    .topic-grid, .article-grid { grid-template-columns: 1fr 1fr; }
+    .support-grid { grid-template-columns: 1fr 1fr; }
+    .safety-card { grid-template-columns: 1fr; gap: var(--sp-7); }
   }
   @media (max-width: 640px) {
     .nav-links, .nav-right .nav-link-plain { display: none; }
@@ -1015,6 +1289,19 @@
     .price-cards { grid-template-columns: 1fr; }
     .brands-visual { grid-template-columns: 1fr 1fr; }
     .adv-cta-actions { flex-direction: column; }
+    /* Partners - single column on mobile (reset all spans) */
+    .partner-grid, .ways-grid { grid-template-columns: 1fr; }
+    .partner-grid > *, .ways-grid > *,
+    .partner-grid > :nth-child(4), .ways-grid > :nth-child(4),
+    .partner-grid > :nth-child(5), .ways-grid > :nth-child(5) { grid-column: auto; }
+    .pnet-chips, .fit-list { grid-template-columns: 1fr; }
+    .pnet { padding: var(--sp-7) var(--sp-5); }
+    .fit-card { padding: var(--sp-7) var(--sp-5); }
+    .fit-actions { flex-direction: column; }
+    /* Help Center - mobile */
+    .topic-grid, .article-grid, .support-grid { grid-template-columns: 1fr; }
+    .help-search input { height: 54px; }
+    .safety-card { padding: var(--sp-7) var(--sp-5); }
   }
   @media (max-width: 420px) {
     .brands-visual { grid-template-columns: 1fr; }
@@ -1040,7 +1327,7 @@
         <button class="nav-btn" type="button" aria-expanded="false" aria-haspopup="true">Solutions</button>
         <div class="nav-dropdown" role="menu" hidden>
           <a href="advertisers.html"   role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span>Advertisers</a>
-          <a href="screen-owners.html" role="menuitem" class="active"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></span>Screen Owners</a>
+          <a href="screen-owners.html" role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></span>Screen Owners</a>
           <a href="partners.html"      role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Partners</a>
         </div>
       </div>
@@ -1049,7 +1336,7 @@
         <div class="nav-dropdown" role="menu" hidden>
           <a href="adcl.html" role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg></span>ADCL</a>
           <a href="https://adcentral-1.gitbook.io/adcentral-docs" role="menuitem" target="_blank" rel="noopener"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v5h5"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg></span>Docs <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px;margin-left:3px;opacity:.7" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
-          <a href="help.html" role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span>Help Center</a>
+          <a href="help.html" role="menuitem" class="active"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span>Help Center</a>
         </div>
       </div>
       <div class="nav-item">
@@ -1106,254 +1393,280 @@
 <main>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     §1  HERO  (left intro · right "who can join")
+     §1  HERO  (search-first)
 ═══════════════════════════════════════════════════════════════ -->
-<section class="opening" id="top">
+<section class="help-hero" id="top">
   <div class="wrap">
-    <div class="opening-split">
+    <div class="sr">
+      <span class="eyebrow"><span class="eyebrow-dot"></span>Help Center</span>
+      <h1>How can we help?</h1>
+      <p class="lead">Find simple guides for advertisers, screen owners, partners, ADCL users, and account support.</p>
 
-      <!-- LEFT - intro -->
-      <div class="opening-head sr">
-        <span class="eyebrow"><span class="eyebrow-dot"></span>For Screen Owners</span>
-        <h1>Connect your screen.<br>Keep <span class="accent">control.</span></h1>
-        <p class="lead">AdCentral helps eligible venue screens earn from approved ad delivery - while giving owners control over the types of ads that can appear.</p>
-        <div class="opening-actions">
-          <a href="/login?role=screen-owner&next=/screen-owner/screens/new" class="btn btn-primary btn-lg">Connect Your Screen</a>
-          <a href="#" class="btn btn-secondary btn-lg">Login</a>
-        </div>
-        <div class="opening-badge">
-          <span class="badge-dot"></span>
-          Live in the UAE &nbsp;·&nbsp; More countries coming
-        </div>
+      <!-- ⚠️ DEV NOTE: Wire search to the help-article index / search service. -->
+      <form class="help-search" role="search" onsubmit="return false;">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" placeholder="Search help articles" aria-label="Search help articles">
+      </form>
+
+      <div class="help-quick">
+        <a href="/help/how-to-create-an-account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Create an account</a>
+        <a href="/help/how-to-plan-a-campaign"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Plan a campaign</a>
+        <a href="/help/how-to-connect-your-screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Connect a screen</a>
+        <a href="/help/how-category-blocking-works"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Block unwanted ad categories</a>
+        <a href="https://adcentral-1.gitbook.io/adcentral-docs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Read ADCL docs</a>
+        <a href="/help/official-links"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Official links and safety</a>
       </div>
-
-      <!-- RIGHT - who can join -->
-      <div class="who-block sr" style="transition-delay:80ms;">
-        <div class="who-label"><span class="eyebrow-dot"></span>Who can join?</div>
-        <div class="cmp-list">
-          <div class="cmp-item"><div class="cmp-icon">☕</div><div class="cmp-info"><div class="cmp-name">Cafes &amp; restaurants</div></div></div>
-          <div class="cmp-item"><div class="cmp-icon">🏥</div><div class="cmp-info"><div class="cmp-name">Clinics &amp; waiting areas</div></div></div>
-          <div class="cmp-item"><div class="cmp-icon">💪</div><div class="cmp-info"><div class="cmp-name">Gyms &amp; fitness venues</div></div></div>
-          <div class="cmp-item"><div class="cmp-icon">🏨</div><div class="cmp-info"><div class="cmp-name">Hotels &amp; lounges</div></div></div>
-          <div class="cmp-item"><div class="cmp-icon">🛍️</div><div class="cmp-info"><div class="cmp-name">Retail stores</div></div></div>
-          <div class="cmp-item"><div class="cmp-icon">🏬</div><div class="cmp-info"><div class="cmp-name">Malls &amp; shared spaces</div></div></div>
-          <div class="cmp-item"><div class="cmp-icon">🏢</div><div class="cmp-info"><div class="cmp-name">Offices &amp; Other Business Spaces</div></div></div>
-        </div>
-        <div class="so-note">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
-          Eligible screens are reviewed before joining.
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     §2  WHY JOIN + VENUE CONTROL  (merged)
+     §2  BROWSE BY TOPIC
 ═══════════════════════════════════════════════════════════════ -->
-<section class="section section-off" id="why">
-  <div class="wrap">
-
-    <div class="section-header center sr">
-      <span class="eyebrow" style="justify-content:center;"><span class="eyebrow-dot"></span>Why Join</span>
-      <h2>Earn from approved ads -<br>without losing <span class="accent">control.</span></h2>
-    </div>
-
-    <!-- Two value cards -->
-    <div class="duo sr">
-      <div class="vcard">
-        <div class="vcard-icon">💸</div>
-        <h4>Earn from approved ads</h4>
-        <p>Eligible screens can earn when approved ads are delivered through the AdCentral network.</p>
-      </div>
-      <div class="vcard">
-        <div class="vcard-icon">📊</div>
-        <h4>Track activity</h4>
-        <p>View screen activity and payout-related information from your dashboard.</p>
-      </div>
-    </div>
-
-    <!-- Control split: copy + live category-control panel -->
-    <div class="gate-grid">
-
-      <div class="sr">
-        <h2 style="font-size:clamp(1.5rem,2.6vw,2.1rem);">Block ads that do not fit your venue.</h2>
-        <p class="lead" style="margin-top:var(--sp-4);">Restrict the ad categories you do not want to show - competitors, unwanted industries, or anything off-brand.</p>
-        <div class="so-examples">
-          <div class="so-example"><span class="so-example-dot"></span>A cafe may block ads from competing cafes.</div>
-          <div class="so-example"><span class="so-example-dot"></span>A gym may block ads from competing fitness centers.</div>
-          <div class="so-example"><span class="so-example-dot"></span>A family venue may avoid certain industries.</div>
-          <div class="so-example"><span class="so-example-dot"></span>A clinic may choose only suitable categories for its audience.</div>
-        </div>
-        <p class="body-sm">AdCentral helps screens earn from approved campaigns while respecting the venue&rsquo;s brand and environment.</p>
-      </div>
-
-      <!-- Premium category-control panel (designed, not a placeholder) -->
-      <!-- ⚠️ DEV NOTE: Illustrative UI. Wire to real category controls:
-           allowed categories, blocked categories, competitor blocking,
-           venue-safe rules, "approved ads only" enforcement. -->
-      <div class="ctrl-panel sr" style="transition-delay:120ms;">
-        <div class="ctrl-head">
-          <span class="ctrl-title">Category Controls</span>
-          <span class="ctrl-toggle">Approved ads only <span class="ctrl-switch"></span></span>
-        </div>
-        <div class="ctrl-group">
-          <div class="ctrl-label allowed">Allowed</div>
-          <div class="ctrl-chips">
-            <span class="ctrl-chip ok">Food &amp; Drink</span>
-            <span class="ctrl-chip ok">Wellness</span>
-            <span class="ctrl-chip ok">Local Events</span>
-            <span class="ctrl-chip ok">Retail Offers</span>
-            <span class="ctrl-chip ok">Travel</span>
-          </div>
-        </div>
-        <div class="ctrl-group">
-          <div class="ctrl-label blocked">Blocked</div>
-          <div class="ctrl-chips">
-            <span class="ctrl-chip no">Competing Cafes</span>
-            <span class="ctrl-chip no">Gambling</span>
-            <span class="ctrl-chip no">Alcohol</span>
-          </div>
-        </div>
-        <div class="ctrl-foot">
-          <span class="dot"></span>
-          Only approved ads in allowed categories can play on this screen.
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════════
-     §4  HOW IT WORKS
-═══════════════════════════════════════════════════════════════ -->
-<section class="section section-off" id="how">
+<section class="section section-off" id="topics">
   <div class="wrap">
     <div class="section-header center sr">
-      <span class="eyebrow" style="justify-content:center;"><span class="eyebrow-dot"></span>How It Works</span>
-      <h2>Join the network in a few steps.</h2>
+      <span class="eyebrow" style="justify-content:center;"><span class="eyebrow-dot"></span>Topics</span>
+      <h2>Browse by topic</h2>
     </div>
 
-    <!-- Horizontal 4-step row -->
-    <div class="steps-row sr">
-      <div class="step-h">
-        <div class="step-h-num">1</div>
-        <h4>Submit your screen</h4>
-        <p>Share your venue, location, screen type, and operating details.</p>
-      </div>
-      <div class="step-h">
-        <div class="step-h-num">2</div>
-        <h4>Get reviewed</h4>
-        <p>AdCentral reviews screen suitability, visibility, and technical readiness.</p>
-      </div>
-      <div class="step-h">
-        <div class="step-h-num">3</div>
-        <h4>Connect your screen</h4>
-        <p>If approved, your screen is connected through the required setup.</p>
-      </div>
-      <div class="step-h">
-        <div class="step-h-num">4</div>
-        <h4>Show approved ads</h4>
-        <p>Approved ads can play when campaigns are available and your screen meets platform requirements.</p>
-      </div>
-    </div>
+    <div class="topic-grid sr">
 
-    <!-- Supported device gallery (dark cards) -->
-    <div class="devices-head sr">
-      <p class="so-devices-cap">Supported Screen Types</p>
-      <h3>Works with a range of venue screens.</h3>
-    </div>
-    <div class="device-grid sr">
-      <div class="device-card"><img src="assets/images/Screen%20Owners/SmartTV_Dark.png" alt="Smart TV — approved screen type"></div>
-      <div class="device-card"><img src="assets/images/Screen%20Owners/VideoWall_Dark.png" alt="Video Wall — approved screen type"></div>
-      <div class="device-card"><img src="assets/images/Screen%20Owners/IndoorSignage_Dark.png" alt="Indoor Digital Signage — approved screen type"></div>
-      <div class="device-card"><img src="assets/images/Screen%20Owners/OutdoorSignage_Dark.png" alt="Outdoor Signage — approved screen type"></div>
-      <div class="device-card"><img src="assets/images/Screen%20Owners/Tablet_Dark.png" alt="Tablet in venue — approved screen type"></div>
-      <div class="device-card"><img src="assets/images/Screen%20Owners/InVehicle_Dark.png" alt="In-vehicle tablet — approved screen type"></div>
+      <div class="topic-card">
+        <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
+        <h3>Advertisers</h3>
+        <p>Plan campaigns, choose venues, upload creatives, and understand campaign delivery.</p>
+        <div class="topic-articles">
+          <a href="/help/how-to-plan-a-campaign">How to plan a campaign</a>
+          <a href="/help/how-campaign-approval-works">How campaign approval works</a>
+          <a href="/help/how-campaign-delivery-is-reported">How campaign delivery is reported</a>
+          <a href="/help/why-not-ctr-cpc">Why AdCentral does not use CTR or CPC like web ads</a>
+        </div>
+        <a href="/help/advertisers" class="topic-cta">View advertiser help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="topic-card">
+        <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
+        <h3>Screen Owners</h3>
+        <p>Connect screens, control ad categories, track activity, and manage approved ads.</p>
+        <div class="topic-articles">
+          <a href="/help/how-to-connect-your-screen">How to connect your screen</a>
+          <a href="/help/supported-screen-types">Supported screen types</a>
+          <a href="/help/screen-eligibility-and-review">Screen eligibility and review process</a>
+          <a href="/help/how-category-blocking-works">How category blocking works</a>
+          <a href="/help/can-i-block-competitor-ads">Can I block competitor ads?</a>
+        </div>
+        <a href="/help/screen-owners" class="topic-cta">View screen owner help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="topic-card">
+        <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Partners</h3>
+        <p>Learn how agencies, venue groups, technology providers, and regional partners can work with AdCentral.</p>
+        <div class="topic-articles">
+          <a href="/help/who-can-become-a-partner">Who can become an AdCentral partner?</a>
+          <a href="/help/how-to-submit-a-partnership-request">How to submit a partnership request</a>
+          <a href="/help/partner-types">What partner types AdCentral supports</a>
+          <a href="/help/regional-growth-partnerships">How regional growth partnerships work</a>
+        </div>
+        <a href="/help/partners" class="topic-cta">View partner help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="topic-card">
+        <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg></div>
+        <h3>ADCL</h3>
+        <p>Understand ADCL utility, protocol settlement, and Phase 2 staking and delegation.</p>
+        <div class="topic-articles">
+          <a href="/help/what-is-adcl">What is ADCL?</a>
+          <a href="/help/protocol-settlement-portion">What is the Protocol Settlement Portion?</a>
+          <a href="/help/staking-and-delegation">Staking and delegation - coming in Phase 2</a>
+          <a href="https://adcentral-1.gitbook.io/adcentral-docs" target="_blank" rel="noopener">Where to read the full ADCL documentation</a>
+        </div>
+        <a href="adcl.html" class="topic-cta">View ADCL help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="topic-card">
+        <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
+        <h3>Account &amp; Safety</h3>
+        <p>Get help with account access, official links, safety, and support requests.</p>
+        <div class="topic-articles">
+          <a href="/help/how-to-create-an-account">How to create an account</a>
+          <a href="/help/choosing-your-role">Choosing your role</a>
+          <a href="/help/login-and-account-access">Login and account access</a>
+          <a href="/help/official-links">Official links and anti-scam guidance</a>
+        </div>
+        <a href="/help/account-safety" class="topic-cta">View account help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
     </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     §5  OPTIONAL ADCL NOTE  (compact card)
+     §3  START HERE
 ═══════════════════════════════════════════════════════════════ -->
-<section class="section section-off" id="adcl">
+<section class="section" id="start">
+  <div class="wrap">
+    <div class="help-section-head sr">
+      <div>
+        <h2>Start here</h2>
+        <p>New to AdCentral? These guides answer the most common first questions.</p>
+      </div>
+    </div>
+
+    <!-- ⚠️ DEV NOTE: Article links map to /help/&lt;slug&gt; pages. -->
+    <div class="article-grid sr">
+      <a href="/help/what-is-adcentral" class="article-card">
+        <span class="article-tag">Getting Started</span>
+        <h4>What is AdCentral?</h4>
+        <p>A simple overview of how AdCentral connects advertisers with real-world digital screens.</p>
+        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/help/how-to-create-an-account" class="article-card">
+        <span class="article-tag">Account &amp; Safety</span>
+        <h4>How to create an account</h4>
+        <p>Create your account and choose the right role for your business.</p>
+        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/help/how-to-plan-a-campaign" class="article-card">
+        <span class="article-tag">Advertisers</span>
+        <h4>How to plan a campaign</h4>
+        <p>Learn how advertisers can prepare campaigns, choose venues, and submit creatives.</p>
+        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/help/how-to-connect-your-screen" class="article-card">
+        <span class="article-tag">Screen Owners</span>
+        <h4>How to connect your screen</h4>
+        <p>Learn how screen owners can submit a screen for review and onboarding.</p>
+        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/help/supported-screen-types" class="article-card">
+        <span class="article-tag">Screen Owners</span>
+        <h4>Supported screen types</h4>
+        <p>See which screen formats can be submitted to the AdCentral network.</p>
+        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/help/what-is-adcl" class="article-card">
+        <span class="article-tag">ADCL</span>
+        <h4>What is ADCL?</h4>
+        <p>Understand ADCL as the platform utility and participation token for AdCentral.</p>
+        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a href="/help/official-links" class="article-card">
+        <span class="article-tag">Account &amp; Safety</span>
+        <h4>Official links and anti-scam guidance</h4>
+        <p>Verify official AdCentral links and learn how to avoid impersonation attempts.</p>
+        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     §4  POPULAR QUESTIONS  +  §5 CONTACT SUPPORT  (merged two-column)
+═══════════════════════════════════════════════════════════════ -->
+<section class="section section-off" id="faq">
   <div class="wrap">
     <div class="pf-grid">
 
-      <!-- LEFT - Optional ADCL card -->
-      <div class="partner-card sr">
-        <div>
-          <div class="partner-eyebrow">Optional</div>
-          <h3>Optional ADCL participation</h3>
-          <p class="lead">Eligible screen owners may later opt in to ADCL-linked participation options where available.</p>
-          <div class="partner-fine">
-            Participation is optional, subject to eligibility, platform terms, and reward availability. ADCL-linked benefits are not guaranteed and do not represent an investment, ownership right, or fixed return.
+      <!-- LEFT - popular questions -->
+      <div class="sr">
+        <div class="faq-head">
+          <h2>Popular questions</h2>
+        </div>
+        <div class="faq-list" role="list">
+          <div class="faq-item" role="listitem">
+            <button class="faq-btn" aria-expanded="false">Can I start with a small advertiser account?
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="faq-body" role="region"><div class="faq-inner"><p>Yes. AdCentral is designed for both smaller campaign tests and larger recurring campaigns. Campaign options and availability may vary by market, venue, and screen availability.</p></div></div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-btn" aria-expanded="false">Can I see exact venues before launching a campaign?
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="faq-body" role="region"><div class="faq-inner"><p>Public pages show the network direction. Detailed venue and screen information should be available inside the platform after login or during campaign planning.</p></div></div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-btn" aria-expanded="false">Can screen owners block competitor ads?
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="faq-body" role="region"><div class="faq-inner"><p>Yes. Screen owners should be able to restrict ad categories that do not fit their venue, audience, or business interests, subject to platform rules and campaign availability.</p></div></div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-btn" aria-expanded="false">Is every screen accepted?
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="faq-body" role="region"><div class="faq-inner"><p>No. Screens are reviewed before joining. Approval may depend on venue type, location, visibility, operating hours, audience environment, and technical readiness.</p></div></div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-btn" aria-expanded="false">Where is AdCentral live now?
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="faq-body" role="region"><div class="faq-inner"><p>AdCentral is starting in the UAE, with more locations and countries planned as the network scales.</p></div></div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-btn" aria-expanded="false">Where can I read the ADCL documentation?
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+            <div class="faq-body" role="region"><div class="faq-inner"><p>Read the full ADCL documentation in the AdCentral GitBook: <a class="doc-link" href="https://adcentral-1.gitbook.io/adcentral-docs" target="_blank" rel="noopener">adcentral-1.gitbook.io/adcentral-docs</a></p></div></div>
           </div>
         </div>
       </div>
 
-      <!-- RIGHT - FAQ -->
-      <div id="faq" class="sr" style="transition-delay:100ms;">
+      <!-- RIGHT - contact support -->
+      <div class="sr" style="transition-delay:100ms;">
         <div class="faq-head">
-          <h2>Frequently asked questions.</h2>
+          <h2>Still need help?</h2>
         </div>
-        <div class="faq-list" role="list">
-
-        <div class="faq-item" role="listitem">
-          <button class="faq-btn" aria-expanded="false">Can any screen join AdCentral?
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-body" role="region"><div class="faq-inner"><p>No. Screens are reviewed before joining. Approval may depend on venue type, screen visibility, location, operating hours, technical readiness, and platform availability.</p></div></div>
+        <p class="body-sm" style="margin-bottom:var(--sp-6); max-width:520px;">Contact AdCentral if you need help with campaigns, screen onboarding, partnership requests, or account access.</p>
+        <!-- ⚠️ DEV NOTE: Route intents to the support inbox / form. Do not hardcode emails or phone numbers. -->
+        <div class="support-grid" style="grid-template-columns:1fr 1fr;">
+          <div class="support-card">
+            <div class="support-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
+            <h4>Campaign support</h4>
+            <p>For advertiser questions about campaigns, creatives, venues, approvals, or reporting.</p>
+            <a href="/contact?intent=advertiser-support" class="topic-cta">Contact campaign support <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="support-card">
+            <div class="support-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
+            <h4>Screen onboarding support</h4>
+            <p>For screen owners who need help submitting screens, checking eligibility, or category controls.</p>
+            <a href="/contact?intent=screen-owner-support" class="topic-cta">Contact screen support <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="support-card">
+            <div class="support-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <h4>Partnership support</h4>
+            <p>For agencies, venue groups, technology providers, or regional partners.</p>
+            <a href="/contact?intent=partner-support" class="topic-cta">Contact partnership support <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <div class="support-card">
+            <div class="support-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <h4>Account support</h4>
+            <p>For login, profile, company details, or access-related issues.</p>
+            <a href="/contact?intent=account-support" class="topic-cta">Contact account support <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
         </div>
-
-        <div class="faq-item" role="listitem">
-          <button class="faq-btn" aria-expanded="false">Can I still show my own content?
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-body" role="region"><div class="faq-inner"><p>Yes. Venues can continue using screens for menus, promotions, announcements, ambience, or local content. Approved ads can play based on the agreed setup and available screen time.</p></div></div>
-        </div>
-
-        <div class="faq-item" role="listitem">
-          <button class="faq-btn" aria-expanded="false">Can I block competitors or unwanted industries?
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-body" role="region"><div class="faq-inner"><p>Yes. Screen owners can restrict ad categories that do not fit their venue, audience, or business interests. Category controls are subject to platform rules and campaign availability.</p></div></div>
-        </div>
-
-        <div class="faq-item" role="listitem">
-          <button class="faq-btn" aria-expanded="false">How do screen owners earn?
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-body" role="region"><div class="faq-inner"><p>Eligible screen owners can earn from approved ad delivery based on platform rules, campaign availability, and verified screen activity. Earnings are not guaranteed and may vary.</p></div></div>
-        </div>
-
-        <div class="faq-item" role="listitem">
-          <button class="faq-btn" aria-expanded="false">Where is AdCentral live now?
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-body" role="region"><div class="faq-inner"><p>AdCentral is starting in the UAE, with more locations and countries planned as the network grows.</p></div></div>
-        </div>
-
-        <div class="faq-item" role="listitem">
-          <button class="faq-btn" aria-expanded="false">Can I connect multiple screens?
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-body" role="region"><div class="faq-inner"><p>Yes. Venues or operators with multiple suitable screens can submit them for review.</p></div></div>
-        </div>
-
-        <div class="faq-item" role="listitem">
-          <button class="faq-btn" aria-expanded="false">Can screen owners receive ADCL-linked benefits?
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-body" role="region"><div class="faq-inner"><p>Eligible screen owners may be able to opt in to ADCL-linked participation options where available. These benefits are optional, subject to eligibility, platform terms, and reward availability. ADCL-linked benefits are not guaranteed.</p></div></div>
-        </div>
-
-        <div class="faq-item" role="listitem">
-          <button class="faq-btn" aria-expanded="false">How do I get started?
-            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-body" role="region"><div class="faq-inner"><p>Connect your screen through the AdCentral portal, or book a demo if you manage multiple screens, venues, or locations.</p></div></div>
-        </div>
-
-        </div><!-- /faq-list -->
-      </div><!-- /#faq -->
+      </div>
 
     </div><!-- /pf-grid -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     §6  SAFETY NOTE
+═══════════════════════════════════════════════════════════════ -->
+<section class="section" id="safety">
+  <div class="wrap">
+    <div class="safety-card sr">
+      <div class="safety-head">
+        <span class="safety-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Stay safe</span>
+        <h2>Stay safe</h2>
+        <p>AdCentral admins will never ask for your private keys, seed phrase, or wallet recovery phrase.</p>
+        <a href="/help/official-links" class="btn btn-secondary btn-md">View official links</a>
+      </div>
+      <div class="safety-list">
+        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Use only official AdCentral links.</div>
+        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Never share private keys or seed phrases.</div>
+        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Be careful with direct messages claiming to represent AdCentral.</div>
+        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Verify announcements through official channels.</div>
+        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Use GitBook for official ADCL documentation.</div>
+      </div>
+    </div>
   </div>
 </section>
 
