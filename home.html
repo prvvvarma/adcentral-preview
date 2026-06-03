@@ -1659,6 +1659,15 @@
   .nav-dropdown a:hover { background: var(--surface-1); color: var(--ink); }
   .nav-dropdown a:hover::before { height: 0; }
 
+  /* Premium nav icons */
+  .nav-dropdown a { display: flex; align-items: center; gap: 10px; padding: 7px 12px 7px 7px; }
+  .nav-ico { width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0; display: grid; place-items: center; background: rgba(255,255,255,0.05); border: 1px solid var(--hairline); color: var(--muted); transition: background 140ms ease, color 140ms ease, border-color 140ms ease; }
+  .nav-ico svg { width: 15px; height: 15px; }
+  .nav-dropdown a:hover .nav-ico, .nav-dropdown a.active .nav-ico { background: var(--red-tint); border-color: rgba(245,54,92,.30); color: var(--red); }
+  .mobile-links a { display: flex; align-items: center; gap: 11px; }
+  .mobile-links .nav-ico { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.10); color: rgba(255,255,255,0.55); }
+  .mobile-links a:hover .nav-ico { background: var(--red-tint); border-color: rgba(245,54,92,.30); color: var(--red); }
+
   /* Login - underline sweep */
   .nav-link-plain {
     position: relative;
