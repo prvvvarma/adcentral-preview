@@ -716,9 +716,13 @@
   .hero-slide-caption h3 {
     font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
     font-size: var(--text-2xl); font-weight: 800; line-height: 1.2; letter-spacing: -.02em;
-    color: #fff; margin-bottom: var(--sp-2);
+    color: #fff; margin-bottom: 0; text-shadow: 0 1px 16px rgba(0,0,0,.5);
   }
-  .hero-slide-caption p { font-size: var(--text-sm); color: rgba(255,255,255,.72); line-height: 1.6; max-width: 90%; }
+  .hero-slide-caption h3.cap-long {
+    font-size: clamp(var(--text-base), 1.45vw, var(--text-lg));
+    font-weight: 600; line-height: 1.5; letter-spacing: -.005em;
+  }
+  .hero-slide-caption p { font-size: var(--text-sm); color: rgba(255,255,255,.72); line-height: 1.6; max-width: 90%; margin-top: var(--sp-2); }
   .hero-dots {
     position: absolute; right: var(--sp-7); bottom: var(--sp-6); z-index: 3;
     display: flex; gap: 8px;
@@ -2378,25 +2382,22 @@
         <div class="hero-slide active" role="group" aria-roledescription="slide" aria-label="1 of 3">
           <img src="assets/images/home/carousel/C1.png" alt="AdCentral highlight 1">
           <div class="hero-slide-caption">
-            <span class="cap-eyebrow">AdCentral</span>
-            <h3>Headline one</h3>
-            <p>Caption placeholder - replace with your text.</p>
+            <span class="cap-eyebrow">Recognized by du</span>
+            <h3 class="cap-long">We are honored to be selected by du as one of Dubai's promising startups. Thank you, du, for this valuable opportunity and support.</h3>
           </div>
         </div>
         <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
           <img src="assets/images/home/carousel/C2.png" alt="AdCentral highlight 2">
           <div class="hero-slide-caption">
-            <span class="cap-eyebrow">AdCentral</span>
-            <h3>Headline two</h3>
-            <p>Caption placeholder - replace with your text.</p>
+            <span class="cap-eyebrow">Now Live</span>
+            <h3>Now Live in a Clinic Waiting Area</h3>
           </div>
         </div>
         <div class="hero-slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
           <img src="assets/images/home/carousel/C3.png" alt="AdCentral highlight 3">
           <div class="hero-slide-caption">
-            <span class="cap-eyebrow">AdCentral</span>
-            <h3>Headline three</h3>
-            <p>Caption placeholder - replace with your text.</p>
+            <span class="cap-eyebrow">Now Live</span>
+            <h3>Reaching Active Audiences in the Gym</h3>
           </div>
         </div>
         <div class="hero-dots" role="tablist" aria-label="Choose slide">
