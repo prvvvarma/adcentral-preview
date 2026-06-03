@@ -1400,21 +1400,19 @@
     <div class="sr">
       <span class="eyebrow"><span class="eyebrow-dot"></span>Help Center</span>
       <h1>How can we help?</h1>
-      <p class="lead">Find simple guides for advertisers, screen owners, partners, ADCL users, and account support.</p>
+      <p class="lead">Find quick support for campaigns, screens, partnerships, ADCL, and account access.</p>
 
-      <!-- ⚠️ DEV NOTE: Wire search to the help-article index / search service. -->
+      <!-- ⚠️ DEV NOTE: Wire search to the help index / search service later. -->
       <form class="help-search" role="search" onsubmit="return false;">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <input type="search" placeholder="Search help articles" aria-label="Search help articles">
       </form>
 
       <div class="help-quick">
-        <a href="help-how-to-create-an-account.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Create an account</a>
-        <a href="help-how-to-plan-a-campaign.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Plan a campaign</a>
-        <a href="help-how-to-connect-your-screen.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Connect a screen</a>
-        <a href="help-how-category-blocking-works.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Block unwanted ad categories</a>
-        <a href="https://adcentral-1.gitbook.io/adcentral-docs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Read ADCL docs</a>
-        <a href="help-official-links.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Official links and safety</a>
+        <a href="/help/how-to-plan-a-campaign"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Plan a campaign</a>
+        <a href="/help/how-to-connect-your-screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Connect a screen</a>
+        <a href="https://adcentral-1.gitbook.io/adcentral-docs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>ADCL docs</a>
+        <a href="/help/official-links"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Official links</a>
       </div>
     </div>
   </div>
@@ -1430,46 +1428,46 @@
       <h2>Browse by topic</h2>
     </div>
 
+    <!-- ⚠️ DEV NOTE: Article links are placeholders -> /help/&lt;slug&gt; pages. -->
     <div class="topic-grid sr">
 
       <div class="topic-card">
         <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
         <h3>Advertisers</h3>
-        <p>Plan campaigns, choose venues, upload creatives, and understand campaign delivery.</p>
+        <p>Get help with campaign planning, creatives, approval, venues, and delivery reporting.</p>
         <div class="topic-articles">
-          <a href="help-how-to-plan-a-campaign.html">How to plan a campaign</a>
-          <a href="help-how-campaign-approval-works.html">How campaign approval works</a>
-          <a href="help-how-campaign-delivery-is-reported.html">How campaign delivery is reported</a>
-          <a href="help-why-not-ctr-cpc.html">Why AdCentral does not use CTR or CPC like web ads</a>
+          <a href="/help/how-to-plan-a-campaign">How to plan a campaign</a>
+          <a href="/help/how-campaign-approval-works">How campaign approval works</a>
+          <a href="/help/how-delivery-reporting-works">How delivery reporting works</a>
+          <a href="/help/why-not-ctr-cpc">Why screen ads do not use CTR or CPC</a>
         </div>
-        <a href="help-how-to-plan-a-campaign.html" class="topic-cta">View advertiser help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="/help/advertisers" class="topic-cta">View advertiser help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
       <div class="topic-card">
         <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
         <h3>Screen Owners</h3>
-        <p>Connect screens, control ad categories, track activity, and manage approved ads.</p>
+        <p>Get help with screen onboarding, eligibility, category control, and payout-related activity.</p>
         <div class="topic-articles">
-          <a href="help-how-to-connect-your-screen.html">How to connect your screen</a>
-          <a href="help-supported-screen-types.html">Supported screen types</a>
-          <a href="help-screen-eligibility-and-review.html">Screen eligibility and review process</a>
-          <a href="help-how-category-blocking-works.html">How category blocking works</a>
-          <a href="help-can-i-block-competitor-ads.html">Can I block competitor ads?</a>
+          <a href="/help/how-to-connect-your-screen">How to connect your screen</a>
+          <a href="/help/supported-screen-types">Supported screen types</a>
+          <a href="/help/screen-eligibility">Screen eligibility</a>
+          <a href="/help/category-blocking">Category blocking</a>
+          <a href="/help/blocking-competitor-ads">Blocking competitor ads</a>
         </div>
-        <a href="help-how-to-connect-your-screen.html" class="topic-cta">View screen owner help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="/help/screen-owners" class="topic-cta">View screen owner help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
       <div class="topic-card">
         <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <h3>Partners</h3>
-        <p>Learn how agencies, venue groups, technology providers, and regional partners can work with AdCentral.</p>
+        <p>Learn how agencies, venue groups, screen networks, technology providers, and regional partners can work with AdCentral.</p>
         <div class="topic-articles">
-          <a href="help-who-can-become-a-partner.html">Who can become an AdCentral partner?</a>
-          <a href="help-who-can-become-a-partner.html">How to submit a partnership request</a>
-          <a href="help-who-can-become-a-partner.html">What partner types AdCentral supports</a>
-          <a href="help-who-can-become-a-partner.html">How regional growth partnerships work</a>
+          <a href="/help/who-can-become-a-partner">Who can become a partner</a>
+          <a href="/help/how-to-submit-a-partnership-request">How to submit a partnership request</a>
+          <a href="/help/partner-types">Partner types supported by AdCentral</a>
         </div>
-        <a href="help-who-can-become-a-partner.html" class="topic-cta">View partner help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="/help/partners" class="topic-cta">View partner help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
       <div class="topic-card">
@@ -1477,25 +1475,25 @@
         <h3>ADCL</h3>
         <p>Understand ADCL utility, protocol settlement, and Phase 2 staking and delegation.</p>
         <div class="topic-articles">
-          <a href="help-what-is-adcl.html">What is ADCL?</a>
-          <a href="help-protocol-settlement-portion.html">What is the Protocol Settlement Portion?</a>
-          <a href="help-staking-and-delegation.html">Staking and delegation - coming in Phase 2</a>
-          <a href="https://adcentral-1.gitbook.io/adcentral-docs" target="_blank" rel="noopener">Where to read the full ADCL documentation</a>
+          <a href="/help/what-is-adcl">What is ADCL?</a>
+          <a href="/help/protocol-settlement-portion">What is Protocol Settlement Portion?</a>
+          <a href="/help/staking-and-delegation">Staking and delegation - coming in Phase 2</a>
+          <a href="https://adcentral-1.gitbook.io/adcentral-docs" target="_blank" rel="noopener">Read ADCL docs</a>
         </div>
-        <a href="adcl.html" class="topic-cta">View ADCL help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="/help/adcl" class="topic-cta">View ADCL help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
       <div class="topic-card">
         <div class="topic-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
         <h3>Account &amp; Safety</h3>
-        <p>Get help with account access, official links, safety, and support requests.</p>
+        <p>Get help with account access, role selection, official links, and safety guidance.</p>
         <div class="topic-articles">
-          <a href="help-how-to-create-an-account.html">How to create an account</a>
-          <a href="help-choosing-your-role.html">Choosing your role</a>
-          <a href="help-how-to-create-an-account.html">Login and account access</a>
-          <a href="help-official-links.html">Official links and anti-scam guidance</a>
+          <a href="/help/how-to-create-an-account">How to create an account</a>
+          <a href="/help/choosing-your-role">Choosing your role</a>
+          <a href="/help/login-and-account-access">Login and account access</a>
+          <a href="/help/official-links">Official links and anti-scam guidance</a>
         </div>
-        <a href="help-how-to-create-an-account.html" class="topic-cta">View account help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="/help/account-safety" class="topic-cta">View account help <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
     </div>
@@ -1503,152 +1501,89 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     §3  START HERE
+     §3  POPULAR QUESTIONS
 ═══════════════════════════════════════════════════════════════ -->
-<section class="section" id="start">
+<section class="section" id="faq">
   <div class="wrap">
-    <div class="help-section-head sr">
-      <div>
-        <h2>Start here</h2>
-        <p>New to AdCentral? These guides answer the most common first questions.</p>
+    <div class="faq-wrap">
+      <div class="section-header center sr">
+        <span class="eyebrow" style="justify-content:center;"><span class="eyebrow-dot"></span>FAQ</span>
+        <h2>Popular questions</h2>
       </div>
-    </div>
 
-    <!-- ⚠️ DEV NOTE: Article links map to /help/&lt;slug&gt; pages. -->
-    <div class="article-grid sr">
-      <a href="help-what-is-adcentral.html" class="article-card">
-        <span class="article-tag">Getting Started</span>
-        <h4>What is AdCentral?</h4>
-        <p>A simple overview of how AdCentral connects advertisers with real-world digital screens.</p>
-        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a href="help-how-to-create-an-account.html" class="article-card">
-        <span class="article-tag">Account &amp; Safety</span>
-        <h4>How to create an account</h4>
-        <p>Create your account and choose the right role for your business.</p>
-        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a href="help-how-to-plan-a-campaign.html" class="article-card">
-        <span class="article-tag">Advertisers</span>
-        <h4>How to plan a campaign</h4>
-        <p>Learn how advertisers can prepare campaigns, choose venues, and submit creatives.</p>
-        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a href="help-how-to-connect-your-screen.html" class="article-card">
-        <span class="article-tag">Screen Owners</span>
-        <h4>How to connect your screen</h4>
-        <p>Learn how screen owners can submit a screen for review and onboarding.</p>
-        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a href="help-supported-screen-types.html" class="article-card">
-        <span class="article-tag">Screen Owners</span>
-        <h4>Supported screen types</h4>
-        <p>See which screen formats can be submitted to the AdCentral network.</p>
-        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a href="help-what-is-adcl.html" class="article-card">
-        <span class="article-tag">ADCL</span>
-        <h4>What is ADCL?</h4>
-        <p>Understand ADCL as the platform utility and participation token for AdCentral.</p>
-        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a href="help-official-links.html" class="article-card">
-        <span class="article-tag">Account &amp; Safety</span>
-        <h4>Official links and anti-scam guidance</h4>
-        <p>Verify official AdCentral links and learn how to avoid impersonation attempts.</p>
-        <span class="topic-cta">Read guide <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
+      <div class="faq-list sr" role="list">
+        <div class="faq-item" role="listitem">
+          <button class="faq-btn" aria-expanded="false">Can I see exact venues before launching a campaign?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-body" role="region"><div class="faq-inner"><p>Detailed venue and screen information should be available inside the platform during campaign planning.</p></div></div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-btn" aria-expanded="false">Can screen owners block competitor ads?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-body" role="region"><div class="faq-inner"><p>Yes. Screen owners can restrict ad categories that do not fit their venue, audience, or business interests, subject to platform rules.</p></div></div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-btn" aria-expanded="false">Is every screen accepted?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-body" role="region"><div class="faq-inner"><p>No. Screens are reviewed before joining. Approval may depend on venue type, location, visibility, operating hours, and technical readiness.</p></div></div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-btn" aria-expanded="false">Where can I read ADCL documentation?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="faq-body" role="region"><div class="faq-inner"><p>Read the full ADCL documentation in GitBook: <a class="doc-link" href="https://adcentral-1.gitbook.io/adcentral-docs" target="_blank" rel="noopener">adcentral-1.gitbook.io/adcentral-docs</a></p></div></div>
+        </div>
+      </div>
+
+      <div class="center sr" style="margin-top:var(--sp-7);">
+        <a href="https://adcentral-1.gitbook.io/adcentral-docs" target="_blank" rel="noopener" class="btn btn-secondary btn-md">Read ADCL Docs</a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     §4  POPULAR QUESTIONS  +  §5 CONTACT SUPPORT  (merged two-column)
+     §4  STILL NEED HELP?
 ═══════════════════════════════════════════════════════════════ -->
-<section class="section section-off" id="faq">
+<section class="section section-off" id="contact">
   <div class="wrap">
-    <div class="pf-grid">
+    <div class="section-header center sr">
+      <span class="eyebrow" style="justify-content:center;"><span class="eyebrow-dot"></span>Support</span>
+      <h2>Still need help?</h2>
+      <p class="lead">Contact AdCentral for campaign support, screen onboarding, partnership requests, or account help.</p>
+    </div>
 
-      <!-- LEFT - popular questions -->
-      <div class="sr">
-        <div class="faq-head">
-          <h2>Popular questions</h2>
-        </div>
-        <div class="faq-list" role="list">
-          <div class="faq-item" role="listitem">
-            <button class="faq-btn" aria-expanded="false">Can I start with a small advertiser account?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-            <div class="faq-body" role="region"><div class="faq-inner"><p>Yes. AdCentral is designed for both smaller campaign tests and larger recurring campaigns. Campaign options and availability may vary by market, venue, and screen availability.</p></div></div>
-          </div>
-          <div class="faq-item" role="listitem">
-            <button class="faq-btn" aria-expanded="false">Can I see exact venues before launching a campaign?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-            <div class="faq-body" role="region"><div class="faq-inner"><p>Public pages show the network direction. Detailed venue and screen information should be available inside the platform after login or during campaign planning.</p></div></div>
-          </div>
-          <div class="faq-item" role="listitem">
-            <button class="faq-btn" aria-expanded="false">Can screen owners block competitor ads?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-            <div class="faq-body" role="region"><div class="faq-inner"><p>Yes. Screen owners should be able to restrict ad categories that do not fit their venue, audience, or business interests, subject to platform rules and campaign availability.</p></div></div>
-          </div>
-          <div class="faq-item" role="listitem">
-            <button class="faq-btn" aria-expanded="false">Is every screen accepted?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-            <div class="faq-body" role="region"><div class="faq-inner"><p>No. Screens are reviewed before joining. Approval may depend on venue type, location, visibility, operating hours, audience environment, and technical readiness.</p></div></div>
-          </div>
-          <div class="faq-item" role="listitem">
-            <button class="faq-btn" aria-expanded="false">Where is AdCentral live now?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-            <div class="faq-body" role="region"><div class="faq-inner"><p>AdCentral is starting in the UAE, with more locations and countries planned as the network scales.</p></div></div>
-          </div>
-          <div class="faq-item" role="listitem">
-            <button class="faq-btn" aria-expanded="false">Where can I read the ADCL documentation?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-            <div class="faq-body" role="region"><div class="faq-inner"><p>Read the full ADCL documentation in the AdCentral GitBook: <a class="doc-link" href="https://adcentral-1.gitbook.io/adcentral-docs" target="_blank" rel="noopener">adcentral-1.gitbook.io/adcentral-docs</a></p></div></div>
-          </div>
-        </div>
+    <!-- ⚠️ DEV NOTE: Route intents to the support inbox / form. Do not hardcode emails or phone numbers. -->
+    <div class="support-grid sr">
+      <div class="support-card">
+        <div class="support-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
+        <h4>Campaign support</h4>
+        <p>Help with campaigns, creatives, venues, approvals, and reporting.</p>
+        <a href="/contact?intent=advertiser-support" class="topic-cta">Contact <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
-
-      <!-- RIGHT - contact support -->
-      <div class="sr" style="transition-delay:100ms;">
-        <div class="faq-head">
-          <h2>Still need help?</h2>
-        </div>
-        <p class="body-sm" style="margin-bottom:var(--sp-6); max-width:520px;">Contact AdCentral if you need help with campaigns, screen onboarding, partnership requests, or account access.</p>
-        <!-- ⚠️ DEV NOTE: Route intents to the support inbox / form. Do not hardcode emails or phone numbers. -->
-        <div class="support-grid" style="grid-template-columns:1fr 1fr;">
-          <div class="support-card">
-            <div class="support-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
-            <h4>Campaign support</h4>
-            <p>For advertiser questions about campaigns, creatives, venues, approvals, or reporting.</p>
-            <a href="/contact?intent=advertiser-support" class="topic-cta">Contact campaign support <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          </div>
-          <div class="support-card">
-            <div class="support-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
-            <h4>Screen onboarding support</h4>
-            <p>For screen owners who need help submitting screens, checking eligibility, or category controls.</p>
-            <a href="/contact?intent=screen-owner-support" class="topic-cta">Contact screen support <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          </div>
-          <div class="support-card">
-            <div class="support-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-            <h4>Partnership support</h4>
-            <p>For agencies, venue groups, technology providers, or regional partners.</p>
-            <a href="/contact?intent=partner-support" class="topic-cta">Contact partnership support <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          </div>
-          <div class="support-card">
-            <div class="support-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-            <h4>Account support</h4>
-            <p>For login, profile, company details, or access-related issues.</p>
-            <a href="/contact?intent=account-support" class="topic-cta">Contact account support <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          </div>
-        </div>
+      <div class="support-card">
+        <div class="support-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
+        <h4>Screen onboarding support</h4>
+        <p>Help submitting screens, checking eligibility, or category controls.</p>
+        <a href="/contact?intent=screen-owner-support" class="topic-cta">Contact <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
-
-    </div><!-- /pf-grid -->
+      <div class="support-card">
+        <div class="support-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h4>Partnership support</h4>
+        <p>For agencies, venue groups, technology providers, or regional partners.</p>
+        <a href="/contact?intent=partner-support" class="topic-cta">Contact <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="support-card">
+        <div class="support-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <h4>Account support</h4>
+        <p>For login, profile, company details, or access-related issues.</p>
+        <a href="/contact?intent=account-support" class="topic-cta">Contact <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     §6  SAFETY NOTE
+     §5  SAFETY NOTE
 ═══════════════════════════════════════════════════════════════ -->
 <section class="section" id="safety">
   <div class="wrap">
@@ -1656,15 +1591,13 @@
       <div class="safety-head">
         <span class="safety-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Stay safe</span>
         <h2>Stay safe</h2>
-        <p>AdCentral admins will never ask for your private keys, seed phrase, or wallet recovery phrase.</p>
-        <a href="help-official-links.html" class="btn btn-secondary btn-md">View official links</a>
+        <p>AdCentral admins will never ask for your private keys, seed phrase, wallet recovery phrase, or passwords.</p>
       </div>
       <div class="safety-list">
         <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Use only official AdCentral links.</div>
-        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Never share private keys or seed phrases.</div>
-        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Be careful with direct messages claiming to represent AdCentral.</div>
-        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Verify announcements through official channels.</div>
-        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Use GitBook for official ADCL documentation.</div>
+        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Do not trust random direct messages.</div>
+        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Verify ADCL information through GitBook.</div>
+        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Contact support if unsure.</div>
       </div>
     </div>
   </div>
