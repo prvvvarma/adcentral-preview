@@ -3153,9 +3153,7 @@
     dots.forEach(function (d, i) {
       d.addEventListener('click', function () { show(i); start(); });
     });
-    car.addEventListener('mouseenter', stop);
-    car.addEventListener('mouseleave', start);
-    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+    // Rotate continuously.
     start();
   }());
 
