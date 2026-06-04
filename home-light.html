@@ -1922,6 +1922,11 @@
   .nav-btn.nav-solo.active::before { transform: scaleX(1); }
   .mobile-solo-link { display: flex; align-items: center; width: 100%; padding: 14px 16px; background: transparent; color: rgba(255,255,255,0.82); font: 600 var(--text-sm) 'Inter', sans-serif; transition: color 120ms; }
   .mobile-solo-link:hover, .mobile-solo-link.active { color: var(--red); }
+  /* Mobile button sizing */
+  @media (max-width: 640px) {
+    .btn-lg { font-size: var(--text-sm); padding: 11px 20px; min-height: 44px; }
+    .btn-md { padding: 8px 15px; min-height: 38px; }
+  }
 </style>
 </head>
 <body>

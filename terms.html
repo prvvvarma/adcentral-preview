@@ -1421,6 +1421,11 @@
   .legal a { color: var(--red); }
   .legal a:hover { text-decoration: underline; }
   @media (max-width: 640px) { .legal h2 { font-size: var(--text-lg); } }
+  /* Mobile button sizing */
+  @media (max-width: 640px) {
+    .btn-lg { font-size: var(--text-sm); padding: 11px 20px; min-height: 44px; }
+    .btn-md { padding: 8px 15px; min-height: 38px; }
+  }
 </style>
 </head>
 <body>
