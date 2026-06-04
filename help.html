@@ -1235,10 +1235,10 @@
   .btn-wa:hover { background: #1fb855; border-color: #1fb855; color: #06381b; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,.30); }
   .btn svg { width: 17px; height: 17px; flex-shrink: 0; }
 
-  /* §2 routing cards - 5, centered 3+2 */
-  .route-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--sp-4); }
+  /* §2 routing cards - 4 across */
+  .route-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
   .route-card {
-    grid-column: span 2; display: flex; flex-direction: column;
+    display: flex; flex-direction: column;
     padding: var(--sp-7) var(--sp-7);
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
@@ -1247,8 +1247,6 @@
     transition: transform 240ms var(--ease-spring), border-color 220ms;
   }
   .route-card:hover { transform: translateY(-4px); border-color: rgba(245,54,92,.30); }
-  .route-card:nth-child(4) { grid-column: 2 / span 2; }
-  .route-card:nth-child(5) { grid-column: 4 / span 2; }
   .route-card.is-general { border-color: rgba(245,54,92,.25); background: rgba(245,54,92,.05); }
   .route-icon {
     width: 48px; height: 48px; border-radius: 13px; margin-bottom: var(--sp-4);
@@ -1316,10 +1314,8 @@
     .topic-grid, .article-grid { grid-template-columns: 1fr 1fr; }
     .support-grid { grid-template-columns: 1fr 1fr; }
     .safety-card { grid-template-columns: 1fr; gap: var(--sp-7); }
-    /* Routing cards 3->2 per row, 5th centered */
-    .route-grid { grid-template-columns: repeat(4, 1fr); }
-    .route-card:nth-child(4) { grid-column: span 2; }
-    .route-card:nth-child(5) { grid-column: 2 / span 2; }
+    /* Routing cards 4->2 per row */
+    .route-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 640px) {
     .nav-links, .nav-right .nav-link-plain { display: none; }
@@ -1363,7 +1359,6 @@
     .safety-card { padding: var(--sp-7) var(--sp-5); }
     /* Routing cards single column on mobile */
     .route-grid { grid-template-columns: 1fr; }
-    .route-card, .route-card:nth-child(4), .route-card:nth-child(5) { grid-column: auto; }
     .contact-card { padding: var(--sp-10) var(--sp-5); }
     .contact-phone { font-size: var(--text-2xl); }
     .contact-actions { flex-direction: column; }
@@ -1374,7 +1369,41 @@
     .uae-stats { grid-template-columns: 1fr; }
   }
 
-  </style>
+    /* About Us single nav link */
+  .nav-btn.nav-solo::after { content: none; }
+  .nav-btn.nav-solo.active { color: var(--ink); }
+  .nav-btn.nav-solo.active::before { transform: scaleX(1); }
+  .mobile-solo-link { display: flex; align-items: center; width: 100%; padding: 14px 16px; background: transparent; color: rgba(255,255,255,0.82); font: 600 var(--text-sm) 'Inter', sans-serif; transition: color 120ms; }
+  .mobile-solo-link:hover, .mobile-solo-link.active { color: var(--red); }
+  /* ── Premium ambient background (site-wide A) ───────────────────
+     Layers: faint geometric lattice · vignette · 3 colour blooms ·
+     deep plum-indigo base · fine film-grain overlay. ───────────── */
+  .hero-wave-canvas { display: none; }
+  body { background-color: #110d1a; }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='52'%3E%3Cpath d='M0 26 L26 0 L52 26 L26 52 Z' fill='none' stroke='%23ffffff' stroke-opacity='0.035' stroke-width='1'/%3E%3C/svg%3E"),
+      radial-gradient(135% 130% at 50% 30%, transparent 50%, rgba(7,5,14,0.6) 100%),
+      radial-gradient(58% 80% at 4% 110%, rgba(245,54,92,0.20), transparent 62%),
+      radial-gradient(56% 76% at 100% -8%, rgba(150,98,212,0.24), transparent 60%),
+      radial-gradient(48% 64% at 96% 116%, rgba(60,92,200,0.13), transparent 60%),
+      linear-gradient(162deg, #1e1838 0%, #16121f 52%, #100d1a 100%);
+    background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    background-size: 52px 52px, cover, cover, cover, cover, cover;
+  }
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px; background-repeat: repeat;
+    opacity: 0.085; mix-blend-mode: overlay;
+  }
+  .site-nav, .site-nav.scrolled {
+    background: rgba(24,18,40,0.55) !important;
+    backdrop-filter: blur(22px) saturate(1.5); -webkit-backdrop-filter: blur(22px) saturate(1.5);
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,.06);
+  }
+</style>
 </head>
 <body>
 
@@ -1405,18 +1434,10 @@
           <a href="help.html" role="menuitem" class="active"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span>Help Center</a>
         </div>
       </div>
-      <div class="nav-item">
-        <button class="nav-btn" type="button" aria-expanded="false" aria-haspopup="true">About</button>
-        <div class="nav-dropdown" role="menu" hidden>
-          <a href="#" role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span>About AdCentral</a>
-          <a href="#" role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg></span>Team</a>
-          <a href="#" role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>Contact</a>
-        </div>
-      </div>
+      <div class="nav-item"><a href="about.html" class="nav-btn nav-solo">About Us</a></div>
     </nav>
     <div class="nav-right">
       <a href="#" class="nav-link-plain">Login</a>
-      <a href="#" class="btn btn-primary btn-md">Book a Demo</a>
     </div>
     <button class="nav-burger" aria-label="Open menu" aria-controls="mobile-nav-panel" aria-expanded="false">
       <span class="burger-icon" aria-hidden="true"></span>
@@ -1440,17 +1461,9 @@
           <a href="help.html"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span>Help Center</a>
         </div>
       </div>
-      <div class="mobile-group">
-        <button class="mobile-acc" type="button" aria-expanded="false">About</button>
-        <div class="mobile-links" hidden>
-          <a href="#"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span>About AdCentral</a>
-          <a href="#"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg></span>Team</a>
-          <a href="#"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>Contact</a>
-        </div>
-      </div>
+      <div class="mobile-group"><a href="about.html" class="mobile-solo-link">About Us</a></div>
       <div class="mobile-actions">
         <a href="#" class="btn btn-secondary btn-md">Login</a>
-        <a href="#" class="btn btn-primary btn-md">Book a Demo</a>
       </div>
     </div>
   </nav>
@@ -1458,13 +1471,9 @@
 
 <main>
 
-<!-- ⚠️ DEV NOTE: Help Center is a routing page only.
-     - "Visit ... FAQ" links jump to the #faq section on each persona page.
-     - "Fill Contact Form" / "Ask AdCentral" route to the existing Book a Demo
-       form with an intent param: /book-demo?intent=advertiser-help | screen-owner-help
-       | partner-help | adcl-help | account-help | general-help | help.
-       The Book a Demo form should read ?intent= and preselect the matching
-       "What do you need help with?" option. One form, one enquiry workflow.
+<!-- ⚠️ DEV NOTE: Help Center is a business support routing page only (no ADCL / Web3 support here).
+     - "Visit ... FAQ" links jump to the #faq section on each business persona page.
+     - Contact is via WhatsApp and phone only (no Book a Demo / contact-form CTA on this page).
      - WhatsApp: https://wa.me/971509506897   Call: tel:+971509506897
      Do not create separate department forms or /help/<slug> article pages. -->
 
@@ -1483,10 +1492,13 @@
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.93 7.93 0 0 0 3.8.97h.004A7.94 7.94 0 0 0 17.6 6.32zm-5.55 12.18h-.003a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.65.67-2.43-.16-.25a6.59 6.59 0 1 1 5.6 3.09zm3.62-4.93c-.2-.1-1.17-.58-1.35-.64s-.31-.1-.44.1-.5.64-.62.77-.23.15-.43.05a5.4 5.4 0 0 1-1.6-.99 6 6 0 0 1-1.1-1.37c-.12-.2 0-.31.09-.41s.2-.23.3-.35a1.3 1.3 0 0 0 .2-.34.37.37 0 0 0-.02-.35c-.05-.1-.44-1.06-.6-1.45s-.32-.33-.44-.34h-.38a.72.72 0 0 0-.52.24 2.2 2.2 0 0 0-.69 1.64 3.83 3.83 0 0 0 .8 2.03 8.75 8.75 0 0 0 3.35 2.96c.47.2.83.32 1.11.41.47.15.9.13 1.23.08.38-.06 1.17-.48 1.33-.94s.17-.86.12-.94-.18-.15-.38-.25z"/></svg>
           WhatsApp Support
         </a>
-        <a href="/book-demo?intent=help" class="btn btn-secondary btn-lg">Fill Contact Form</a>
+        <a href="tel:+971509506897" class="btn btn-secondary btn-lg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call +971 50 950 6897
+        </a>
       </div>
 
-      <p class="help-fine">For faster help, mention whether you are an advertiser, screen owner, partner, or ADCL user.</p>
+      <p class="help-fine">For faster help, mention whether you are an advertiser, screen owner, partner, or have a general business question.</p>
     </div>
   </div>
 </section>
@@ -1510,7 +1522,6 @@
         <p>For campaign planning, venue access, pricing, creative approval, and delivery reporting.</p>
         <div class="route-actions">
           <a href="advertisers.html#faq" class="btn btn-primary btn-md">Visit Advertisers FAQ</a>
-          <a href="/book-demo?intent=advertiser-help" class="btn btn-outline-ink btn-md">Ask AdCentral</a>
         </div>
       </div>
 
@@ -1520,7 +1531,6 @@
         <p>For screen onboarding, eligibility, supported screens, category controls, and blocking competitor ads.</p>
         <div class="route-actions">
           <a href="screen-owners.html#faq" class="btn btn-primary btn-md">Visit Screen Owners FAQ</a>
-          <a href="/book-demo?intent=screen-owner-help" class="btn btn-outline-ink btn-md">Ask AdCentral</a>
         </div>
       </div>
 
@@ -1530,87 +1540,18 @@
         <p>For agencies, venue groups, screen networks, technology partners, and regional growth partners.</p>
         <div class="route-actions">
           <a href="partners.html#faq" class="btn btn-primary btn-md">Visit Partners FAQ</a>
-          <a href="/book-demo?intent=partner-help" class="btn btn-outline-ink btn-md">Ask AdCentral</a>
-        </div>
-      </div>
-
-      <div class="route-card">
-        <div class="route-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg></div>
-        <h3>ADCL</h3>
-        <p>For ADCL utility, protocol settlement, Phase 2 staking and delegation, and network participation.</p>
-        <div class="route-actions">
-          <a href="adcl.html#faq" class="btn btn-primary btn-md">Visit ADCL FAQ</a>
-          <a href="https://adcentral-1.gitbook.io/adcentral-docs" target="_blank" rel="noopener" class="btn btn-outline-ink btn-md">Read Docs</a>
         </div>
       </div>
 
       <div class="route-card is-general">
         <div class="route-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
         <h3>Still not clear?</h3>
-        <p>Contact AdCentral and tell us what you need help with. Our team will get back to you.</p>
+        <p>For general business questions, contact AdCentral and tell us what you need help with.</p>
         <div class="route-actions">
           <a href="https://wa.me/971509506897" target="_blank" rel="noopener" class="btn btn-primary btn-md">WhatsApp Support</a>
-          <a href="/book-demo?intent=general-help" class="btn btn-outline-ink btn-md">Fill Contact Form</a>
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════════
-     §3  CONTACT ADCENTRAL  (single card)
-═══════════════════════════════════════════════════════════════ -->
-<section class="section" id="contact">
-  <div class="wrap">
-    <div class="section-header center sr">
-      <span class="eyebrow" style="justify-content:center;"><span class="eyebrow-dot"></span>Contact</span>
-      <h2>Still need help?</h2>
-      <p class="lead">If the FAQ does not answer your question, contact AdCentral and our team will get back to you.</p>
-    </div>
-
-    <!-- ⚠️ DEV NOTE: Single contact path. Do not split into department cards. -->
-    <div class="contact-card sr">
-      <div class="partner-eyebrow">Contact AdCentral</div>
-      <h3>One team, one place to reach us.</h3>
-      <p>For campaign questions, screen onboarding, partnership discussions, ADCL questions, or account-related support.</p>
-      <a href="tel:+971509506897" class="contact-phone">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        +971 50 950 6897
-      </a>
-      <div class="contact-actions">
-        <a href="https://wa.me/971509506897" target="_blank" rel="noopener" class="btn btn-wa btn-lg">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.93 7.93 0 0 0 3.8.97h.004A7.94 7.94 0 0 0 17.6 6.32zm-5.55 12.18h-.003a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.65.67-2.43-.16-.25a6.59 6.59 0 1 1 5.6 3.09zm3.62-4.93c-.2-.1-1.17-.58-1.35-.64s-.31-.1-.44.1-.5.64-.62.77-.23.15-.43.05a5.4 5.4 0 0 1-1.6-.99 6 6 0 0 1-1.1-1.37c-.12-.2 0-.31.09-.41s.2-.23.3-.35a1.3 1.3 0 0 0 .2-.34.37.37 0 0 0-.02-.35c-.05-.1-.44-1.06-.6-1.45s-.32-.33-.44-.34h-.38a.72.72 0 0 0-.52.24 2.2 2.2 0 0 0-.69 1.64 3.83 3.83 0 0 0 .8 2.03 8.75 8.75 0 0 0 3.35 2.96c.47.2.83.32 1.11.41.47.15.9.13 1.23.08.38-.06 1.17-.48 1.33-.94s.17-.86.12-.94-.18-.15-.38-.25z"/></svg>
-          WhatsApp Support
-        </a>
-        <a href="tel:+971509506897" class="btn btn-secondary btn-lg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          Call Sales Support
-        </a>
-        <a href="/book-demo?intent=help" class="btn btn-outline-ink btn-lg">Fill Contact Form</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════════
-     §4  SAFETY NOTE
-═══════════════════════════════════════════════════════════════ -->
-<section class="section section-off" id="safety">
-  <div class="wrap">
-    <div class="safety-card sr">
-      <div class="safety-head">
-        <span class="safety-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Stay safe</span>
-        <h2>Stay safe</h2>
-        <p>AdCentral admins will never ask for your private keys, seed phrase, wallet recovery phrase, or passwords.</p>
-        <a href="https://adcentral-1.gitbook.io/adcentral-docs" target="_blank" rel="noopener" class="btn btn-secondary btn-md">Read Docs</a>
-      </div>
-      <div class="safety-list">
-        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Use only official AdCentral links.</div>
-        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Do not trust random direct messages.</div>
-        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Verify ADCL information through GitBook.</div>
-        <div class="safety-item"><svg class="safety-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Contact AdCentral if unsure.</div>
-      </div>
     </div>
   </div>
 </section>
@@ -1665,9 +1606,7 @@
       <div class="footer-col">
         <h5>About</h5>
         <ul>
-          <li><a href="#">About AdCentral</a></li>
-          <li><a href="#">Team</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="about.html">About Us</a></li>
         </ul>
       </div>
     </div>
@@ -1675,8 +1614,7 @@
       <span>&copy; 2026 Adora AI Solutions. All rights reserved.</span>
       <div class="footer-legal">
         <a href="#">Privacy Policy</a>
-        <a href="#">Terms</a>
-        <a href="#">Contact</a>
+        <a href="terms.html">Terms</a>
       </div>
     </div>
   </div>

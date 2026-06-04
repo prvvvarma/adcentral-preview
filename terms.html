@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Advertisers - AdCentral</title>
+  <title>Terms and Conditions - AdCentral</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet"/>
@@ -677,13 +677,14 @@
     display: grid;
     grid-template-columns: 0.92fr 1.08fr;
     gap: var(--sp-12);
-    align-items: stretch;
+    align-items: start;
   }
-  /* Partnership card fills the column height to match the FAQ list */
+  /* ADCL card sits at the top of its column, sticky as the FAQ scrolls */
   .pf-grid .partner-card {
     display: flex; flex-direction: column;
     gap: var(--sp-5);
     padding: var(--sp-8) var(--sp-8);
+    position: sticky; top: 112px;
   }
   .pf-grid .partner-actions {
     flex-direction: row; flex-wrap: wrap; align-items: center;
@@ -805,6 +806,480 @@
   .dev-note strong { font-weight: 700; color: rgba(251,191,36,.95); }
 
   /* ─────────────────────────────────────────────────────────────
+     SCREEN-OWNER HELPERS
+  ───────────────────────────────────────────────────────────── */
+  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+  .so-note {
+    display: inline-flex; align-items: center; gap: var(--sp-2);
+    margin-top: var(--sp-5); font-size: var(--text-xs); color: var(--muted);
+  }
+  .so-note svg { flex-shrink: 0; color: var(--muted); }
+  .so-examples { display: grid; gap: var(--sp-3); margin: var(--sp-6) 0; }
+  .so-example {
+    display: flex; align-items: flex-start; gap: var(--sp-3);
+    font-size: var(--text-sm); color: var(--body); line-height: 1.6;
+  }
+  .so-example-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--red);
+    flex-shrink: 0; margin-top: 7px;
+  }
+  .faq-wrap { max-width: 800px; margin-inline: auto; }
+  .adcl-card { max-width: 820px; margin-inline: auto; }
+
+  /* How it works - horizontal 4-step row */
+  .steps-row {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-5); margin-bottom: var(--sp-16);
+  }
+  .step-h { position: relative; padding-top: var(--sp-2); }
+  /* connector line between steps */
+  .step-h:not(:last-child)::after {
+    content: ''; position: absolute; top: 21px; left: 52px; right: -10px;
+    height: 2px; background: linear-gradient(90deg, rgba(245,54,92,.30), rgba(245,54,92,.06));
+  }
+  .step-h-num {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(245,54,92,.10); border: 1.5px solid rgba(245,54,92,.32);
+    color: var(--red); font-weight: 800; font-size: var(--text-base);
+    display: grid; place-items: center; margin-bottom: var(--sp-4);
+    position: relative; z-index: 1;
+  }
+  .step-h h4 { font-size: var(--text-base); letter-spacing: -.01em; margin-bottom: var(--sp-2); }
+  .step-h p  { font-size: var(--text-sm); color: var(--muted); line-height: 1.6; }
+
+  /* Supported device gallery (dark cards) */
+  .devices-head {
+    text-align: center; margin-bottom: var(--sp-8);
+  }
+  .devices-head .so-devices-cap {
+    font-size: var(--text-xs); font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--red); margin-bottom: var(--sp-3);
+  }
+  .devices-head h3 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); letter-spacing: -.02em; }
+  .device-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-5);
+  }
+  .device-card {
+    border-radius: var(--r-lg); overflow: hidden;
+    box-shadow: 0 14px 44px rgba(0,0,0,.5);
+    transition: transform 260ms var(--ease-spring), box-shadow 260ms var(--ease-out);
+  }
+  .device-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 24px 64px rgba(0,0,0,.62), 0 0 40px rgba(245,54,92,.10);
+  }
+  .device-card img { width: 100%; height: auto; display: block; }
+
+  /* Two premium value cards */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); margin-bottom: var(--sp-12); }
+  .vcard {
+    position: relative; overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-xl);
+    padding: var(--sp-7) var(--sp-7);
+    box-shadow: var(--glass-shadow);
+    transition: transform 260ms var(--ease-spring), border-color 220ms, box-shadow 260ms var(--ease-out);
+  }
+  .vcard::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red) 50%, transparent);
+    transform: scaleX(0); transform-origin: center;
+    transition: transform 300ms var(--ease-spring);
+  }
+  .vcard:hover::before { transform: scaleX(1); }
+  .vcard:hover {
+    transform: translateY(-4px); border-color: rgba(245,54,92,.30);
+    box-shadow: 0 18px 56px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.10);
+  }
+  .vcard-icon {
+    width: 52px; height: 52px; border-radius: 14px; margin-bottom: var(--sp-4);
+    background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.18);
+    display: grid; place-items: center; font-size: 24px;
+  }
+  .vcard h4 { font-size: var(--text-lg); letter-spacing: -.016em; margin-bottom: var(--sp-2); }
+  .vcard p  { font-size: var(--text-sm); color: var(--muted); line-height: 1.7; }
+
+  /* Premium category-control panel mock (replaces image placeholder) */
+  .ctrl-panel {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-xl);
+    box-shadow: var(--glass-shadow), 0 0 70px rgba(245,54,92,.05);
+    padding: var(--sp-6) var(--sp-6);
+    position: relative; overflow: hidden;
+  }
+  .ctrl-panel::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(245,54,92,.6) 50%, transparent);
+  }
+  .ctrl-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: var(--sp-4); margin-bottom: var(--sp-5);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .ctrl-title { font-size: var(--text-sm); font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
+  .ctrl-toggle { display: inline-flex; align-items: center; gap: 8px; font-size: var(--text-xs); font-weight: 600; color: var(--body); }
+  .ctrl-switch {
+    width: 30px; height: 17px; border-radius: 999px; position: relative;
+    background: rgba(16,185,129,.30); border: 1px solid rgba(16,185,129,.5);
+    flex-shrink: 0;
+  }
+  .ctrl-switch::after {
+    content: ''; position: absolute; top: 1px; right: 1px;
+    width: 13px; height: 13px; border-radius: 50%; background: #10b981;
+    box-shadow: 0 0 8px rgba(16,185,129,.6);
+  }
+  .ctrl-group { margin-bottom: var(--sp-5); }
+  .ctrl-group:last-child { margin-bottom: 0; }
+  .ctrl-label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+    margin-bottom: var(--sp-3);
+  }
+  .ctrl-label.allowed { color: #10b981; }
+  .ctrl-label.blocked { color: var(--red); }
+  .ctrl-chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+  .ctrl-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 13px; border-radius: 999px;
+    font-size: var(--text-sm); font-weight: 500;
+  }
+  .ctrl-chip.ok {
+    background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.22); color: #cdeede;
+  }
+  .ctrl-chip.ok::before { content: '✓'; color: #10b981; font-weight: 800; font-size: 11px; }
+  .ctrl-chip.no {
+    background: rgba(245,54,92,.07); border: 1px solid rgba(245,54,92,.20);
+    color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(245,54,92,.5);
+  }
+  .ctrl-chip.no::before { content: '✕'; color: var(--red); font-weight: 800; font-size: 11px; text-decoration: none; display: inline-block; }
+  .ctrl-foot {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: var(--sp-5); padding-top: var(--sp-4); border-top: 1px solid var(--hairline);
+    font-size: var(--text-xs); color: var(--muted);
+  }
+  .ctrl-foot .dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: pulse-badge 2s infinite; flex-shrink: 0; }
+
+  /* ─────────────────────────────────────────────────────────────
+     PARTNERS HELPERS
+  ───────────────────────────────────────────────────────────── */
+
+  /* §1 Hero - partner network visual (designed, not a placeholder) */
+  .pnet {
+    position: relative; overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-2xl);
+    box-shadow: var(--glass-shadow), 0 0 80px rgba(245,54,92,.06);
+    padding: var(--sp-10) var(--sp-8);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .pnet::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(245,54,92,.65) 50%, transparent);
+  }
+  .pnet::after {
+    content: ''; position: absolute; top: -70px; left: 50%; transform: translateX(-50%);
+    width: 300px; height: 300px; border-radius: 50%;
+    background: rgba(245,54,92,.06); filter: blur(60px); pointer-events: none;
+  }
+  .pnet-core { display: flex; flex-direction: column; align-items: center; gap: var(--sp-3); position: relative; z-index: 1; }
+  .pnet-hub {
+    width: 88px; height: 88px; border-radius: 24px;
+    background: linear-gradient(145deg, #F5365C 0%, #FF6B85 100%);
+    display: grid; place-items: center;
+    box-shadow: 0 12px 44px rgba(245,54,92,.45), inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .pnet-hub img { width: 48px; height: auto; }
+  .pnet-core-label { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: var(--text-base); color: var(--ink); letter-spacing: -.01em; }
+  .pnet-rail { width: 2px; height: 34px; margin: var(--sp-4) 0; background: linear-gradient(rgba(245,54,92,.6), rgba(245,54,92,.05)); position: relative; z-index: 1; }
+  .pnet-chips { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); width: 100%; position: relative; z-index: 1; }
+  .pnet-chip {
+    display: flex; align-items: center; gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4); border-radius: var(--r-md);
+    background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
+    font-size: var(--text-sm); font-weight: 600; color: var(--ink-2);
+    transition: transform 220ms var(--ease-spring), border-color 200ms;
+  }
+  .pnet-chip:hover { transform: translateY(-2px); border-color: rgba(245,54,92,.30); }
+  .pnet-chip .ico { font-size: 18px; flex-shrink: 0; }
+  .pnet-chip:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+  /* §2 / §3 card grids - 5 cards: 3 on top, 2 centered below
+     (6-col grid, each card spans 2, last two offset to center) */
+  .partner-grid, .ways-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--sp-4);
+  }
+  .partner-grid > *, .ways-grid > * { grid-column: span 2; }
+  .partner-grid > :nth-child(4), .ways-grid > :nth-child(4) { grid-column: 2 / span 2; }
+  .partner-grid > :nth-child(5), .ways-grid > :nth-child(5) { grid-column: 4 / span 2; }
+
+  /* §3 Ways to partner - compact cards */
+  .way-card {
+    display: flex; flex-direction: column; gap: var(--sp-2);
+    padding: var(--sp-6) var(--sp-6);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-lg);
+    box-shadow: var(--glass-shadow);
+    transition: transform 220ms var(--ease-spring), border-color 200ms;
+  }
+  .way-card:hover { transform: translateY(-3px); border-color: rgba(245,54,92,.30); }
+  .way-icon {
+    width: 40px; height: 40px; border-radius: 10px; margin-bottom: var(--sp-2);
+    background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.18);
+    display: grid; place-items: center; font-size: 18px;
+  }
+  .way-card h4 { font-size: var(--text-base); letter-spacing: -.01em; }
+  .way-card p { font-size: var(--text-sm); color: var(--muted); line-height: 1.65; }
+
+  /* §4 Why partner now + Partnership fit - two-column split */
+  .why-grid {
+    display: grid; grid-template-columns: 1fr 1.05fr;
+    gap: var(--sp-12); align-items: start;
+  }
+  .why-left h2 { margin-bottom: var(--sp-3); }
+  .why-left .lead { margin-bottom: var(--sp-7); max-width: 440px; }
+  .why-list { display: grid; gap: var(--sp-4); }
+  .why-row {
+    display: flex; gap: var(--sp-4);
+    padding: var(--sp-5) var(--sp-5);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-lg);
+    box-shadow: var(--glass-shadow);
+    transition: transform 220ms var(--ease-spring), border-color 200ms;
+  }
+  .why-row:hover { transform: translateX(4px); border-color: rgba(245,54,92,.30); }
+  .why-row-icon {
+    width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
+    background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.18);
+    display: grid; place-items: center; font-size: 21px;
+  }
+  .why-row h4 { font-size: var(--text-base); letter-spacing: -.01em; margin-bottom: 4px; }
+  .why-row p  { font-size: var(--text-sm); color: var(--muted); line-height: 1.6; }
+
+  /* Partnership fit - checklist card */
+  .fit-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-2xl);
+    box-shadow: var(--glass-shadow);
+    padding: var(--sp-10) var(--sp-10);
+  }
+  .fit-card h2 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); letter-spacing: -.02em; margin-bottom: var(--sp-3); }
+  .fit-card .lead { margin-bottom: var(--sp-2); }
+  .fit-list { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); margin: var(--sp-7) 0; }
+  .fit-item {
+    display: flex; align-items: center; gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4); border-radius: var(--r-md);
+    background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
+    font-size: var(--text-sm); font-weight: 500; color: var(--ink-2);
+  }
+  .fit-check { width: 18px; height: 18px; flex-shrink: 0; color: #10b981; }
+  .fit-close { font-size: var(--text-base); color: var(--body); line-height: 1.7; padding-top: var(--sp-5); border-top: 1px solid var(--hairline); }
+  .fit-actions { margin-top: var(--sp-7); display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+
+  /* ─────────────────────────────────────────────────────────────
+     HELP CENTER
+  ───────────────────────────────────────────────────────────── */
+  /* §1 Hero - search-first */
+  .help-hero { padding: var(--sp-20) 0 var(--sp-16); text-align: center; }
+  .help-hero .eyebrow { justify-content: center; }
+  .help-hero h1 { margin-bottom: var(--sp-4); }
+  .help-hero .lead { max-width: 560px; margin: 0 auto var(--sp-8); }
+  .help-search {
+    position: relative; max-width: 620px; margin: 0 auto var(--sp-6);
+  }
+  .help-search svg { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+  .help-search input {
+    width: 100%; height: 58px; padding: 0 var(--sp-6) 0 54px;
+    border-radius: var(--r-lg);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
+    color: var(--ink); font: 500 var(--text-md) 'Inter', sans-serif;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+  .help-search input::placeholder { color: var(--muted); }
+  .help-search input:focus { outline: none; border-color: rgba(245,54,92,.45); box-shadow: var(--glass-shadow), 0 0 0 3px rgba(245,54,92,.14); }
+  .help-quick { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-2); }
+  .help-quick a {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 15px; border-radius: 999px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
+    font-size: var(--text-sm); font-weight: 500; color: var(--body);
+    transition: border-color 160ms, color 160ms, transform 200ms var(--ease-spring);
+  }
+  .help-quick a:hover { border-color: rgba(245,54,92,.35); color: var(--ink); transform: translateY(-2px); }
+  .help-quick a svg { width: 13px; height: 13px; color: var(--red); }
+
+  /* §2 Browse by topic - category cards with article lists */
+  .topic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+  .topic-card {
+    display: flex; flex-direction: column;
+    padding: var(--sp-7) var(--sp-7);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-xl);
+    box-shadow: var(--glass-shadow);
+    transition: transform 240ms var(--ease-spring), border-color 220ms, box-shadow 240ms var(--ease-out);
+  }
+  .topic-card:hover { transform: translateY(-4px); border-color: rgba(245,54,92,.30); box-shadow: 0 18px 56px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08); }
+  .topic-icon {
+    width: 48px; height: 48px; border-radius: 13px; margin-bottom: var(--sp-4);
+    background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.18);
+    display: grid; place-items: center; color: var(--red);
+  }
+  .topic-icon svg { width: 22px; height: 22px; }
+  .topic-card h3 { font-size: var(--text-lg); margin-bottom: var(--sp-2); }
+  .topic-card > p { font-size: var(--text-sm); color: var(--muted); line-height: 1.65; margin-bottom: var(--sp-5); }
+  .topic-articles { display: grid; gap: 2px; margin-bottom: var(--sp-5); }
+  .topic-articles a {
+    display: flex; align-items: center; gap: var(--sp-2);
+    padding: 7px 0; font-size: var(--text-sm); color: var(--body);
+    border-bottom: 1px solid var(--hairline); transition: color 140ms, padding-left 160ms;
+  }
+  .topic-articles a:last-child { border-bottom: none; }
+  .topic-articles a::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--subtle); flex-shrink: 0; transition: background 140ms; }
+  .topic-articles a:hover { color: var(--ink); padding-left: 4px; }
+  .topic-articles a:hover::before { background: var(--red); }
+  .topic-cta {
+    margin-top: auto; display: inline-flex; align-items: center; gap: 6px;
+    font-size: var(--text-sm); font-weight: 600; color: var(--red);
+    transition: gap 160ms;
+  }
+  .topic-cta:hover { gap: 10px; }
+
+  /* §3 Start here - article cards */
+  .article-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+  .article-card {
+    display: flex; flex-direction: column; gap: var(--sp-3);
+    padding: var(--sp-6) var(--sp-6);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-lg);
+    box-shadow: var(--glass-shadow);
+    transition: transform 220ms var(--ease-spring), border-color 200ms;
+  }
+  .article-card:hover { transform: translateY(-3px); border-color: rgba(245,54,92,.30); }
+  .article-tag {
+    align-self: flex-start;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--red); background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.20);
+    padding: 4px 9px; border-radius: 999px;
+  }
+  .article-card h4 { font-size: var(--text-base); letter-spacing: -.01em; }
+  .article-card p { font-size: var(--text-sm); color: var(--muted); line-height: 1.6; }
+  .article-card .topic-cta { margin-top: var(--sp-1); }
+
+  /* §5 Contact support - 4 cards */
+  .support-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
+  .support-card {
+    display: flex; flex-direction: column; gap: var(--sp-3);
+    padding: var(--sp-6) var(--sp-6);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-lg);
+    box-shadow: var(--glass-shadow);
+    transition: transform 220ms var(--ease-spring), border-color 200ms;
+  }
+  .support-card:hover { transform: translateY(-3px); border-color: rgba(245,54,92,.30); }
+  .support-icon {
+    width: 40px; height: 40px; border-radius: 11px;
+    background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.18);
+    display: grid; place-items: center; color: var(--red);
+  }
+  .support-icon svg { width: 19px; height: 19px; }
+  .support-card h4 { font-size: var(--text-base); }
+  .support-card p { font-size: var(--text-sm); color: var(--muted); line-height: 1.6; flex: 1; }
+
+  /* §6 Safety note */
+  .safety-card {
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--sp-10);
+    align-items: center;
+    padding: var(--sp-10) var(--sp-10);
+    border-radius: var(--r-2xl);
+    border: 1px solid rgba(16,185,129,.22);
+    background:
+      radial-gradient(ellipse 500px 300px at 0% 0%, rgba(16,185,129,.08) 0%, transparent 60%),
+      var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
+  }
+  .safety-head .safety-badge {
+    display: inline-flex; align-items: center; gap: var(--sp-2);
+    padding: 5px 12px; border-radius: 999px;
+    background: rgba(16,185,129,.10); border: 1px solid rgba(16,185,129,.26);
+    color: #10b981; font-size: var(--text-xs); font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    margin-bottom: var(--sp-4);
+  }
+  .safety-head h2 { margin-bottom: var(--sp-3); }
+  .safety-head p { font-size: var(--text-base); color: var(--body); line-height: 1.7; margin-bottom: var(--sp-5); }
+  .safety-list { display: grid; gap: var(--sp-3); }
+  .safety-item { display: flex; align-items: flex-start; gap: var(--sp-3); font-size: var(--text-sm); color: var(--ink-2); }
+  .safety-check { width: 20px; height: 20px; flex-shrink: 0; color: #10b981; margin-top: 1px; }
+
+  .help-section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-5); margin-bottom: var(--sp-8); flex-wrap: wrap; }
+  .help-section-head h2 { margin-bottom: var(--sp-2); }
+  .help-section-head p { font-size: var(--text-base); color: var(--muted); }
+
+  /* ─────────────────────────────────────────────────────────────
+     HELP ROUTING
+  ───────────────────────────────────────────────────────────── */
+  .help-hero .opening-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-3); margin-bottom: var(--sp-5); }
+  .help-fine { font-size: var(--text-sm); color: var(--muted); max-width: 540px; margin: 0 auto; }
+  .btn-wa { background: #25D366; border-color: #25D366; color: #06381b; }
+  .btn-wa:hover { background: #1fb855; border-color: #1fb855; color: #06381b; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,.30); }
+  .btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+  /* §2 routing cards - 4 across */
+  .route-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
+  .route-card {
+    display: flex; flex-direction: column;
+    padding: var(--sp-7) var(--sp-7);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-xl);
+    box-shadow: var(--glass-shadow);
+    transition: transform 240ms var(--ease-spring), border-color 220ms;
+  }
+  .route-card:hover { transform: translateY(-4px); border-color: rgba(245,54,92,.30); }
+  .route-card.is-general { border-color: rgba(245,54,92,.25); background: rgba(245,54,92,.05); }
+  .route-icon {
+    width: 48px; height: 48px; border-radius: 13px; margin-bottom: var(--sp-4);
+    background: rgba(245,54,92,.10); border: 1px solid rgba(245,54,92,.18);
+    display: grid; place-items: center; color: var(--red);
+  }
+  .route-icon svg { width: 22px; height: 22px; }
+  .route-card h3 { font-size: var(--text-lg); margin-bottom: var(--sp-2); }
+  .route-card > p { font-size: var(--text-sm); color: var(--muted); line-height: 1.65; margin-bottom: var(--sp-5); flex: 1; }
+  .route-actions { display: grid; gap: var(--sp-2); }
+  .route-actions .btn { width: 100%; }
+
+  /* §3 single contact card */
+  .contact-card {
+    max-width: 760px; margin-inline: auto; text-align: center;
+    padding: var(--sp-12) var(--sp-10);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border); border-radius: var(--r-2xl);
+    box-shadow: var(--glass-shadow), 0 0 80px rgba(245,54,92,.05);
+  }
+  .contact-card .partner-eyebrow { margin-inline: auto; }
+  .contact-card h3 { font-size: var(--text-2xl); margin-bottom: var(--sp-3); }
+  .contact-card > p { font-size: var(--text-base); color: var(--muted); line-height: 1.7; max-width: 520px; margin: 0 auto var(--sp-6); }
+  .contact-phone {
+    display: inline-flex; align-items: center; gap: var(--sp-3);
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: var(--text-3xl); font-weight: 800;
+    color: var(--ink); letter-spacing: -.02em; margin-bottom: var(--sp-7);
+  }
+  .contact-phone svg { width: 22px; height: 22px; color: var(--red); }
+  .contact-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-3); }
+
+  /* ─────────────────────────────────────────────────────────────
      RESPONSIVE
   ───────────────────────────────────────────────────────────── */
   @media (max-width: 1024px) {
@@ -814,21 +1289,41 @@
     .campaign-row { grid-template-columns: 180px 1fr auto; gap: var(--sp-5); padding: var(--sp-6) var(--sp-6); }
   }
   @media (max-width: 960px) {
-    .opening-split, .gate-grid, .brands-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
+    .opening-split, .gate-grid, .brands-grid, .how-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
     .uae-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
+    /* Why partner + Partnership fit stack */
+    .why-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
     /* Partnership + FAQ stack */
     .pf-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
     .pf-grid .partner-card { position: static; grid-template-columns: 1fr auto; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--sp-8); }
     .brands-visual { grid-template-columns: 1fr 1fr; }
+    .trio { grid-template-columns: 1fr; }
+    /* Steps 4→2, device gallery 3→2 */
+    .steps-row { grid-template-columns: 1fr 1fr; gap: var(--sp-8) var(--sp-6); }
+    .step-h:not(:last-child)::after { display: none; }
+    .device-grid { grid-template-columns: 1fr 1fr; }
     /* Campaign rows - hide price on tablet, show name + desc only */
     .campaign-row { grid-template-columns: 180px 1fr; }
     .cr-price { display: none; }
+    /* Partners - grids to 2 per row (4-col span), 5th card centered */
+    .partner-grid, .ways-grid { grid-template-columns: repeat(4, 1fr); }
+    .partner-grid > :nth-child(4), .ways-grid > :nth-child(4) { grid-column: span 2; }
+    .partner-grid > :nth-child(5), .ways-grid > :nth-child(5) { grid-column: 2 / span 2; }
+    /* Help Center - tablet */
+    .topic-grid, .article-grid { grid-template-columns: 1fr 1fr; }
+    .support-grid { grid-template-columns: 1fr 1fr; }
+    .safety-card { grid-template-columns: 1fr; gap: var(--sp-7); }
+    /* Routing cards 4->2 per row */
+    .route-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 640px) {
     .nav-links, .nav-right .nav-link-plain { display: none; }
     .nav-burger { display: inline-flex; }
     .price-grid { grid-template-columns: 1fr; }
+    .duo { grid-template-columns: 1fr; }
+    .steps-row { grid-template-columns: 1fr; gap: var(--sp-5); }
+    .device-grid { grid-template-columns: 1fr; }
     /* Campaign rows - stack on mobile */
     .campaign-row {
       grid-template-columns: 1fr;
@@ -849,6 +1344,25 @@
     .price-cards { grid-template-columns: 1fr; }
     .brands-visual { grid-template-columns: 1fr 1fr; }
     .adv-cta-actions { flex-direction: column; }
+    /* Partners - single column on mobile (reset all spans) */
+    .partner-grid, .ways-grid { grid-template-columns: 1fr; }
+    .partner-grid > *, .ways-grid > *,
+    .partner-grid > :nth-child(4), .ways-grid > :nth-child(4),
+    .partner-grid > :nth-child(5), .ways-grid > :nth-child(5) { grid-column: auto; }
+    .pnet-chips, .fit-list { grid-template-columns: 1fr; }
+    .pnet { padding: var(--sp-7) var(--sp-5); }
+    .fit-card { padding: var(--sp-7) var(--sp-5); }
+    .fit-actions { flex-direction: column; }
+    /* Help Center - mobile */
+    .topic-grid, .article-grid, .support-grid { grid-template-columns: 1fr; }
+    .help-search input { height: 54px; }
+    .safety-card { padding: var(--sp-7) var(--sp-5); }
+    /* Routing cards single column on mobile */
+    .route-grid { grid-template-columns: 1fr; }
+    .contact-card { padding: var(--sp-10) var(--sp-5); }
+    .contact-phone { font-size: var(--text-2xl); }
+    .contact-actions { flex-direction: column; }
+    .contact-actions .btn { width: 100%; }
   }
   @media (max-width: 420px) {
     .brands-visual { grid-template-columns: 1fr; }
@@ -889,6 +1403,24 @@
     backdrop-filter: blur(22px) saturate(1.5); -webkit-backdrop-filter: blur(22px) saturate(1.5);
     box-shadow: inset 0 -1px 0 rgba(255,255,255,.06);
   }
+  /* ── Legal / Terms page ─────────────────────────────────────── */
+  .legal-hero { padding: var(--sp-20) 0 var(--sp-8); }
+  .legal-head { max-width: 820px; }
+  .legal-head h1 { margin-bottom: var(--sp-4); }
+  .legal-head .lead { max-width: 680px; }
+  .legal-meta { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-7); margin-top: var(--sp-6); }
+  .legal-meta span { font-size: var(--text-sm); color: var(--muted); }
+  .legal-meta strong { color: var(--ink-2); font-weight: 700; }
+  .legal-section { padding-top: var(--sp-8); }
+  .legal { max-width: 820px; }
+  .legal h2 { font-size: var(--text-xl); margin-top: var(--sp-10); margin-bottom: var(--sp-3); padding-top: var(--sp-7); border-top: 1px solid var(--hairline); }
+  .legal p { font-size: var(--text-base); color: var(--body); line-height: 1.8; margin-bottom: var(--sp-4); }
+  .legal .legal-list { list-style: none; margin: 0 0 var(--sp-4); padding: 0; display: grid; gap: var(--sp-2); }
+  .legal .legal-list li { position: relative; padding-left: var(--sp-6); font-size: var(--text-base); color: var(--body); line-height: 1.75; }
+  .legal .legal-list li::before { content: ""; position: absolute; left: 6px; top: 11px; width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+  .legal a { color: var(--red); }
+  .legal a:hover { text-decoration: underline; }
+  @media (max-width: 640px) { .legal h2 { font-size: var(--text-lg); } }
 </style>
 </head>
 <body>
@@ -907,7 +1439,7 @@
       <div class="nav-item">
         <button class="nav-btn" type="button" aria-expanded="false" aria-haspopup="true">Solutions</button>
         <div class="nav-dropdown" role="menu" hidden>
-          <a href="advertisers.html"   role="menuitem" class="active"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span>Advertisers</a>
+          <a href="advertisers.html"   role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span>Advertisers</a>
           <a href="screen-owners.html" role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></span>Screen Owners</a>
           <a href="partners.html"      role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Partners</a>
         </div>
@@ -917,7 +1449,7 @@
         <div class="nav-dropdown" role="menu" hidden>
           <a href="adcl.html" role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg></span>ADCL</a>
           <a href="https://adcentral-1.gitbook.io/adcentral-docs" role="menuitem" target="_blank" rel="noopener"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v5h5"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg></span>Docs <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px;margin-left:3px;opacity:.7" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
-          <a href="help.html" role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span>Help Center</a>
+          <a href="help.html" role="menuitem" class="active"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span>Help Center</a>
         </div>
       </div>
       <div class="nav-item"><a href="about.html" class="nav-btn nav-solo">About Us</a></div>
@@ -958,275 +1490,165 @@
 <main>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     §1  OPENING + CAMPAIGN TYPES  (merged, compact, no image)
+     HERO
 ═══════════════════════════════════════════════════════════════ -->
-<section class="opening" id="top">
+<section class="legal-hero" id="top">
   <div class="wrap">
-
-    <div class="opening-split">
-
-      <!-- LEFT - compact intro -->
-      <div class="opening-head sr">
-        <span class="eyebrow"><span class="eyebrow-dot"></span>For Advertisers</span>
-        <h1>Live in the UAE.<br>Built to scale <span class="accent">globally.</span></h1>
-        <p class="lead">Start with a small test, promote locally, or plan recurring campaigns across connected UAE screens.</p>
-        <div class="opening-actions">
-          <a href="#" class="btn btn-secondary btn-lg">Login</a>
-        </div>
-        <div class="opening-badge">
-          <span class="badge-dot"></span>
-          Live in the UAE &nbsp;·&nbsp; More countries coming
-        </div>
+    <div class="legal-head sr">
+      <span class="eyebrow"><span class="eyebrow-dot"></span>Legal</span>
+      <h1>Terms and Conditions</h1>
+      <p class="lead">Please review the terms governing your use of the AdCentral platform. By accessing or using the services, you agree to comply with these Terms and Conditions.</p>
+      <div class="legal-meta">
+        <span><strong>Effective Date:</strong> 07 January 2026</span>
+        <span><strong>Last Updated:</strong> 07 January 2026</span>
       </div>
-
-      <!-- RIGHT - who it's for -->
-      <div class="who-block sr" style="transition-delay:80ms;">
-        <div class="who-label"><span class="eyebrow-dot"></span>Who it's for</div>
-        <div class="cmp-list">
-          <div class="cmp-item">
-            <div class="cmp-icon">🏪</div>
-            <div class="cmp-info">
-              <div class="cmp-name">Local Businesses</div>
-              <div class="cmp-tag">Promote your venue, offer, or service nearby.</div>
-            </div>
-          </div>
-          <div class="cmp-item">
-            <div class="cmp-icon">🌱</div>
-            <div class="cmp-info">
-              <div class="cmp-name">Growing Brands</div>
-              <div class="cmp-tag">Reach selected areas and venue types.</div>
-            </div>
-          </div>
-          <div class="cmp-item">
-            <div class="cmp-icon">📣</div>
-            <div class="cmp-info">
-              <div class="cmp-name">Multi-location Brands</div>
-              <div class="cmp-tag">Build awareness across multiple UAE venues.</div>
-            </div>
-          </div>
-          <div class="cmp-item">
-            <div class="cmp-icon">🏢</div>
-            <div class="cmp-info">
-              <div class="cmp-name">Agencies &amp; Media Buyers</div>
-              <div class="cmp-tag">Manage campaigns for multiple clients.</div>
-            </div>
-          </div>
-          <div class="cmp-item">
-            <div class="cmp-icon">🔁</div>
-            <div class="cmp-info">
-              <div class="cmp-name">Monthly Advertisers</div>
-              <div class="cmp-tag">Run recurring campaigns with consistent visibility.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     §2  UAE NETWORK PREVIEW
+     BODY
 ═══════════════════════════════════════════════════════════════ -->
-<section class="section" id="uae-network">
+<section class="section legal-section">
   <div class="wrap">
-    <div class="uae-grid">
+    <div class="legal sr">
 
-      <!-- Copy + stats -->
-      <div>
-        <div class="section-header sr">
-          <span class="eyebrow"><span class="eyebrow-dot"></span>Network</span>
-          <h2>UAE network preview.</h2>
-          <p class="lead">AdCentral is live in the UAE with selected connected venues. The network is growing - new locations and new countries are planned.</p>
-        </div>
+      <p>These Terms and Conditions ("Terms") govern access to and use of the AdCentral digital out-of-home advertising platform, including all related websites, applications, dashboards, software, hardware integrations, devices, and services (collectively, the "Platform").</p>
+      <p>The Platform is operated by Adora AI Solutions - FZCO ("AdCentral", "we", "us", or "our").</p>
+      <p>These Terms apply to all users of the Platform, including advertisers, device owners, partners, and their authorized representatives (collectively, "Users").</p>
+      <p>By accessing or using the Platform, you confirm that you have read, understood, and agree to be legally bound by these Terms and all referenced policies. If you do not agree, you must not access or use the Platform.</p>
 
-        <!-- Stats grid -->
-        <!-- ⚠️ DEV NOTE: All values below are mockup placeholders.
-             Replace with backend API data.
-             Suggested endpoint: GET /api/network/stats
-             Fields: launch_market · live_screens_count · active_venues_count ·
-                     venue_categories_count · campaigns_delivered_count ·
-                     next_country_status · last_updated_at -->
-        <div class="uae-stats sr">
-          <div class="uae-stat highlight">
-            <div class="uae-stat-label">Launch market</div>
-            <div class="uae-stat-val">🇦🇪 UAE</div>
-            <!-- TODO: backend field → launch_market -->
-          </div>
-          <div class="uae-stat">
-            <div class="uae-stat-label">Live screens</div>
-            <div class="uae-stat-val">50<span class="red">+</span></div>
-            <div class="uae-stat-note">placeholder - replace from backend</div>
-            <!-- TODO: backend field → live_screens_count -->
-          </div>
-          <div class="uae-stat">
-            <div class="uae-stat-label">Active venues</div>
-            <div class="uae-stat-val">45<span class="red">+</span></div>
-            <div class="uae-stat-note">placeholder - replace from backend</div>
-            <!-- TODO: backend field → active_venues_count -->
-          </div>
-          <div class="uae-stat">
-            <div class="uae-stat-label">Venue categories</div>
-            <div class="uae-stat-val">8<span class="red">+</span></div>
-            <div class="uae-stat-note">placeholder - replace from backend</div>
-            <!-- TODO: backend field → venue_categories_count -->
-          </div>
-          <div class="uae-stat">
-            <div class="uae-stat-label">Campaigns delivered</div>
-            <div class="uae-stat-val">340<span class="red">+</span></div>
-            <div class="uae-stat-note">placeholder - replace from backend</div>
-            <!-- TODO: backend field → campaigns_delivered_count -->
-          </div>
-          <div class="uae-stat highlight">
-            <div class="uae-stat-label">Network expansion</div>
-            <div class="uae-stat-val" style="font-size:var(--text-lg);letter-spacing:-.01em;">New countries planned</div>
-            <!-- TODO: backend field → next_country_status -->
-          </div>
-        </div>
+      <h2>1. Acceptance of Terms</h2>
+      <p>By accessing or using AdCentral, you acknowledge and agree to be bound by these Terms, as amended from time to time. Continued use of the Platform constitutes acceptance of any updated Terms.</p>
 
-        <div class="dev-note sr">
-          <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink:0;margin-top:1px;"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M10 9v5M10 7v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          <span><strong>Dev note:</strong> All six figures above are placeholder values. Connect to backend API (e.g. <code style="font-family:monospace;background:rgba(255,255,255,.06);padding:1px 5px;border-radius:4px;">GET /api/network/stats</code>). Values should update on page load. Exact venue names and locations should remain behind login only.</span>
-        </div>
+      <h2>2. Platform Description</h2>
+      <p>AdCentral is a DePIN-powered, AI-optimized digital advertising marketplace that enables advertisers, device owners, publishers, partners, and infrastructure operators to deploy, deliver, verify, and report advertising campaigns across connected screens and devices.</p>
+      <p>Platform features, availability, and rules may change over time.</p>
 
-      </div>
+      <h2>3. Eligibility</h2>
+      <p>Users must be at least eighteen (18) years of age and legally capable of entering into binding agreements.</p>
+      <p>If acting on behalf of an organization, the User represents they have authority to bind that organization.</p>
+      <p>Users must comply with all applicable laws, regulations, sanctions, and industry standards.</p>
+      <p>AdCentral may restrict or deny access where use of the Platform would violate legal or regulatory requirements.</p>
 
-      <!-- UAE Network image + login nudge below -->
-      <div class="sr" style="transition-delay:120ms;">
-        <div class="uae-img-wrap">
-          <img
-            src="assets/images/advertisers/UAE Network.png"
-            alt="AdCentral UAE network - connected screens across venues"
-            class="uae-img"
-          />
-        </div>
-        <!-- Login nudge -->
-        <div class="venue-login-note" style="margin-top:var(--sp-4);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span>Exact venue names and screen details are only visible in the portal.</span>
-          <a href="/login?role=advertiser&next=/advertiser/venues" class="venue-login-link">Login to explore venues →</a>
-        </div>
-      </div>
+      <h2>4. Account Registration and Security</h2>
+      <p>Certain Platform features require account registration.</p>
+      <p>Users must provide accurate, current, and complete information and keep it updated.</p>
+      <p>Users are solely responsible for safeguarding login credentials, wallets, private keys, and access devices.</p>
+      <p>All activity conducted through a User's account, wallet, or registered device is the User's responsibility.</p>
+      <p>AdCentral may investigate suspected misuse, fraud, or security incidents and may suspend access during investigations.</p>
+
+      <h2>5. User Responsibilities</h2>
+      <p>Users are responsible for:</p>
+      <ul class="legal-list">
+        <li>The accuracy, legality, and completeness of all information and materials they provide</li>
+        <li>Maintaining secure access credentials and wallets</li>
+        <li>Ensuring devices, campaigns, and activities comply with these Terms</li>
+        <li>All actions taken through their accounts, wallets, or registered devices</li>
+      </ul>
+
+      <h2>6. Advertising Content</h2>
+      <p>Advertisers retain ownership of advertising creatives and materials ("Content").</p>
+      <p>Advertisers grant AdCentral a worldwide, non-exclusive, royalty-free license to store, process, display, transmit, and verify Content solely for Platform operations, delivery, reporting, compliance, and optimization.</p>
+      <p>Advertisers represent and warrant that:</p>
+      <ul class="legal-list">
+        <li>They own or have all necessary rights to the Content</li>
+        <li>The Content complies with applicable advertising, consumer protection, and intellectual property laws</li>
+        <li>The Content is not unlawful, misleading, abusive, or harmful</li>
+      </ul>
+      <p>AdCentral may review, reject, suspend, or remove Content at its discretion for compliance, safety, or integrity reasons.</p>
+
+      <h2>7. Tokens and Digital Assets</h2>
+      <p>The Platform may involve digital assets or tokens.</p>
+      <p>AdCentral does not provide investment, financial, legal, or tax advice.</p>
+      <p>Digital assets may be subject to volatility, regulatory uncertainty, and technical risks.</p>
+      <p>Participation involving digital assets is entirely at the User's own risk, and no guarantees are made regarding availability, value, or utility.</p>
+
+      <h2>8. Payments, Fees, and Activity-Based Compensation</h2>
+      <p>Advertisers are billed based on campaign configuration and verified delivery metrics determined by AdCentral.</p>
+      <p>Device Owner compensation is calculated based on verified delivery signals, uptime, availability, and applicable Platform terms.</p>
+      <p>All pricing, fees, thresholds, and schedules are subject to change.</p>
+      <p>AdCentral's measurement, verification, and reporting data is final and binding, absent manifest error.</p>
+
+      <h2>9. Refunds and Disputes</h2>
+      <p>Refunds are not guaranteed and are governed by AdCentral's delivery and refund policies.</p>
+      <p>Disputes must be submitted through official support channels within thirty (30) days of the relevant transaction or report.</p>
+      <p>Failure to raise a dispute within this period constitutes acceptance of reported data.</p>
+
+      <h2>10. Intellectual Property</h2>
+      <p>All Platform software, systems, technology, designs, trademarks, and branding are owned by or licensed to Adora AI Solutions - FZCO.</p>
+      <p>Users may not copy, modify, reverse engineer, distribute, or exploit Platform components without written authorization.</p>
+      <p>AdCentral may use aggregated and anonymized data for analytics, benchmarking, reporting, and service improvement.</p>
+
+      <h2>11. Prohibited Activities</h2>
+      <p>Users must not:</p>
+      <ul class="legal-list">
+        <li>Engage in unlawful, fraudulent, deceptive, or abusive conduct</li>
+        <li>Manipulate delivery, pricing, reporting, or verification mechanisms</li>
+        <li>Falsify device data or spoof playback events</li>
+        <li>Interfere with Platform security, integrity, or availability</li>
+        <li>Upload or distribute prohibited, unsafe, or infringing content</li>
+      </ul>
+      <p>Violations may result in suspension, termination, forfeiture of activity-based compensation, and legal action.</p>
+
+      <h2>12. Device Security and Integrity</h2>
+      <p>To protect playback integrity, reporting accuracy, and Platform reliability:</p>
+      <ul class="legal-list">
+        <li>Devices must remain securely installed, continuously powered, and unmodified.</li>
+        <li>Any AdCentral-approved hardware or software (including HDMI sticks or embedded players) must remain connected and unaltered.</li>
+        <li>Users must not tamper with playback behavior, power supply, firmware, operating systems, or network configurations in a manner that interferes with delivery or reporting.</li>
+        <li>Users must not use hardware, software, scripts, emulators, or techniques designed to spoof, simulate, manipulate, or falsify delivery, uptime, or reporting data.</li>
+        <li>Devices must meet AdCentral's technical and integrity standards at all times.</li>
+        <li>AdCentral may monitor integrity signals and investigate suspected violations.</li>
+      </ul>
+      <p>Violations may result in device suspension or removal, termination of access, adjustment or forfeiture of activity-based compensation, and other remedies permitted by law.</p>
+
+      <h2>13. Service Availability and Disclaimer</h2>
+      <p>The Platform is provided on an "as is" and "as available" basis.</p>
+      <p>AdCentral does not guarantee uninterrupted, error-free, or continuous operation and is not responsible for outages caused by third parties, force majeure events, or external dependencies.</p>
+
+      <h2>14. Termination</h2>
+      <p>Users may request account closure subject to completion of outstanding obligations.</p>
+      <p>AdCentral may suspend or terminate access for violations of these Terms, legal requirements, security risks, or prolonged inactivity.</p>
+      <p>Termination does not affect accrued rights or obligations prior to termination.</p>
+
+      <h2>15. Data Privacy</h2>
+      <p>Personal data is processed in accordance with the AdCentral Privacy Policy, which forms an integral part of these Terms.</p>
+
+      <h2>16. Indemnification</h2>
+      <p>Users agree to indemnify and hold harmless AdCentral from any claims, damages, losses, or expenses arising from:</p>
+      <ul class="legal-list">
+        <li>Misuse of the Platform</li>
+        <li>Violation of these Terms</li>
+        <li>Infringement of third-party rights</li>
+      </ul>
+
+      <h2>17. Limitation of Liability</h2>
+      <p>To the maximum extent permitted by law:</p>
+      <ul class="legal-list">
+        <li>AdCentral shall not be liable for indirect, incidental, consequential, or special damages.</li>
+        <li>Total liability shall not exceed the lesser of AED 5,000 or fees paid by the User in the three (3) months preceding the claim.</li>
+      </ul>
+
+      <h2>18. Force Majeure</h2>
+      <p>AdCentral is not liable for delays or failures caused by events beyond reasonable control, including natural disasters, regulatory actions, infrastructure failures, or acts of government.</p>
+
+      <h2>19. Governing Law and Jurisdiction</h2>
+      <p>These Terms are governed by the laws of the United Arab Emirates.</p>
+      <p>All disputes shall be subject to the exclusive jurisdiction of the courts of Dubai.</p>
+
+      <h2>20. Updates to Terms</h2>
+      <p>AdCentral may update these Terms from time to time. Continued use of the Platform constitutes acceptance of the updated Terms.</p>
+
+      <h2>21. General Provisions</h2>
+      <p>These Terms constitute the entire agreement between the User and AdCentral.</p>
+      <p>Nothing herein creates a partnership, agency, or joint venture.</p>
+      <p>If any provision is held invalid, the remaining provisions remain in effect.</p>
+
+      <h2>22. Contact</h2>
+      <p>For legal or Terms-related inquiries, please contact: <a href="mailto:legal@adcentralglobal.com">legal@adcentralglobal.com</a></p>
 
     </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════════════════════
-     §5  PARTNERSHIP (left) + FAQ (right)  - merged section
-═══════════════════════════════════════════════════════════════ -->
-<section class="section section-off" id="partnership">
-  <div class="wrap">
-    <div class="pf-grid">
-
-      <!-- LEFT - Partnership spotlight -->
-      <div class="partner-card sr">
-        <div>
-          <div class="partner-eyebrow">Advertiser Partnership</div>
-          <h3>Planning regular campaigns with AdCentral?</h3>
-          <p class="lead">Agencies, media buyers, and brands with ongoing campaign activity can speak with AdCentral about preferred onboarding, loyalty benefits, and eligible ADCL-linked participation options.</p>
-          <div class="partner-fine">
-            All participation is subject to platform terms and eligibility review. ADCL-linked benefits are not guaranteed.
-          </div>
-        </div>
-        <div class="partner-actions">
-          <a href="#" class="btn btn-primary btn-lg">Discuss Partnership</a>
-          <a href="#" class="btn btn-outline-ink btn-md">Learn More</a>
-        </div>
-      </div>
-
-      <!-- RIGHT - FAQ -->
-      <div id="faq" class="sr" style="transition-delay:100ms;">
-        <div class="faq-head">
-          <h2>Frequently asked questions.</h2>
-        </div>
-        <div class="faq-list" role="list">
-
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Can I start with a small campaign?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>Yes. AdCentral is designed to support small test campaigns as well as larger recurring campaigns. You can start with a limited scope and scale over time.</p></div>
-        </div>
-      </div>
-
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Is AdCentral only for large brands?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>No. The platform is for local businesses, agencies, and brands of different sizes. Whether you are running a single-location promotion or a multi-venue campaign, the platform works the same way.</p></div>
-        </div>
-      </div>
-
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Where is AdCentral live now?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>AdCentral is starting in the UAE. New countries are planned as the network scales. The public page shows the network direction - the portal shows the full current availability.</p></div>
-        </div>
-      </div>
-
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Can I see exact venues before creating a campaign?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>Public pages show the network preview - venue categories, screen counts, and coverage direction. Exact venue names, addresses, and screen details are available inside the portal after login.</p></div>
-        </div>
-      </div>
-
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Can I choose AED or USD?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>UAE advertisers see AED first. Advertisers outside the UAE may see prices in USD or in their local currency when available. Currency options depend on the platform configuration at time of use.</p></div>
-        </div>
-      </div>
-
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          What campaign types can I run?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>Examples include test campaigns, hyperlocal promotions, brand awareness campaigns, event promotions, retail campaigns, and recurring monthly campaigns. Campaign options depend on available screens and venues at the time of booking.</p></div>
-        </div>
-      </div>
-
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Do you report clicks or CTR?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>No. Screen advertising is different from website advertising. AdCentral focuses on screen delivery visibility - where the ad played, screens reached, venues used, and plays delivered. There are no clicks, CTR, or web traffic metrics.</p></div>
-        </div>
-      </div>
-
-      <div class="faq-item" role="listitem">
-        <button class="faq-btn" aria-expanded="false">
-          Can agencies manage campaigns for clients?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-body" role="region">
-          <div class="faq-inner"><p>Yes. Agencies can manage ongoing client campaigns directly through the platform. The same self-service marketplace supports both individual advertisers and agency workflows.</p></div>
-        </div>
-      </div>
-
-        </div><!-- /faq-list -->
-      </div><!-- /#faq -->
-
-    </div><!-- /pf-grid -->
   </div>
 </section>
 

@@ -1916,7 +1916,13 @@
     line-height: 1.6;
   }
 
-  </style>
+    /* About Us single nav link */
+  .nav-btn.nav-solo::after { content: none; }
+  .nav-btn.nav-solo.active { color: var(--ink); }
+  .nav-btn.nav-solo.active::before { transform: scaleX(1); }
+  .mobile-solo-link { display: flex; align-items: center; width: 100%; padding: 14px 16px; background: transparent; color: rgba(255,255,255,0.82); font: 600 var(--text-sm) 'Inter', sans-serif; transition: color 120ms; }
+  .mobile-solo-link:hover, .mobile-solo-link.active { color: var(--red); }
+</style>
 </head>
 <body>
 <canvas class="hero-wave-canvas" id="heroWave" aria-hidden="true"></canvas>
@@ -1953,20 +1959,12 @@
         </div>
       </div>
       <!-- About -->
-      <div class="nav-item">
-        <button class="nav-btn" type="button" aria-expanded="false" aria-haspopup="true">About</button>
-        <div class="nav-dropdown" role="menu" hidden>
-          <a href="#footer"  role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span>About AdCentral</a>
-          <a href="#footer"  role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg></span>Team</a>
-          <a href="#footer"  role="menuitem"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>Contact</a>
-        </div>
-      </div>
+      <div class="nav-item"><a href="about.html" class="nav-btn nav-solo">About Us</a></div>
     </nav>
 
 
     <div class="nav-right">
       <a href="#" class="nav-link-plain">Login</a>
-      <a href="#final-cta" class="btn btn-ghost-brand btn-md">Book a Demo</a>
     </div>
 
     <!-- Mobile burger -->
@@ -1994,17 +1992,9 @@
           <a href="help.html"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span>Help Center</a>
         </div>
       </div>
-      <div class="mobile-group">
-        <button class="mobile-acc" type="button" aria-expanded="false">About</button>
-        <div class="mobile-links" hidden>
-          <a href="#footer"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span>About AdCentral</a>
-          <a href="#footer"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg></span>Team</a>
-          <a href="#footer"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>Contact</a>
-        </div>
-      </div>
+      <div class="mobile-group"><a href="about.html" class="mobile-solo-link">About Us</a></div>
       <div class="mobile-actions">
         <a href="#" class="btn btn-secondary btn-md">Login</a>
-        <a href="#final-cta" class="btn btn-primary btn-md">Book a Demo</a>
 </div>
     </div>
   </nav>
@@ -2350,65 +2340,6 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════════
-     §10 RESOURCES
-═══════════════════════════════════════════════════════════════ -->
-<section class="section" id="resources">
-  <div class="wrap">
-
-    <div class="section-header center sr">
-      <h2>Want the deeper <span class="accent">details?</span></h2>
-      <p class="lead">Everything you need to understand AdCentral - from platform guidance to ADCL holder information.</p>
-    </div>
-
-    <div class="res-card-grid">
-
-      <!-- ADCL Holders -->
-      <a class="res-card sr" href="#resources">
-        <div class="res-card-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="3.5" stroke="var(--red)" stroke-width="1.6"/><path d="M4 18c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="var(--red)" stroke-width="1.6" stroke-linecap="round"/><path d="M16.5 5.5a3 3 0 0 1 0 5M18 17c0-2.21-2-4-4.5-4" stroke="var(--red)" stroke-width="1.4" stroke-linecap="round" opacity=".45"/></svg>
-        </div>
-        <div class="res-card-body">
-          <h4>ADCL Holders</h4>
-          <p>Learn about the ADCL token, holder benefits, and how it connects to the AdCentral network.</p>
-        </div>
-        <span class="res-card-arrow" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-
-      <!-- FAQs -->
-      <a class="res-card sr" href="#resources">
-        <div class="res-card-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8.5" stroke="var(--red)" stroke-width="1.6"/><path d="M9 8.5a2 2 0 0 1 3.9.7c0 1.3-1.9 1.8-1.9 3.3" stroke="var(--red)" stroke-width="1.6" stroke-linecap="round"/><circle cx="11" cy="15.5" r=".9" fill="var(--red)"/></svg>
-        </div>
-        <div class="res-card-body">
-          <h4>FAQs</h4>
-          <p>Answers to common questions about campaigns, screen onboarding, earnings, and platform access.</p>
-        </div>
-        <span class="res-card-arrow" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-
-      <!-- Help Center -->
-      <a class="res-card sr" href="#resources">
-        <div class="res-card-icon">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8l-4 3V6z" stroke="var(--red)" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 9h6M8 12h4" stroke="var(--red)" stroke-width="1.4" stroke-linecap="round" opacity=".55"/></svg>
-        </div>
-        <div class="res-card-body">
-          <h4>Help Center</h4>
-          <p>Step-by-step guides for advertisers, screen owners, and partners getting started on AdCentral.</p>
-        </div>
-        <span class="res-card-arrow" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-
-    </div>
-  </div>
-</section>
-
 
 </main>
 
@@ -2468,9 +2399,7 @@
       <div class="footer-col">
         <h5>About</h5>
         <ul>
-          <li><a href="#footer">About AdCentral</a></li>
-          <li><a href="#footer">Team</a></li>
-          <li><a href="#footer">Contact</a></li>
+          <li><a href="about.html">About Us</a></li>
         </ul>
       </div>
 
@@ -2480,8 +2409,7 @@
       <span>&copy; 2026 Adora AI Solutions. All rights reserved.</span>
       <div class="footer-legal">
         <a href="#footer">Privacy Policy</a>
-        <a href="#footer">Terms</a>
-        <a href="#footer">Contact</a>
+        <a href="terms.html">Terms</a>
       </div>
     </div>
   </div>
