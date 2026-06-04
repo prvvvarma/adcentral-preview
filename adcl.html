@@ -1291,6 +1291,11 @@
     .btn-lg { font-size: var(--text-sm); padding: 11px 20px; min-height: 44px; }
     .btn-md { padding: 8px 15px; min-height: 38px; }
   }
+  /* FAQ section: align left/right card tops, lift heading just above */
+  @media (min-width: 961px) {
+    .pf-grid #faq { position: relative; }
+    .pf-grid .faq-head { position: absolute; left: 0; right: 0; bottom: 100%; margin: 0 0 var(--sp-4); }
+  }
 </style>
 </head>
 <body>
