@@ -1,7 +1,8 @@
 # AdCentral Website — Project Handoff / Context
 
 > Single source of truth for continuing this build in a new session.
-> Last updated after commit `969d305`. Next task: **build the Partners page** (`partners.html`).
+> Last updated after commit `f954b83`. **Partners, ADCL, and Help Center pages are now built**, the nav has premium icon tiles, and the home hero is an auto-rotating carousel. See **§14 (latest work)** for everything done since the original handoff — it supersedes older sections where they conflict.
+> ⚠️ **Environment note:** the shell is now **Windows PowerShell** (not git-bash). The git-bash splice recipe in §3 is superseded by the PowerShell recipe in §14.
 
 ---
 
@@ -25,8 +26,12 @@ A static marketing website for **AdCentral** — a Digital-Out-Of-Home (DOOH) ad
 | `home.html` | **Main dark homepage** — full marketing story (hero, personas, how-it-works, reporting, network snapshot, resources, footer). WebGL aurora background. | Dark (shared design system) |
 | `home-light.html` | Light-theme variant of the homepage. Kept in sync for links but **dark is the active/primary theme**. | Light |
 | `advertisers.html` | Advertisers sub-page. | Dark (shared system) |
-| `screen-owners.html` | Screen Owners sub-page (most recent build). | Dark (shared system) |
-| `partners.html` | **TO BE BUILT NEXT.** | Dark (shared system) |
+| `screen-owners.html` | Screen Owners sub-page. | Dark (shared system) |
+| `partners.html` | **Partners page (BUILT).** Hero network node, Who/Ways/Why+Fit two-column, optional ADCL + FAQ. | Dark (shared system) |
+| `adcl.html` | **ADCL page (BUILT).** Renamed from `adcl-holders.html`. Litepaper-v1.6-aligned; single "Read ADCL Docs" CTA. | Dark (shared system) |
+| `help.html` | **Help Center (BUILT).** Simple support **routing page** (WhatsApp / call / contact form + FAQ deep-links). | Dark (shared system) |
+
+> All sub-pages now carry **premium nav icon tiles** and the **footer columns mirror the nav menus** (see §5 + §14).
 
 **Page renaming history (already done):** originally `3d.html`→`index.html`, `dark.html`→`home.html`, old `index.html`→`home-light.html`. All internal links already updated.
 
@@ -113,9 +118,19 @@ Fonts (Google Fonts): **Inter** (body) + **Plus Jakarta Sans** (headings).
 ## 5. Header & footer (must stay identical across all dark pages)
 
 - **Logo (all pages):** `assets/images/home/adcentral_logo_transperant.png` — nav `height="41"`, footer `height="37"`. ⚠️ Filename has an **intentional typo**: "transperant" (not "transparent"). Logo links to `home.html`.
-- **Nav dropdowns:** Solutions (Advertisers / Screen Owners / Partners), Resources (ADCL Holders / Help Center — **FAQs was removed from nav**), About (Company / Mission / Contact). Login + "Book a Demo" on the right.
-- **Footer:** brand blurb + 5 social SVG buttons (X, Telegram, Discord, LinkedIn, Medium), then Solutions / Resources / Company columns, then copyright + legal. Footer is **transparent bg** with glow-on-hover social buttons (matched across pages).
-- **Mobile nav** uses dark glass: `.mobile-group { background: rgba(10,8,26,0.92) }`, light-on-dark text. (Earlier the advertisers page had light values — fixed to match home.)
+- **Nav dropdowns (CURRENT — updated):**
+  - **Solutions:** Advertisers (`advertisers.html`) / Screen Owners (`screen-owners.html`) / Partners (`partners.html`)
+  - **Resources:** ADCL (`adcl.html`) / Docs (with external-link **SVG icon**, opens GitBook in a **new tab**) / Help Center (`help.html`)
+  - **About:** About AdCentral / Team / Contact (all `#` or `#footer` placeholders)
+  - Login + "Book a Demo" on the right (still `#` placeholders).
+  - **Every dropdown + mobile menu item has a premium icon tile** (`.nav-ico`: 30px rounded tile + 15px line SVG; tile turns red on hover and on the active item). See §14 for the icon set and the home/home-light CSS caveat.
+- **Footer (CURRENT — now mirrors the nav):** brand blurb + 5 social SVG buttons (X, Telegram, Discord, LinkedIn, Medium), then **Solutions / Resources / About** columns (was "Company"):
+  - Solutions: Advertisers / Screen Owners / Partners
+  - Resources: ADCL / Docs (external icon, new tab) / Help Center
+  - About: About AdCentral / Team / Contact
+  - Privacy Policy + Terms live only in the **footer-bottom legal row**. Footer is **transparent bg** with glow-on-hover social buttons.
+- **Mobile nav** uses dark glass: `.mobile-group { background: rgba(10,8,26,0.92) }`, light-on-dark text.
+- ⚠️ **home.html / home-light.html have their own (different) nav CSS** — they were built separately from the shared shell, so bulk CSS edits keyed on the shell's exact strings can silently miss them. Always verify those two pages after any nav/footer CSS change.
 
 ---
 
@@ -199,14 +214,75 @@ All under `assets/images/` with **three subfolders**:
 ---
 
 ## 12. Recent history (most recent first)
-- `969d305` Moved home images/logos into `assets/images/home/`; repointed all refs; favicon fix.
-- `9a948df` Removed FAQs from nav menus (kept in footer).
-- `dc10b14` Added Screen Owners page; upgraded 3D scene; aligned headers/footers.
-- `b8e42b6` Redesigned advertisers page; renamed pages.
+- `f954b83` Help Center → simple **routing page** (WhatsApp/call/form + persona-FAQ deep links). Removed search, popular-questions, article lists.
+- `39167f8` Hero carousel slide **titles** added (du recognition / clinic / gym).
+- `de66cf7` Fixed hero carousel not auto-rotating (removed hover + visibility pauses).
+- `315456c` Added **auto-rotating hero carousel** on home (C1/C2/C3).
+- `a168d36` Simplified Help Center (first pass landing page).
+- `ac592e8` Built 17 Help Center article pages — **then DELETED** in `a168d36`/`f954b83`. (Do not re-create unless asked.)
+- `bf38ec9` Help Center landing page + nav wiring (first version).
+- `823faaf` Fixed oversized nav icons on home/home-light.
+- `184f7f5` **Premium nav icon tiles** on all menu items.
+- `fd4c17f` Docs nav link → new tab + SVG external-link icon.
+- `4d008a3` Footer columns aligned to nav menus.
+- `3c3a74f` About menu → About AdCentral / Team / Contact.
+- `d576814` Renamed `adcl-holders.html` → `adcl.html`.
+- `f207d17` / `5b40591` Resources menu → ADCL / Docs / Help Center.
+- `93a1e9c` Built **Partners** + **ADCL Holders** pages; wired cross-page nav.
+- `969d305` Moved home images/logos into `assets/images/home/`.
 
 ---
 
 ## 13. Open / possible next items
-- **NEXT: build `partners.html`** (user will provide the content prompt). Follow §3 pattern + §8 linking + §4/§6 conventions.
-- A **hero carousel (image + video)** was discussed as a future option (vanilla JS, muted/looped/inline autoplay video, dots/arrows/swipe). User may provide content later.
-- `home-light.html` is a secondary light variant — keep its links in sync but dark is primary.
+- **Book a Demo form does not exist yet.** Many CTAs route to `/book-demo?intent=<x>` (see §14). Build that form so it reads `?intent=` and preselects the "What do you need help with?" LOV. **Single form / single enquiry workflow** — do NOT split into department forms.
+- **Login / Book a Demo nav buttons** still point to `#` placeholders.
+- **About menu** (About AdCentral / Team / Contact) links are placeholders — no About/Team/Contact pages exist yet.
+- **`home-light.html`** is the secondary light variant — keep links/menus in sync but dark is primary. It also has its own nav CSS (see §5 caveat).
+- Carousel slide **eyebrows** ("Recognized by du" / "Now Live" / "Now Live") were author-added; user may want to change/remove.
+
+---
+
+## 14. LATEST WORK (authoritative — read this first)
+
+Everything below was done after the original handoff and reflects the **current state**. Where it conflicts with §2–§13, this wins.
+
+### 14a. Pages built
+- **`partners.html`** — built from the `partners.html`/`screen-owners` shell. Sections: Hero (`.opening-split`, left intro + right **designed CSS network node** `.pnet` with chips) → "Who we partner with" (5 `.vcard` in `.partner-grid`, centered 3+2) → "Ways to grow" (5 `.way-card` in `.ways-grid`) → **"Why partner now" + "Partnership Fit"** merged **left/right** (`.why-grid`: reasons left, fit checklist card right) → Optional ADCL + FAQ (`.pf-grid`). **Final CTA removed.**
+- **`adcl.html`** (renamed from `adcl-holders.html`) — **Litepaper v1.6 aligned.** Single CTA everywhere: **"Read ADCL Docs" → GitBook** (no Login/portal/participation CTAs). Sections: Hero (node `.pnet`, badge "Utility token · Phase 2 staking and delegation coming soon") → **"Shared Network Economy"** (editorial split: heading left, copy + red-bordered pull-quote `.economy-line` right, then 3 `.trio` cards) → "What ADCL is used for" (4 `.role-grid` cards) → "Staking & delegation coming in Phase 2" (`.duo`) → **"How network incentives are funded"** (`.gate-grid`: copy + `~70/25/5` `.psp-split` + vertical `.flow-vert` settlement flow) → "Who ADCL supports" (4 `.role-grid`) → Docs + FAQ merged (`.pf-grid`, `id="faq"`). **No Final CTA.** Small muted `.transparency-note` lines instead of a big safeguards box.
+  - **ADCL language rules:** USE "protocol settlement", "Protocol Settlement Portion (PSP)", "verified campaign activity", "usage-backed network incentives", "policy-governed", "not guaranteed", "no token inflation". AVOID: buyback, passive income, APY, fixed return, dividends, profit share, ownership, investment, token price, staking formulas.
+- **`help.html`** — **simple routing page** (NOT a knowledge base). Sections: Hero ("Find the right help path", WhatsApp + Contact Form) → "What do you need help with?" (5 `.route-card` in `.route-grid`, centered 3+2: Advertisers/Screen Owners/Partners/ADCL/"Still not clear?") → "Still need help?" (**one** `.contact-card`: phone, WhatsApp, Call, Form) → "Stay safe" (`.safety-card`). **No search, no Popular Questions, no article pages, no department cards.** Route cards deep-link to persona-page FAQs and pass `?intent=` to the form.
+- **17 Help Center article pages were built then deleted** — do not recreate.
+
+### 14b. Contact / CTA routes (used on help.html; reuse elsewhere)
+- WhatsApp: `https://wa.me/971509506897` (button class `.btn-wa`, WhatsApp green `#25D366`)
+- Call: `tel:+971509506897` — display number: **`+971 50 950 6897`**
+- Docs (GitBook): `https://adcentral-1.gitbook.io/adcentral-docs` (Docs nav link + ADCL CTAs open it in a **new tab**)
+- Persona FAQ anchors (all exist, verified): `advertisers.html#faq`, `screen-owners.html#faq`, `partners.html#faq`, `adcl.html#faq`
+- **Book a Demo / help form (NOT built yet)** — single form path: `/book-demo?intent=help | advertiser-help | screen-owner-help | partner-help | adcl-help | account-help | general-help`. Form should read `intent` and preselect a "What do you need help with?" LOV (Plan a campaign / Advertiser question / Connect my screen / Screen owner question / Partnership discussion / ADCL question / Account question / General / Other). One form, one workflow.
+
+### 14c. Premium nav icon tiles
+- Each Solutions/Resources/About item (desktop dropdown **and** mobile) has `<span class="nav-ico"><svg…/></span>` before the label. CSS: `.nav-ico` (30px tile, glass bg, hairline border) + `.nav-ico svg {15px}`; hover/active → red tint + red icon. Icons: Advertisers=megaphone, Screen Owners=monitor, Partners/Team=people, ADCL=gem, Docs=file(+external arrow), Help Center=help-circle, About AdCentral=building, Contact=mail.
+- Applied via scoped PowerShell regex (anchor `role="menuitem"` for desktop; the `<nav id="mobile-nav-panel">` substring for mobile — footer never touched). **home.html/home-light.html needed the `.nav-ico` CSS added separately** (their nav CSS differs from the shell — if you bulk-edit nav CSS, re-check these two or the icons render at full size).
+
+### 14d. Home hero carousel (`home.html`)
+- Replaced the single `<img>` with `#heroCarousel`: 3 crossfading slides using `assets/images/home/carousel/C1.png` `C2.png` `C3.png` (all **3:4**, 1086×1448). CSS: `.hero-carousel` (max-width 480, `aspect-ratio:3/4`, rounded), `.hero-slide(.active)` (opacity crossfade + Ken Burns `transform: scale`), `.hero-slide-caption` (bottom gradient), `.cap-eyebrow`, `.cap-long` (smaller style for the long C1 title), `.hero-dots`/`.hero-dot`.
+- JS lives **inside home.html's main IIFE** (`/* Hero carousel */`): auto-advance every **5500ms**, crossfade, clickable dots. **Rotates continuously — no hover/visibility pause** (those caused it to freeze; do not re-add them).
+- Titles (placeholders, user-provided): C1 = du startup recognition thank-you; C2 = "Now Live in a Clinic Waiting Area"; C3 = "Reaching Active Audiences in the Gym".
+
+### 14e. Tooling — PowerShell splice & bulk-edit recipe (replaces the §3 git-bash recipe)
+Shell is **Windows PowerShell**. For replacing a page's `<main>`:
+1. `Write` new main HTML to `D:\Ad Central\Website\_main.tmp`.
+2. Find `<main>`/`</main>` line numbers (Grep). Splice (note 0-indexed array slices), preserving **UTF-8 no BOM** so box-drawing chars/emoji survive:
+   ```powershell
+   $all=Get-Content $path -Encoding UTF8
+   $out=$all[0..($mainLine-2)] + (Get-Content _main.tmp -Encoding UTF8) + $all[$endLine..($all.Count-1)]
+   [System.IO.File]::WriteAllLines($path,$out,(New-Object System.Text.UTF8Encoding $false))
+   ```
+- For bulk cross-file edits use `[Regex]::Replace` / `.Replace()` on `[IO.File]::ReadAllText`, write back with `WriteAllText(..., UTF8Encoding $false)`. **PowerShell tool state does NOT persist between calls** — redefine vars/functions each call.
+- **EOL differs per file:** home/home-light/advertisers/screen-owners = **LF**; partners/adcl/help = **CRLF** (created via `WriteAllLines`). Detect per file when matching multi-line strings.
+
+### 14f. Gotchas learned
+- **`.accent` class collision:** the global `.accent` utility sets `-webkit-text-fill-color: transparent` (gradient text). Naming a custom modifier `accent` makes the card's text invisible — use a distinct name (e.g. `is-psp`).
+- **Preview screenshots time out** on the continuously-animating WebGL aurora. Workarounds that reliably worked: `document.getElementById('heroWave').style.display='none'` + set a dark `document.body.style.background` before screenshot; reveal `.sr` via `forEach(el=>el.classList.add('in'))`; native preview width is ~800px (below the 960 breakpoint) so set `width:1280` to see desktop two-column layouts. **Primary verification = `preview_eval` reading computed styles / counts**, screenshots secondary.
+- **Final-CTA sections:** the user consistently removes standalone final-CTA sections — don't add them by default.
+- **Commit footer** used: `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>`. Commit + push to `main` whenever a unit of work is done (user expects the live Pages site updated).
