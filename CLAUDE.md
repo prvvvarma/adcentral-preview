@@ -1,7 +1,7 @@
 # AdCentral Website — Project Handoff / Context
 
 > Single source of truth for continuing this build in a new session.
-> Last updated after commit `8006e71`. **READ §15 FIRST** — it is the most recent, authoritative state (About/Our Team + Terms pages now exist, the entire dark site has a premium plum background, the About menu is a single "About Us" link, and the Help Center was reworked). §15 supersedes §1–§14 where they conflict.
+> Last updated after commit `4e04414`. **READ §16 FIRST** — it is the most recent, authoritative state (home-light.html was DELETED, home flow sections were split into card rows, images were made transparent/rounded, the Live Network Snapshot was merged into the problem section, a Privacy Policy page + a Work-in-Progress page were added, and all dead links were fixed). §16 supersedes §1–§15 where they conflict.
 > ⚠️ **Environment note:** the shell is **Windows PowerShell** (not git-bash). Use the PowerShell splice/bulk-edit recipes in §14e and §15g.
 
 ---
@@ -335,7 +335,53 @@ Everything below is the **current state** as of commit `8006e71`. Where it confl
 - **Commit footer this session** was `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>` (system-instructed format; note it differs from §14f's older "(1M context)" variant — pick one and be consistent).
 
 ### 15h. Open / next items
-- **Privacy Policy page** — not built; footer link is `#`; user will provide content (Terms §15 references it). Build like `terms.html`.
+- **Privacy Policy page** — not built; footer link is `#`; user will provide content (Terms §15 references it). Build like `terms.html`. *(DONE in §16 — `privacy.html` now exists.)*
 - **Help Center** top: optionally relabel eyebrow "Help Areas" → "Help Center" and/or promote the `<h2>` to `<h1>`.
-- **Login** + any future **Book a Demo** form/route — still placeholders/removed.
-- **Image weight:** `Strategy.png`/`tokenomics.png` (~1.5MB each) and `AdcentralMarketplace-merged.png` (2.7MB) could be compressed.
+- **Login** + any future **Book a Demo** form/route — still placeholders/removed. *(Now routed to `work-in-progress.html` — see §16.)*
+- **Image weight:** `Strategy.png`/`tokenomics.png` (~1.5MB each) and `AdcentralMarketplace-merged.png` (2.7MB) could be compressed. *(merged PNG deleted in §16.)*
+
+---
+
+## 16. SESSION-3 LATEST WORK (authoritative — READ THIS FIRST)
+
+Current state as of commit `4e04414`. Where this conflicts with §1–§15, **this wins**.
+
+**Pages list now (10):** `index.html` (3D), `home.html`, `advertisers.html`, `screen-owners.html`, `partners.html`, `adcl.html`, `help.html`, `about.html`, `terms.html`, **`privacy.html` (NEW)**, **`work-in-progress.html` (NEW)**. ⚠️ **`home-light.html` was DELETED** — the light variant is gone; the site is dark-only now. Don't try to "keep it in sync" anymore.
+
+### 16a. `home.html` "How it works" flow sections — split into card rows
+- The two single flow images (`Advertiser Flow.png`, `Screen Owner FLow.png`) were **replaced** with **3-step card rows** built in HTML.
+- New markup inside each `.hiw-sc-card`: a `.flow3` flex row of three `.flow3-step` (each = `.flow3-head` [`.flow3-num` red badge + `.flow3-label` + `.flow3-sub`] over a `.flow3-img`), separated by `.flow3-arrow` (red dashed SVG arrow). CSS marker: `ADVERTISER 3-STEP FLOW`. Collapses to a vertical stack at `max-width:768px` (arrows rotate 90°).
+- Advertiser row = **Plan / Run / Track**; Screen-Owner row = **Connect / Display / Monitor**. Images: `Plan.png Run.png Track.png Connect.png Display.png Monitor.png` in `assets/images/home/`.
+- The old `Advertiser Flow.png` / `Screen Owner FLow.png` were **deleted** (were only used by the now-deleted home-light).
+
+### 16b. Card images processed to transparent rounded cards (IMPORTANT technique)
+- All 6 flow images **+ `Campagin Dashboard.png`** were reprocessed: **light lattice background removed → transparent, content cropped, composited onto a white rounded card** (radius ~28-34, even padding), saved back as PNG. The 6 flow cards are normalized to **one identical canvas size** (1058×1272) so they render equal-height in the row.
+- `assets/images/home/AdcentralMarketplace.png` is a **new asset** the user dropped in (clean dark-bg diagram) — but it's **no longer used on a page** (see §16c). It replaced the deleted `-merged.png` reference temporarily before the snapshot merge.
+- **Originals backed up to `assets/images/home/flow_orig_backup/`** (NOT committed — gitignored by omission; kept locally for reversibility/re-processing).
+- **Detection gotchas (for re-processing):** background base is white (254) with faint gray lattice lines (243) — card and bg overlap in color, so detect the card by **dark/colored content** (`max(r,g,b) < 235` OR saturation > 18), take the full min/max bbox, and **skip the outer ~40px border** to ignore a faint corner artifact in Run.png. ⚠️ **PowerShell vars are CASE-INSENSITIVE** — `$b` (blue byte) silently clobbers `$B` (border const). Use distinct names. The image pipeline = `Bitmap` + `LockBits`/`Marshal.Copy` for detection, then `Graphics.FillPath`(rounded-rect white) + `SetClip` + `DrawImage` for compositing; save UTF-8/no-BOM not needed for PNG.
+
+### 16c. `#problem` section merged with Live Network Snapshot (premium)
+- The marketplace **image was removed** from `#problem` (the "Out of Home advertising is still too fragmented" section). Its right column is now a **premium "Live Network Snapshot" glass card** (`.netsnap` + `.netsnap-head` with a pulsing `.netsnap-dot` "LIVE" pill + `.netsnap-list` of 3 `.netsnap-stat` rows: **50+ Live Screens / 45 Active Venues / 340+ Campaigns Delivered**, each icon + big number + label + desc). CSS marker: `LIVE NETWORK SNAPSHOT CARD`. A bridging `.lead` was added under the left h2.
+- The **standalone `#network` "Live Network Snapshot" section was DELETED** (its stats live in `#problem` now). `.snapshot-strip`/`.snap-*` CSS is now dead but harmless. Stats are still **placeholder values** (kept the amber `.dev-note` → wire to `GET /api/network/stats`).
+- Net effect: `AdcentralMarketplace*.png` is no longer referenced anywhere on `home.html`.
+
+### 16d. NEW: `privacy.html`
+- Built by cloning the `terms.html` shell (same nav/footer/legal CSS). Title `Privacy Policy - AdCentral`. Hero (`.legal-hero`, "LEGAL" eyebrow, Effective/Last-Updated **07 January 2026**) + `.legal` body with **14 numbered `<h2>` sections** and `.legal-list` bullet groups. Operator **Adora AI Solutions - FZCO**, contact `legal@adcentralglobal.com` (mailto). **All footer "Privacy Policy" links site-wide now point to `privacy.html`** (were `#`/`#footer`).
+
+### 16e. NEW: `work-in-progress.html` (placeholder target for unbuilt links)
+- Cloned from the `help.html` shell; `<main>` replaced with a centered hero ("COMING SOON" eyebrow + "This page is a work in progress." + Back-to-Home + WhatsApp buttons). Title `Work in Progress - AdCentral`.
+- **All non-functional links now route here** so they can be swapped later: every **Login** button (nav + mobile + hero), every **"Discuss Partnership"** CTA, and the old `/login`, `/login?role=advertiser…`, `/book-demo?intent=partner` routes. To wire a real destination later, just edit those `href="work-in-progress.html"` occurrences.
+
+### 16f. Link audit + cleanup
+- **Fixed 3 broken logo links** (`href="#"` → `home.html`) that were on the footer/nav logos.
+- **"Discuss Partnership"** now appears on **all 3 personas** (added a `.partner-actions` button to the screen-owners ADCL card; advertisers & partners already had it). **"Learn More"** button removed from advertisers.
+- **`screen-owners.html`:** the hero **"Connect Your Screen"** primary button was removed (only "Login" remains in that hero).
+- **Full audit result: 0 dead links** — every `<a>` resolves to a real page, the WIP placeholder, or a valid external/mailto/tel/wa.me URL. `#faq` anchors verified present on advertisers/screen-owners/partners/adcl.
+- **Deleted unused files:** `home-light.html`, `AdcentralMarketplace-merged.png`, `AdcentralMarketplace_1.png`, `AdcentralMarketplace_bkup.png`, `Advertiser Flow.png`, `Screen Owner FLow.png`.
+
+### 16g. Open / next items
+- **Login / Book-a-Demo** still unbuilt — currently all point to `work-in-progress.html`. Build real auth/booking and repoint.
+- **Stats** in the Live Network Snapshot (`#problem`) are placeholders — wire to backend.
+- **`index.html` (3D)** remains standalone (own design, not the shared shell) — untouched.
+- **Image weight:** team `Strategy.png`/`tokenomics.png` (~1.5MB each) and the new `AdcentralMarketplace.png` (large, currently unused) could be compressed or removed.
+- **Commit footer used this session:** `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`.
