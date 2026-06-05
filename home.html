@@ -956,6 +956,76 @@
   }
 
   /* ─────────────────────────────────────────────────────────────
+     LIVE NETWORK SNAPSHOT CARD (merged into #problem)
+  ───────────────────────────────────────────────────────────── */
+  .netsnap {
+    position: relative;
+    background: linear-gradient(160deg, rgba(255,255,255,.075), rgba(255,255,255,.022));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-2xl);
+    padding: var(--sp-8) var(--sp-8) var(--sp-7);
+    box-shadow: var(--glass-shadow);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    overflow: hidden;
+  }
+  .netsnap::before {
+    content: ""; position: absolute; top: -120px; right: -90px;
+    width: 320px; height: 320px; pointer-events: none;
+    background: radial-gradient(circle, var(--red-tint-2), transparent 68%);
+  }
+  .netsnap::after {
+    content: ""; position: absolute; inset: 0 0 auto 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+  }
+  .netsnap-head {
+    position: relative; display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: var(--sp-5);
+  }
+  .netsnap-eyebrow {
+    font-size: var(--text-xs); font-weight: 800; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-2);
+  }
+  .netsnap-live {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: var(--text-xs); font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--red); background: var(--red-tint);
+    border: 1px solid var(--red-tint-2); padding: 5px 11px; border-radius: 999px;
+  }
+  .netsnap-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--red);
+    animation: netpulse 1.8s ease-out infinite;
+  }
+  @keyframes netpulse {
+    0%   { box-shadow: 0 0 0 0 rgba(245,54,92,.55); }
+    70%  { box-shadow: 0 0 0 9px rgba(245,54,92,0); }
+    100% { box-shadow: 0 0 0 0 rgba(245,54,92,0); }
+  }
+  .netsnap-list { position: relative; display: flex; flex-direction: column; }
+  .netsnap-stat {
+    display: flex; align-items: center; gap: var(--sp-5);
+    padding: var(--sp-5) 0; border-bottom: 1px solid var(--hairline);
+  }
+  .netsnap-stat:first-child { padding-top: var(--sp-2); }
+  .netsnap-stat:last-child { border-bottom: none; padding-bottom: 0; }
+  .netsnap-icon {
+    width: 48px; height: 48px; flex-shrink: 0; border-radius: var(--r-md);
+    display: flex; align-items: center; justify-content: center;
+    background: var(--red-tint); border: 1px solid var(--red-tint-2);
+    transition: transform .35s var(--ease-spring);
+  }
+  .netsnap-stat:hover .netsnap-icon { transform: translateY(-2px) scale(1.05); }
+  .netsnap-info { display: flex; flex-direction: column; min-width: 0; }
+  .netsnap-num {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800;
+    font-size: clamp(2rem, 3.2vw, 2.7rem); line-height: 1;
+    color: var(--ink); letter-spacing: -.025em;
+  }
+  .netsnap-label { font-size: var(--text-base); color: var(--ink-2); font-weight: 700; margin-top: 7px; }
+  .netsnap-desc { font-size: var(--text-xs); color: var(--muted); margin-top: 3px; line-height: 1.5; }
+  .netsnap-note { margin-top: var(--sp-5); }
+
+  /* ─────────────────────────────────────────────────────────────
      9. NETWORK SNAPSHOT
   ───────────────────────────────────────────────────────────── */
   /* Network snapshot - bold stat strip */
@@ -1288,6 +1358,90 @@
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     ADVERTISER 3-STEP FLOW (Plan / Run / Track)
+  ───────────────────────────────────────────────────────────── */
+  .flow3 {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-4);
+    margin-top: var(--sp-6);
+  }
+  .flow3-step {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .flow3-head {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-3);
+    min-height: 58px;
+    margin-bottom: var(--sp-4);
+  }
+  .flow3-num {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: #fff;
+    font-weight: 800;
+    font-size: var(--text-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px var(--red-tint-2);
+  }
+  .flow3-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: var(--text-lg);
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.15;
+    letter-spacing: -.02em;
+  }
+  .flow3-sub {
+    font-size: var(--text-sm);
+    color: var(--body);
+    margin: 2px 0 0;
+    line-height: 1.4;
+  }
+  .flow3-img {
+    border-radius: var(--r-lg);
+    overflow: hidden;
+  }
+  .flow3-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .flow3-arrow {
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 14px;
+    color: var(--red);
+    display: flex;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .flow3 {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .flow3-step {
+      width: 100%;
+    }
+    .flow3-head {
+      min-height: 0;
+    }
+    .flow3-arrow {
+      align-self: center;
+      margin: 0;
+      transform: rotate(90deg);
+    }
   }
 
   /* ─────────────────────────────────────────────────────────────
@@ -2316,7 +2470,7 @@
 
 
     <div class="nav-right">
-      <a href="#" class="nav-link-plain">Login</a>
+      <a href="work-in-progress.html" class="nav-link-plain">Login</a>
     </div>
 
     <!-- Mobile burger -->
@@ -2346,7 +2500,7 @@
       </div>
       <div class="mobile-group"><a href="about.html" class="mobile-solo-link">About Us</a></div>
       <div class="mobile-actions">
-        <a href="#" class="btn btn-secondary btn-md">Login</a>
+        <a href="work-in-progress.html" class="btn btn-secondary btn-md">Login</a>
 </div>
     </div>
   </nav>
@@ -2506,6 +2660,7 @@
     <!-- Left: headline + timeline -->
     <div class="sr">
       <h2>Out of Home advertising is still too <span class="accent">fragmented.</span></h2>
+      <p class="lead">AdCentral brings advertisers and screen owners into one live marketplace - and shows you it is working in real time.</p>
 
       <ol class="pf-timeline">
 
@@ -2546,9 +2701,66 @@
       </ol>
     </div>
 
-    <!-- Right: marketplace image -->
-    <div class="problem-img-single sr">
-      <img src="assets/images/home/AdcentralMarketplace-merged.png" alt="AdCentral Marketplace - connecting screens and campaigns">
+    <!-- Right: live network snapshot (merged from the standalone section) -->
+    <div class="sr sr-d1">
+      <div class="netsnap" aria-labelledby="netsnap-title">
+        <div class="netsnap-head">
+          <span class="netsnap-eyebrow" id="netsnap-title">Live Network Snapshot</span>
+          <span class="netsnap-live"><span class="netsnap-dot" aria-hidden="true"></span>Live</span>
+        </div>
+
+        <div class="netsnap-list">
+
+          <!-- Live Screens -->
+          <div class="netsnap-stat">
+            <span class="netsnap-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="10" rx="2" stroke="var(--red)" stroke-width="1.6"/><path d="M7 17h6M10 14v3" stroke="var(--red)" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+            <span class="netsnap-info">
+              <span class="netsnap-num">50<span class="accent">+</span></span>
+              <span class="netsnap-label">Live Screens</span>
+              <span class="netsnap-desc">Verified screens active across the network right now.</span>
+            </span>
+          </div>
+
+          <!-- Active Venues -->
+          <div class="netsnap-stat">
+            <span class="netsnap-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M10 2a5.5 5.5 0 0 1 5.5 5.5c0 3.5-5.5 10.5-5.5 10.5S4.5 11 4.5 7.5A5.5 5.5 0 0 1 10 2z" stroke="var(--red)" stroke-width="1.6"/><circle cx="10" cy="7.5" r="1.8" fill="var(--red)"/></svg>
+            </span>
+            <span class="netsnap-info">
+              <span class="netsnap-num">45</span>
+              <span class="netsnap-label">Active Venues</span>
+              <span class="netsnap-desc">High-footfall locations with connected screens.</span>
+            </span>
+          </div>
+
+          <!-- Campaigns Delivered -->
+          <div class="netsnap-stat">
+            <span class="netsnap-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M3 10l4.5 4.5L17 5" stroke="var(--red)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="netsnap-info">
+              <span class="netsnap-num">340<span class="accent">+</span></span>
+              <span class="netsnap-label">Campaigns Delivered</span>
+              <span class="netsnap-desc">Campaigns confirmed and tracked across active screens.</span>
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ⚠️ DEV NOTE ─────────────────────────────────────────────────────
+           The three values above (Live Screens, Active Venues, Campaigns Delivered)
+           are hardcoded placeholders.
+           ▶ Replace with real-time values from the backend API.
+           Suggested endpoint: GET /api/network/stats
+           Expected fields:    live_screens · active_venues · campaigns_delivered
+      ─────────────────────────────────────────────────────────────────── -->
+      <div class="dev-note netsnap-note" aria-label="Developer note">
+        <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink:0;margin-top:1px;"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M10 9v5M10 7v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span><strong>Dev note:</strong> The three figures are placeholder values - wire them to real-time backend data.</span>
+      </div>
     </div>
 
   </div>
@@ -2576,8 +2788,66 @@
           </div>
           <p class="hiw-sc-desc">Create a campaign, choose screen locations, and track every ad play from your dashboard.</p>
         </div>
-        <div class="hiw-sc-img">
-          <img src="assets/images/home/Advertiser%20Flow.png" alt="Advertiser Flow">
+        <div class="flow3">
+
+          <!-- Step 1: Plan -->
+          <div class="flow3-step">
+            <div class="flow3-head">
+              <span class="flow3-num">1</span>
+              <div>
+                <p class="flow3-label">Plan</p>
+                <p class="flow3-sub">Create and configure your campaign</p>
+              </div>
+            </div>
+            <div class="flow3-img">
+              <img src="assets/images/home/Plan.png" alt="Plan and configure your campaign">
+            </div>
+          </div>
+
+          <!-- arrow -->
+          <div class="flow3-arrow" aria-hidden="true">
+            <svg width="48" height="16" viewBox="0 0 48 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="8" x2="38" y2="8" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round"/>
+              <path d="M36 2 L46 8 L36 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <!-- Step 2: Run -->
+          <div class="flow3-step">
+            <div class="flow3-head">
+              <span class="flow3-num">2</span>
+              <div>
+                <p class="flow3-label">Run</p>
+                <p class="flow3-sub">Go live across premium venues</p>
+              </div>
+            </div>
+            <div class="flow3-img">
+              <img src="assets/images/home/Run.png" alt="Go live across premium venues">
+            </div>
+          </div>
+
+          <!-- arrow -->
+          <div class="flow3-arrow" aria-hidden="true">
+            <svg width="48" height="16" viewBox="0 0 48 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="8" x2="38" y2="8" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round"/>
+              <path d="M36 2 L46 8 L36 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <!-- Step 3: Track -->
+          <div class="flow3-step">
+            <div class="flow3-head">
+              <span class="flow3-num">3</span>
+              <div>
+                <p class="flow3-label">Track</p>
+                <p class="flow3-sub">Monitor performance in real time</p>
+              </div>
+            </div>
+            <div class="flow3-img">
+              <img src="assets/images/home/Track.png" alt="Monitor campaign performance in real time">
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -2590,8 +2860,66 @@
           </div>
           <p class="hiw-sc-desc">Connect your screen, display approved ads automatically, and monitor earnings in real time.</p>
         </div>
-        <div class="hiw-sc-img">
-          <img src="assets/images/home/Screen%20Owner%20FLow.png" alt="Screen Owner Flow">
+        <div class="flow3">
+
+          <!-- Step 1: Connect -->
+          <div class="flow3-step">
+            <div class="flow3-head">
+              <span class="flow3-num">1</span>
+              <div>
+                <p class="flow3-label">Connect</p>
+                <p class="flow3-sub">Add and connect your screens in minutes.</p>
+              </div>
+            </div>
+            <div class="flow3-img">
+              <img src="assets/images/home/Connect.png" alt="Connect and set up your screen">
+            </div>
+          </div>
+
+          <!-- arrow -->
+          <div class="flow3-arrow" aria-hidden="true">
+            <svg width="48" height="16" viewBox="0 0 48 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="8" x2="38" y2="8" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round"/>
+              <path d="M36 2 L46 8 L36 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <!-- Step 2: Display -->
+          <div class="flow3-step">
+            <div class="flow3-head">
+              <span class="flow3-num">2</span>
+              <div>
+                <p class="flow3-label">Display</p>
+                <p class="flow3-sub">Display approved ads on your screens.</p>
+              </div>
+            </div>
+            <div class="flow3-img">
+              <img src="assets/images/home/Display.png" alt="Display approved ads on your screen">
+            </div>
+          </div>
+
+          <!-- arrow -->
+          <div class="flow3-arrow" aria-hidden="true">
+            <svg width="48" height="16" viewBox="0 0 48 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="8" x2="38" y2="8" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round"/>
+              <path d="M36 2 L46 8 L36 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <!-- Step 3: Monitor -->
+          <div class="flow3-step">
+            <div class="flow3-head">
+              <span class="flow3-num">3</span>
+              <div>
+                <p class="flow3-label">Monitor</p>
+                <p class="flow3-sub">Track performance and earnings in real time.</p>
+              </div>
+            </div>
+            <div class="flow3-img">
+              <img src="assets/images/home/Monitor.png" alt="Monitor performance and earnings in real time">
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -2670,69 +2998,6 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════════
-     §9  LIVE NETWORK SNAPSHOT
-═══════════════════════════════════════════════════════════════ -->
-<section class="section section-off2" id="network" aria-labelledby="snapshot-h2">
-  <div class="wrap">
-    <div class="section-header center sr">
-      <h2 id="snapshot-h2">Live Network <span class="accent">Snapshot</span></h2>
-    </div>
-    <div class="snapshot-strip sr">
-
-      <!-- Live Screens -->
-      <div class="snap-stat">
-        <div class="snap-stat-icon" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="10" rx="2" stroke="var(--red)" stroke-width="1.6"/><path d="M7 17h6M10 14v3" stroke="var(--red)" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </div>
-        <span class="snap-num">50<span class="accent">+</span></span> <!-- TODO: replace with live value from backend API (e.g. GET /api/network/stats → live_screens) -->
-        <span class="snap-label">Live Screens</span>
-        <p class="snap-desc">Verified screens currently active across the network.</p>
-      </div>
-
-      <div class="snap-divider" aria-hidden="true"></div>
-
-      <!-- Active Venues -->
-      <div class="snap-stat">
-        <div class="snap-stat-icon" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a5.5 5.5 0 0 1 5.5 5.5c0 3.5-5.5 10.5-5.5 10.5S4.5 11 4.5 7.5A5.5 5.5 0 0 1 10 2z" stroke="var(--red)" stroke-width="1.6"/><circle cx="10" cy="7.5" r="1.8" fill="var(--red)"/></svg>
-        </div>
-        <span class="snap-num">45</span> <!-- TODO: replace with live value from backend API (e.g. GET /api/network/stats → active_venues) -->
-        <span class="snap-label">Active Venues</span>
-        <p class="snap-desc">High-footfall locations with verified, connected screens.</p>
-      </div>
-
-      <div class="snap-divider" aria-hidden="true"></div>
-
-      <!-- Campaigns Delivered -->
-      <div class="snap-stat">
-        <div class="snap-stat-icon" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10l4.5 4.5L17 5" stroke="var(--red)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <span class="snap-num">340<span class="accent">+</span></span> <!-- TODO: replace with live value from backend API (e.g. GET /api/network/stats → campaigns_delivered) -->
-        <span class="snap-label">Campaigns Delivered</span>
-        <p class="snap-desc">Campaigns confirmed and tracked across all active screens.</p>
-      </div>
-
-    </div>
-
-    <!-- ⚠️ DEV NOTE ─────────────────────────────────────────────────────
-         The three values above (Live Screens, Active Venues, Campaigns Delivered)
-         are currently hardcoded placeholders.
-         ▶ Replace them with real-time values fetched from the backend API.
-         Suggested endpoint: GET /api/network/stats
-         Expected fields:    live_screens · active_venues · campaigns_delivered
-         Values should refresh on page load (and optionally on a polling interval).
-    ─────────────────────────────────────────────────────────────────── -->
-    <div class="dev-note" aria-label="Developer note">
-      <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink:0;margin-top:1px;"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M10 9v5M10 7v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      <span><strong>Dev note:</strong> The three figures above are placeholder values and must be replaced with real-time data from the backend API.</span>
-    </div>
-
-  </div>
-</section>
-
-
 </main>
 
 <!-- ═══════════════════════════════════════════════════════════════
@@ -2744,7 +3009,7 @@
 
       <!-- Brand -->
       <div class="footer-brand">
-        <a href="#" class="site-logo" aria-label="AdCentral home">
+        <a href="home.html" class="site-logo" aria-label="AdCentral home">
           <img src="assets/images/home/adcentral_logo_transperant.png" alt="AdCentral" height="37" style="width:auto;display:block;">
         </a>
         <p>Digital-out-of-home advertising for real-world screens, clearer campaign visibility, and screen owner earnings.</p>
@@ -2800,7 +3065,7 @@
     <div class="footer-bottom">
       <span>&copy; 2026 Adora AI Solutions. All rights reserved.</span>
       <div class="footer-legal">
-        <a href="#footer">Privacy Policy</a>
+        <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms</a>
       </div>
     </div>
