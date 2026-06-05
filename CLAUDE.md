@@ -1,8 +1,8 @@
 # AdCentral Website — Project Handoff / Context
 
 > Single source of truth for continuing this build in a new session.
-> Last updated after commit `f954b83`. **Partners, ADCL, and Help Center pages are now built**, the nav has premium icon tiles, and the home hero is an auto-rotating carousel. See **§14 (latest work)** for everything done since the original handoff — it supersedes older sections where they conflict.
-> ⚠️ **Environment note:** the shell is now **Windows PowerShell** (not git-bash). The git-bash splice recipe in §3 is superseded by the PowerShell recipe in §14.
+> Last updated after commit `8006e71`. **READ §15 FIRST** — it is the most recent, authoritative state (About/Our Team + Terms pages now exist, the entire dark site has a premium plum background, the About menu is a single "About Us" link, and the Help Center was reworked). §15 supersedes §1–§14 where they conflict.
+> ⚠️ **Environment note:** the shell is **Windows PowerShell** (not git-bash). Use the PowerShell splice/bulk-edit recipes in §14e and §15g.
 
 ---
 
@@ -286,3 +286,56 @@ Shell is **Windows PowerShell**. For replacing a page's `<main>`:
 - **Preview screenshots time out** on the continuously-animating WebGL aurora. Workarounds that reliably worked: `document.getElementById('heroWave').style.display='none'` + set a dark `document.body.style.background` before screenshot; reveal `.sr` via `forEach(el=>el.classList.add('in'))`; native preview width is ~800px (below the 960 breakpoint) so set `width:1280` to see desktop two-column layouts. **Primary verification = `preview_eval` reading computed styles / counts**, screenshots secondary.
 - **Final-CTA sections:** the user consistently removes standalone final-CTA sections — don't add them by default.
 - **Commit footer** used: `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>`. Commit + push to `main` whenever a unit of work is done (user expects the live Pages site updated).
+
+---
+
+## 15. SESSION-2 LATEST WORK (authoritative — READ THIS FIRST)
+
+Everything below is the **current state** as of commit `8006e71`. Where it conflicts with §1–§14, **this wins**. Pages list now: `index.html` (3D), `home.html`, `home-light.html`, `advertisers.html`, `screen-owners.html`, `partners.html`, `adcl.html`, `help.html`, **`about.html` (NEW)**, **`terms.html` (NEW)**.
+
+### 15a. NEW: About / "Our Team" page (`about.html`)
+- Built from the `help.html` shell. Linked from nav "About Us" everywhere. Title: `About Us - AdCentral`.
+- **Final design = minimal editorial team page** (modeled on a light SaaS team-page sample the user shared, rebuilt for dark): a **two-column `.team-layout`** — left **sticky `.team-intro`** ("About Us" eyebrow + `<h2>Our Team` + one paragraph), right a **2-col grid `.team-members`** of minimal cards.
+- **Card = `.tm-card`**: a rounded **4:5 portrait `.tm-photo`** (photos are now **ORIGINAL COLOUR — grayscale filter was removed**; hover does a subtle `scale(1.04)` only), then `.tm-meta` (flex space-between) = left `.tm-name` + `.tm-role`, right `.tm-social` (icon-only LinkedIn/X buttons `.tm-soc`).
+- **5 members, in this order** (user-specified): 1) **Afsal KH** — Platform Architect (`Afsal.jpg`; LI `senzonafsal`, X `senzonafsal`); 2) **Strategy / Planning** — role-based, **no name shown** (title hidden), discipline IS the sub-line; photo `Strategy.png` (dark silhouette); no socials; 3) **Nishab PM** — Director - Content Marketing (`Nishab.jpg`; LI `nishabpm`, X `pmnishab555`); 4) **Karim Sahyoun** — Advisory Consultant (`Karim.jpg`; LI `karim1970`, X `sahyounk`); 5) **Web3 / Tokenomics** — role-based, no name, sub-line is the discipline; photo `tokenomics.png` (faceless avatar); X `heyitspraxis`.
+- **RULES (still apply):** never use "Founder"/"Co-Founder"; for the two role-based members the **name/title is intentionally hidden** and the discipline ("Strategy / Planning", "Web3 / Tokenomics") is the only visible label — do NOT add "Contributor"/"Specialist"/"anonymous"/"hidden".
+- Team photos live in **`assets/images/team/`**: `Afsal.jpg`, `Karim.jpg`, `Nishab.jpg`, `Strategy.png`, `tokenomics.png` (the two `.png` are ~1.4-1.5MB — could be optimized).
+- The page went through MANY iterations (circular avatars → bigger → editorial split with a "what the team covers" panel → this minimal grid). Old `.team-grid/.team-card/.team-ava/.tm-*` and a few `.contrib-*`/`.opening-head .lead`/`.hero-*` rules may linger as harmless dead CSS.
+
+### 15b. NEW: Terms & Conditions page (`terms.html`)
+- Built from `help.html` shell. Title `Terms and Conditions - AdCentral`. Full legal content: hero (`.legal-hero`: "LEGAL" eyebrow + h1 + lead + Effective/Last-Updated **07 January 2026**) then `.legal` body with **22 numbered `<h2>` sections** (hairline divider per section) and red-dot `.legal-list` bullets. Operated by **"Adora AI Solutions - FZCO"** (en-dash changed to hyphen per no-dash rule). Contact `legal@adcentralglobal.com` (mailto).
+- **All footer "Terms" links are wired to `terms.html`** site-wide. **Privacy Policy is still `#`** — user will supply Privacy content next; build it the same way and §15 of Terms references it.
+
+### 15c. Help Center (`help.html`) — reworked again
+- **No hero now.** Page = 2 sections: **`#areas`** ("What do you need help with?" — 4 `.route-card`: Advertisers / Screen Owners / Partners → their `*.html#faq`, + "Still not clear?" general) → **`#contact`** ("Still need help? / Couldn't find your answer?" centered, with **WhatsApp** `wa.me/971509506897` + **Call** `tel:+971509506897`). Flow: find answer via cards/FAQ first, then contact.
+- Already stripped earlier: search bar, ADCL card, Web3 wording, Book-a-Demo/contact-form CTA, the old safety note, "Ask AdCentral". (`.help-search`, `.safety-*`, etc. are dead CSS.)
+- Top eyebrow still reads "Help Areas" + the heading is an `<h2>` (no `<h1>` now) — open nicety to relabel/promote if asked.
+
+### 15d. Site-wide nav / footer cleanup
+- **About menu → single "About Us" link** (no dropdown) on every page → `about.html`. Desktop = `<a class="nav-btn nav-solo">` (chevron hidden via `.nav-solo::after{content:none}`); mobile = `<a class="mobile-solo-link">` (NOT `.mobile-acc`, so the accordion JS does not choke on a null sibling). `about.html` marks it `active`.
+- **Removed everywhere:** all "Book a Demo" buttons (nav + content; they pointed to a deleted `#final-cta`), all dead "Contact" links (About dropdown, footer "About" column, footer legal row), and the dead **"Want the deeper details?" Resources section** on `home.html`/`home-light.html` (its cards linked to `#resources` itself).
+- **Footer now:** "About" column = just **About Us**; legal row = **Privacy Policy** (`#`) + **Terms** (`terms.html`). Solutions/Resources columns unchanged. "Login" nav button still `#`. Discord social = `https://t.co/0ADa5ZBSoQ` (kept — user says it's a real short URL to their Discord).
+- `index.html` (3D) is intentionally NOT linked into and uses none of this shared nav/footer.
+
+### 15e. Premium ambient background (variant "A", site-wide) — IMPORTANT
+- The whole **dark** site now uses one fixed, layered backdrop instead of the WebGL aurora. Applied to: `home`, `advertisers`, `screen-owners`, `partners`, `adcl`, `help`, `about`, `terms` (8 pages). **NOT applied to `index.html` (3D scene) or `home-light.html` (light variant).**
+- CSS marker comment: **`Premium ambient background (site-wide A)`** (about.html's says `(trial)`). It: `.hero-wave-canvas { display:none }`; `body { background-color:#110d1a }`; `body::before` = faint diamond lattice (data-URI SVG) + vignette + 3 colour blooms (red bottom-left `#F5365C`, violet top-right, faint blue bottom-right) + `linear-gradient(162deg,#1e1838,#16121f,#100d1a)`; `body::after` = film-grain (feTurbulence data-URI SVG, `mix-blend-mode:overlay`, `opacity:.085`); plus translucent nav `.site-nav,.site-nav.scrolled { background:rgba(24,18,40,.55)!important; backdrop-filter:blur }`.
+- **Brand reality check:** the LIVE brand site `adcentralglobal.com` is **LIGHT (white #FFFFFF) with red #FF3355** + warm peach glows. This repo is **dark by deliberate choice**; user picked dark "A" anyway. If a light/brand-match theme is ever wanted, that's a full re-theme (text/cards/nav), not just a background swap.
+
+### 15f. Other polish this session
+- **Mobile buttons** trimmed: each shell page has a `@media (max-width:640px)` block (marker `Mobile button sizing`) shrinking `.btn-lg`/`.btn-md` padding/font/min-height.
+- **FAQ sections** (the `.pf-grid` "spotlight + FAQ" on `advertisers/screen-owners/partners/adcl`): a `@media (min-width:961px)` block (marker `align left/right card tops`) makes the FAQ list top line up with the partner card top by lifting `.faq-head` out of flow (`position:absolute; bottom:100%`).
+- **Home "AdCentral Marketplace" diagram** now merges with the bg: created **`assets/images/home/AdcentralMarketplace-merged.png`** (background made transparent) and removed the glass-card frame on `.problem-img-single`. `home.html` uses `-merged.png`; **`home-light.html` keeps the original opaque `AdcentralMarketplace.png`** (transparent would vanish on light). Original PNG untouched.
+
+### 15g. Tooling notes learned this session (IMPORTANT)
+- **Preview server CACHES files in memory.** After editing a file, `preview_start` "reused" still serves the OLD version → you must **`preview_stop` then `preview_start`** (fresh server) to see edits. (`?v=` cache-busts the browser, not the server cache.)
+- **`preview_screenshot` times out very often** on these pages. **Verify via `preview_eval`** (read DOM/computed styles/counts) — that's reliable. For screenshots, hiding/removing the canvas, setting `document.documentElement.style.scrollBehavior='auto'`, revealing `.sr`, and nudging viewport width by 1px sometimes helps; often it just won't cooperate — don't block on it.
+- **Image editing IS possible** via PowerShell + .NET: `Add-Type` a C# class doing `Bitmap` + `LockBits` + `Marshal.Copy` over the byte[] (fast). Used it for background-removal (detect dark bluish-purple → alpha 0). No ImageMagick/Python/Node-CLI available.
+- **Claude-in-Chrome browser tool** is connected — used it to view the live `adcentralglobal.com` (the in-app preview is sandboxed to localhost and can't load external URLs).
+- **Commit footer this session** was `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>` (system-instructed format; note it differs from §14f's older "(1M context)" variant — pick one and be consistent).
+
+### 15h. Open / next items
+- **Privacy Policy page** — not built; footer link is `#`; user will provide content (Terms §15 references it). Build like `terms.html`.
+- **Help Center** top: optionally relabel eyebrow "Help Areas" → "Help Center" and/or promote the `<h2>` to `<h1>`.
+- **Login** + any future **Book a Demo** form/route — still placeholders/removed.
+- **Image weight:** `Strategy.png`/`tokenomics.png` (~1.5MB each) and `AdcentralMarketplace-merged.png` (2.7MB) could be compressed.
